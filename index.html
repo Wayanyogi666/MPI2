@@ -573,7 +573,7 @@
                 <div class="text-start fs-5">
                     <p><strong>Lawan Kata</strong> atau <strong>Antonim</strong> adalah kata-kata yang maknanya berlawanan satu sama lain. Mempelajari antonim membantu kita memahami perbedaan makna kata.</p>
                     
-                    <h4 class="fw-semibold mt-4">Contoh Lawan Kata Populer (Kelas 1-2 SD)</h4>
+                    <h4 class="fw-semibold mt-4">Contoh Lawan Kata</h4>
                     <ul class="list-group list-group-flush fs-5">
                         <li class="list-group-item bg-transparent"><i class="fas fa-star text-warning me-2"></i> Besar <i class="fas fa-arrows-alt-h mx-2 text-info"></i> Kecil</li>
 <li class="list-group-item bg-transparent"><i class="fas fa-star text-warning me-2"></i> Panjang <i class="fas fa-arrows-alt-h mx-2 text-info"></i> Pendek</li>
@@ -583,7 +583,7 @@
                     </ul>
 
                     <h4 class="fw-semibold mt-4">Cara Bermain Game</h4>
-                    <p>Di dalam game, Anda akan diberikan satu kata. Tugas Anda adalah memilih <strong>Lawan Kata</strong> yang paling tepat dari pilihan yang tersedia!</p>
+                    <p>Di dalam game, Kamu akan diberikan satu kata. Tugas kamu adalah memilih <strong>Lawan Kata</strong> yang paling tepat dari pilihan yang tersedia!</p>
                 </div>
                 <hr class="my-4">
                 <div class="text-center">
@@ -704,14 +704,14 @@
     <div id="winnerModal" class="modal">
         <div class="modal-content">
             <h2 id="winnerText">🎉 Pemain Menang! 🎉</h2>
-            <p id="winnerMessage">Selamat! Anda berhasil mencapai garis finish!</p>
+            <p id="winnerMessage">Selamat! Kamu berhasil mencapai garis finish!</p>
             <button class="play-again-btn hover-sound-btn" onclick="closeModal()">Main Lagi</button>
         </div>
     </div>
 
     <div id="profileModal" class="modal">
         <div class="modal-content">
-            <img src="https://lh3.googleusercontent.com/d/1kqNDHrFwlcfErSN0VGF_e2aQIsNdToJP" alt="Foto Profil" class="profile-picture">
+            <img src="https://lh3.googleusercontent.com/d/126-gbj3CnQWSRtSLo3cvlN1LSjjkXkCK" alt="Foto Profil" class="profile-picture">
             <h2 id="profileText" style="margin-top: 20px; margin-bottom: 10px;"><i class="fas fa-user-circle me-2"></i> Profil Pengembang</h2>
             <p id="profileName" style="font-size: 1.5em; font-weight: 600; color: white; margin-bottom: 15px; margin-top: 0;">I Wayan Yogi Sanjaya</p>
             <p id="profileDescription" style="font-size: 1.0em; color: rgba(255,255,255,0.85); margin-bottom: 35px; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.5;">
@@ -886,10 +886,10 @@ function handleAnswer(player, selectedIndex) {
         
         const WINNING_HOPS = RACE_LENGTH;
         if (gameState.leftPlayer.racePosition >= WINNING_HOPS) {
-            setTimeout(() => showWinnerModal('Pemain Kiri', 'Selamat! Anda berhasil mencapai garis finish!'), 600);
+            setTimeout(() => showWinnerModal('Pemain Kiri', 'Selamat! Kamu berhasil mencapai garis finish!'), 600);
             return;
         } else if (gameState.rightPlayer.racePosition >= WINNING_HOPS) {
-            setTimeout(() => showWinnerModal('Pemain Kanan', 'Selamat! Anda berhasil mencapai garis finish!'), 600);
+            setTimeout(() => showWinnerModal('Pemain Kanan', 'Selamat! Kamu berhasil mencapai garis finish!'), 600);
             return;
         }
 
@@ -1285,8 +1285,6 @@ backToGameTypeMenu();
 </body>
 
 </html>
-
-
 
 
 
