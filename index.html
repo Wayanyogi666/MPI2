@@ -526,66 +526,66 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             object-fit: cover;
         }
-/* --- CSS BARU UNTUK CONTOH GAMBAR (Tambahkan di dalam tag <style>) --- */
 
-.antonim-contoh-container {
-    padding: 10px 0;
-}
+        /* --- CSS BARU UNTUK CONTOH GAMBAR (KOREKSI TATA LETAK) --- */
+        .antonim-contoh-container {
+            padding: 10px 0;
+        }
 
-.contoh-item {
-    /* Gaya untuk box contoh */
-    background-color: rgba(26, 35, 126, 0.05); 
-    border: 1px solid rgba(26, 35, 126, 0.1);
-    height: 100%; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+        .contoh-item {
+            /* Gaya untuk box contoh */
+            background-color: rgba(26, 35, 126, 0.05); 
+            border: 1px solid rgba(26, 35, 126, 0.1);
+            height: 100%; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
-.word-pair {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    width: 100%;
-}
+        .word-pair {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            width: 100%;
+        }
 
-.image-pair {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    width: 100%;
-}
+        .image-pair {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            width: 100%;
+        }
 
-.img-antonim-half {
-    width: 40%; 
-    height: auto;
-    max-height: 80px; /* Batasi tinggi gambar */
-    object-fit: contain;
-    transition: transform 0.3s ease-out;
-}
-.img-antonim-half:hover {
-    transform: scale(1.05);
-}
+        .img-antonim-half {
+            width: 40%; 
+            height: auto;
+            max-height: 80px; /* Batasi tinggi gambar */
+            object-fit: contain;
+            transition: transform 0.3s ease-out;
+        }
+        .img-antonim-half:hover {
+            transform: scale(1.05);
+        }
 
-.word-box {
-    font-weight: 600;
-    font-size: 1.1em;
-    color: #1a237e; /* Warna teks kata */
-    padding: 2px 5px;
-}
+        .word-box {
+            font-weight: 600;
+            font-size: 1.1em;
+            color: #1a237e; /* Warna teks kata */
+            padding: 2px 5px;
+        }
 
-@media screen and (max-width: 576px) {
-    /* Penyesuaian untuk layar kecil */
-    .img-antonim-half {
-        max-height: 60px;
-    }
-    .word-box {
-        font-size: 1em;
-    }
-}
+        @media screen and (max-width: 576px) {
+            /* Penyesuaian untuk layar kecil */
+            .img-antonim-half {
+                max-height: 60px;
+            }
+            .word-box {
+                font-size: 1em;
+            }
+        }
     </style>
 
 </head>
@@ -626,82 +626,86 @@
             </div>
         </div>
 
-        <h4 class="fw-semibold mt-4">Contoh Lawan Kata</h4>
-<div class="row row-cols-2 row-cols-md-3 g-3 antonim-contoh-container text-center">
-    
-    <div class="col">
-        <div class="contoh-item p-2 rounded-3">
-            <div class="word-pair">
-                <div class="word-box antonim-big">Besar</div>
-                <div class="image-pair">
-                    <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/1.png" alt="Gajah Besar" class="img-antonim-half">
-                    <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
-                    <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/2.png" alt="Semut Kecil" class="img-antonim-half">
-                </div>
-                <div class="word-box antonim-small">Kecil</div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col">
-        <div class="contoh-item p-2 rounded-3">
-            <div class="word-pair">
-                <div class="word-box antonim-big">Panjang</div>
-                <div class="image-pair">
-                    <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/9.png" alt="Ular Panjang" class="img-antonim-half">
-                    <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
-                    <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/10.png" alt="Ulat Pendek" class="img-antonim-half">
-                </div>
-                <div class="word-box antonim-small">Pendek</div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col">
-        <div class="contoh-item p-2 rounded-3">
-            <div class="word-pair">
-                <div class="word-box antonim-big">Senang</div>
-                <div class="image-pair">
-                    <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/5.png" alt="Wajah Senang" class="img-antonim-half">
-                    <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
-                    <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/6.png" alt="Wajah Sedih" class="img-antonim-half">
-                </div>
-                <div class="word-box antonim-small">Sedih</div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col">
-        <div class="contoh-item p-2 rounded-3">
-            <div class="word-pair">
-                <div class="word-box antonim-big">Tidur</div>
-                <div class="image-pair">
-                    <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/3.png" alt="Orang Tidur" class="img-antonim-half">
-                    <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
-                    <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/4.png" alt="Orang Bangun" class="img-antonim-half">
-                </div>
-                <div class="word-box antonim-small">Bangun</div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col">
-        <div class="contoh-item p-2 rounded-3">
-            <div class="word-pair">
-                <div class="word-box antonim-big">Buka</div>
-                <div class="image-pair">
-                    <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/7.png" alt="Tangan Buka" class="img-antonim-half">
-                    <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
-                    <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/8.png" alt="Tangan Tutup" class="img-antonim-half">
-                </div>
-                <div class="word-box antonim-small">Tutup</div>
-            </div>
-        </div>
-    </div>
-
-</div>
-<h4 class="fw-semibold mt-4">Cara Bermain Game</h4>
-
+        <div id="materiWaktu" class="content-page container">
+            <div class="card p-4 p-md-5 shadow-lg rounded-4 menu-card mx-auto">
+                <h2 class="text-center fw-bold text-primary mb-4">Materi Lawan Kata (Antonim)</h2>
+                <div class="text-start fs-5">
+                    <p><strong>Lawan Kata</strong> atau <strong>Antonim</strong> adalah kata-kata yang maknanya berlawanan satu sama lain. Mempelajari antonim membantu kita memahami perbedaan makna kata.</p>
+                    
+                    <h4 class="fw-semibold mt-4">Contoh Lawan Kata</h4>
+                    <div class="row row-cols-2 row-cols-md-3 g-3 antonim-contoh-container text-center">
+                        
+                        <div class="col">
+                            <div class="contoh-item p-2 rounded-3">
+                                <div class="word-pair">
+                                    <div class="word-box antonim-big">Besar</div>
+                                    <div class="image-pair">
+                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/1.png" alt="Gajah Besar" class="img-antonim-half">
+                                        <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
+                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/2.png" alt="Semut Kecil" class="img-antonim-half">
+                                    </div>
+                                    <div class="word-box antonim-small">Kecil</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col">
+                            <div class="contoh-item p-2 rounded-3">
+                                <div class="word-pair">
+                                    <div class="word-box antonim-big">Panjang</div>
+                                    <div class="image-pair">
+                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/9.png" alt="Ular Panjang" class="img-antonim-half">
+                                        <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
+                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/10.png" alt="Ulat Pendek" class="img-antonim-half">
+                                    </div>
+                                    <div class="word-box antonim-small">Pendek</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col">
+                            <div class="contoh-item p-2 rounded-3">
+                                <div class="word-pair">
+                                    <div class="word-box antonim-big">Senang</div>
+                                    <div class="image-pair">
+                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/5.png" alt="Wajah Senang" class="img-antonim-half">
+                                        <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
+                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/6.png" alt="Wajah Sedih" class="img-antonim-half">
+                                    </div>
+                                    <div class="word-box antonim-small">Sedih</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col">
+                            <div class="contoh-item p-2 rounded-3">
+                                <div class="word-pair">
+                                    <div class="word-box antonim-big">Tidur</div>
+                                    <div class="image-pair">
+                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/3.png" alt="Orang Tidur" class="img-antonim-half">
+                                        <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
+                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/4.png" alt="Orang Bangun" class="img-antonim-half">
+                                    </div>
+                                    <div class="word-box antonim-small">Bangun</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col">
+                            <div class="contoh-item p-2 rounded-3">
+                                <div class="word-pair">
+                                    <div class="word-box antonim-big">Buka</div>
+                                    <div class="image-pair">
+                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/7.png" alt="Tangan Buka" class="img-antonim-half">
+                                        <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
+                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/8.png" alt="Tangan Tutup" class="img-antonim-half">
+                                    </div>
+                                    <div class="word-box antonim-small">Tutup</div>
+                                </div>
+                            </div>
+                        </div>
+            
+                    </div>
                     <h4 class="fw-semibold mt-4">Cara Bermain Game</h4>
                     <p>Di dalam game, Kamu akan diberikan satu kata. Tugas kamu adalah memilih <strong>Lawan Kata</strong> yang paling tepat dari pilihan yang tersedia!</p>
                 </div>
