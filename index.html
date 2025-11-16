@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" style="overflow: hidden;">
+<html lang="id">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
@@ -14,579 +14,597 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        @font-face {
-            font-family: 'Poppins';
-            src: url('fonts/Poppins-Regular.ttf') format('truetype');
-            font-weight: 400;
-            font-style: normal;
-        }
+    @font-face {
+        font-family: 'Poppins';
+        src: url('fonts/Poppins-Regular.ttf') format('truetype');
+        font-weight: 400;
+    }
 
-        @font-face {
-            font-family: 'Poppins';
-            src: url('fonts/Poppins-Bold.ttf') format('truetype');
-            font-weight: 700;
-            font-style: normal;
-        }
+    @font-face {
+        font-family: 'Poppins';
+        src: url('fonts/Poppins-Bold.ttf') format('truetype');
+        font-weight: 700;
+    }
 
-        @font-face {
-            font-family: 'Poppins';
-            src: url('fonts/Poppins-SemiBold.ttf') format('truetype');
-            font-weight: 600;
-            font-style: normal;
-        }
+    @font-face {
+        font-family: 'Poppins';
+        src: url('fonts/Poppins-SemiBold.ttf') format('truetype');
+        font-weight: 600;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', 'Arial', sans-serif;
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', 'Arial', sans-serif;
+    }
 
-        html, body {
-            height: 100vh;
-            height: 100dvh;
-            width: 100vw;
-            width: 100dvw;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            -webkit-user-select: none;
-            user-select: none;
-            -webkit-touch-callout: none;
-        }
+    /* --- PERBAIKAN KRITIS: Menghapus overflow: hidden di html dan body --- */
+    
+    html {
+        /* HAPUS: overflow: hidden (sebelumnya ada di tag html inline) */
+        height: 100%;
+        width: 100%;
+    }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* Background: Ganti warna yang lebih ceria/netral */
-            background: linear-gradient(180deg, #ffd700 0%, #ffffff 100%);
-            overscroll-behavior: none;
-        }
-
-        .top-center-controls {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 10002;
-        }
-
-        .fullscreen-btn {
-            width: 56px;
-            height: 56px;
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12),
-                        0 2px 4px rgba(0, 0, 0, 0.08);
-            backdrop-filter: blur(12px);
-            padding: 0;
-            overflow: hidden;
-        }
-
-        .home-btn {
-            width: 56px;
-            height: 56px;
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 16px;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12),
-                        0 2px 4px rgba(0, 0, 0, 0.08);
-            backdrop-filter: blur(12px);
-            padding: 0;
-            overflow: hidden;
-        }
-
-        .profile-btn {
-            width: 56px;
-            height: 56px;
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12),
-                        0 2px 4px rgba(0, 0, 0, 0.08);
-            backdrop-filter: blur(12px);
-            padding: 0;
-            overflow: hidden;
-        }
+    body {
+        /* HAPUS: overflow: hidden */
+        height: 100vh;
+        height: 100dvh;
+        width: 100vw;
+        width: 100dvw;
+        margin: 0;
+        padding: 0;
+        /* Biarkan overflow default (auto) agar bisa scroll jika ada konten berlebihan */
+        overflow-x: hidden; /* Hanya sembunyikan horizontal scroll untuk berjaga-jaga */
         
-        .home-icon {
-            font-size: 26px;
-            color: #1a237e;
-            line-height: 1;
-        }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(180deg, #ffd700 0%, #ffffff 100%);
+        overscroll-behavior: none;
+        -webkit-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+
+    /* Ini sudah BENAR (fixed), biarkan saja */
+    .top-center-controls {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 10px;
+        z-index: 10002;
+    }
+
+    .fullscreen-btn {
+        width: 56px;
+        height: 56px;
+        background: rgba(255, 255, 255, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12),
+                    0 2px 4px rgba(0, 0, 0, 0.08);
+        backdrop-filter: blur(12px);
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .home-btn {
+        width: 56px;
+        height: 56px;
+        background: rgba(255, 255, 255, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 16px;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12),
+                    0 2px 4px rgba(0, 0, 0, 0.08);
+        backdrop-filter: blur(12px);
+        padding: 0;
+        overflow: hidden;
+    }
+
+    .profile-btn {
+        width: 56px;
+        height: 56px;
+        background: rgba(255, 255, 255, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12),
+                    0 2px 4px rgba(0, 0, 0, 0.08);
+        backdrop-filter: blur(12px);
+        padding: 0;
+        overflow: hidden;
+    }
+    
+    .home-icon {
+        font-size: 26px;
+        color: #1a237e;
+        line-height: 1;
+    }
+    
+    .fullscreen-icon {
+        font-size: 26px;
+        line-height: 1;
+        color: #1a237e;
+    }
+    .fullscreen-icon.collapse { display: none; }
+    body.fullscreen .fullscreen-icon.expand { display: none; }
+    body.fullscreen .fullscreen-icon.collapse { display: block; }
+
+    .profile-icon {
+        font-size: 26px;
+        color: #1a237e; 
+        line-height: 1;
+    }
+
+    /* Ini sudah BENAR (fixed), biarkan saja */
+    .copyright-footer {
+        position: fixed;
+        bottom: 10px; /* DIUBAH: dari 20px menjadi 10px */
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        z-index: 101;
+    }
+    .copyright-footer p {
+        margin: 0;
+        font-size: 0.9em;
+        color: rgba(26, 35, 126, 0.7);
+        font-weight: 500;
+    }
+
+    /* --- PERBAIKAN: '.page-container' --- */
+    /* HAPUS 'position: fixed' dan ganti height/width agar bisa di-scroll oleh body */
+    /* Namun, kita pertahankan height 100% dari body untuk centering, dan biarkan body yang scroll */
+    .page-container {
+        display: flex;
+        /* Biarkan body yang menengahkan container ini, jika isinya tidak melebihi tinggi */
+        align-items: center; 
+        justify-content: center;
+        /* Kita ganti agar bisa tumbuh/shrink */
+        height: 100%; 
+        min-height: 100dvh; /* Pastikan minimal setinggi viewport */
+        width: 100vw;
+        width: 100dvw;
+        padding: 1rem;
+        /* Hapus overflow-y: auto dari sini, biarkan body yang menangani scroll */
+        /* overflow-y: auto; */ 
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .content-page {
+        display: none;
+        width: 100%;
+        /* Biarkan konten menentukan tinggi, bukan dibatasi */
+        max-height: 100%; 
+    }
+    
+    .menu-card {
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.75);
+        max-width: 800px;
+        /* Pertahankan ini agar konten kartu yang terlalu tinggi tetap bisa di-scroll di dalam kartu */
+        overflow-y: auto; 
+        /* DIUBAH: Diberi 120px (80px atas, 40px bawah) ruang agar tidak tumpang tindih */
+        max-height: calc(100vh - 120px);
+    }
+    
+    .main-menu-btn {
+        font-size: clamp(1rem, 2.5vw, 1.5rem);
+        padding: clamp(12px, 2vh, 20px);
+        font-weight: 600;
+    }
+
+    .menu-btn.level-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: clamp(3px, 0.6vh, 8px);
+        padding: clamp(10px, 1.5vh, 20px) clamp(20px, 2.5vw, 35px);
+        min-width: clamp(180px, 25vw, 280px);
+        color: white;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15),
+                    0 3px 8px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+        border: none;
+        border-radius: clamp(10px, 1.5vw, 22px);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        font-weight: 600;
+    }
+    /* Level Colors Disesuaikan untuk Antonim */
+    .level-btn.umum { background: linear-gradient(135deg, #4caf50 0%, #45a049 100%); }
+    .level-btn.umum:hover { background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%); }
+    .level-btn.sifat { background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%); }
+    .level-btn.sifat:hover { background: linear-gradient(135deg, #ffa726 0%, #ff9800 100%); }
+    .level-btn.kerja { background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%); }
+    .level-btn.kerja:hover { background: linear-gradient(135deg, #ef5350 0%, #f44336 100%); }
+
+    .level-icon { font-size: clamp(1rem, 2vw, 1.6rem); line-height: 1; }
+    .level-name { font-size: clamp(1.1rem, 2.2vw, 1.8rem); white-space: nowrap; line-height: 1.2; }
+    .level-desc { font-size: clamp(0.65rem, 1.3vw, 0.85rem); opacity: 0.9; white-space: nowrap; line-height: 1.1; }
+
+    .game-container {
+        /* PERBAIKAN: JANGAN position: fixed agar bisa di-center oleh body */
+        display: none;
+        width: 100vw;
+        width: 100dvw;
+        height: 100vh;
+        height: 100dvh;
+        max-width: 100%;
+        max-height: 100%;
+        flex-direction: row;
+        padding: clamp(10px, 2vh, 30px) clamp(20px, 3vw, 80px);
+        gap: clamp(20px, 4vw, 100px);
+        justify-content: space-between;
+        box-sizing: border-box;
+        align-items: center;
+        position: absolute; /* Ganti fixed ke absolute agar tidak mengganggu scroll body */
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+    }
+
+    .player-section {
+        width: clamp(200px, 22vw, 400px);
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: clamp(8px, 1.5vh, 20px);
+        position: relative;
+        z-index: 10;
+        background: rgba(255, 255, 255, 0.35);
+        padding: clamp(10px, 2vh, 25px);
+        border-radius: clamp(12px, 2vw, 30px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+                    0 2px 8px rgba(0, 0, 0, 0.05);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-sizing: border-box;
+        align-self: center;
+        height: fit-content;
+        max-height: 90vh;
+    }
+
+    .question-box {
+        background: linear-gradient(135deg, var(--player-color) 0%, var(--player-color-dark) 100%);
+        color: white;
+        width: 100%;
+        padding: clamp(12px, 2vh, 28px) clamp(10px, 1.5vw, 22px);
+        border-radius: clamp(10px, 1.5vw, 22px);
+        font-size: clamp(1.2rem, 3vw, 2rem);
+        font-weight: bold;
+        text-align: center;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15),
+                    0 2px 4px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+        min-height: clamp(60px, 10vh, 100px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        letter-spacing: clamp(1px, 0.2vw, 3px);
+    }
+
+    .left-player { --player-color: #1a237e; --player-color-dark: #0d1642; }
+    .right-player { --player-color: #b71c1c; --player-color-dark: #7f0000; }
+
+    .answer-options {
+        width: 100%;
+    }
+    .option-btn {
+        font-size: clamp(0.8rem, 1.8vw, 1.1rem);
+        font-weight: 600;
+        padding: clamp(10px, 1.5vh, 16px);
+        transition: all 0.2s ease;
+        border: 2px solid transparent;
+        word-wrap: break-word;
+        white-space: normal;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .option-btn:hover {
+        transform: translateY(-2px);
+        border-color: #0d6efd;
+    }
+    .option-btn.correct {
+        background-color: #198754 !important;
+        color: white !important;
+        border-color: #198754 !important;
+        animation: pulse 0.3s;
+    }
+    .option-btn.wrong {
+        background-color: #dc3545 !important;
+        color: white !important;
+        border-color: #dc3545 !important;
+        animation: shake 0.5s;
+    }
+    .option-btn:disabled:hover {
+        transform: none;
+        border-color: transparent;
+    }
+
+
+    .score-indicator { width: 100%; text-align: center; font-size: 1.3em; font-weight: bold; color: #2c3e50; margin-top: 15px; padding: 14px; background: rgba(255, 255, 255, 0.4); border-radius: 18px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.6); }
+    .score-value { color: #2196f3; font-size: 1.15em; font-weight: 700; }
+
+    .center-section { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: clamp(10px, 2vh, 30px); min-width: clamp(250px, 30vw, 600px); position: relative; z-index: 1; }
+    .center-section h1 { color: #333; font-size: clamp(1rem, 3vw, 2rem); margin: 0; white-space: nowrap; }
+    .instruction { font-size: clamp(0.75rem, 2vw, 1.25rem); color: #666; margin: 0; white-space: nowrap; max-width: 100%; }
+
+    .game-field { position: relative; width: 100%; height: clamp(150px, 25vh, 350px); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 0 20px; }
+
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; right: 0; bottom: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(5px); justify-content: center; align-items: center; animation: fadeInModal 0.3s ease-out; }
+    @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
+    .modal-content { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 55px 70px; border-radius: 36px; text-align: center; box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4); animation: modalSlideIn 0.5s ease-out; max-width: 650px; min-width: 500px; border: 2px solid rgba(255, 255, 255, 0.2); position: relative; }
+    @keyframes modalSlideIn { from { transform: translateY(-50px) scale(0.9); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+    .modal-content h2 { color: white; font-size: 2.2em; margin: 0 0 25px 0; text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4); display: flex; align-items: center; justify-content: center; gap: 15px; }
+    .modal-content p { color: rgba(255, 255, 255, 0.95); font-size: 1.15em; margin: 0 0 35px 0; }
+    .play-again-btn { background: rgba(255, 255, 255, 0.95); color: #667eea; border: none; padding: 18px 60px; font-size: 1.2em; font-weight: 700; border-radius: 50px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); }
+    .play-again-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35); }
+    .play-again-btn:active { transform: translateY(-1px) scale(0.98); }
+
+    .confetti { 
+        position: fixed; 
+        width: auto;
+        height: auto;
+        top: -20px;
+        z-index: 1001; 
+        animation: confettiFall linear forwards; 
+        pointer-events: none; 
+        font-size: 24px;
+        color: #000;
+    }
+    @keyframes confettiFall { to { transform: translateY(100vh) rotate(360deg); } }
+
+    @keyframes changingGradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    .countdown-overlay { 
+        display: none; 
+        position: fixed; 
+        top: 0; left: 0; right: 0; bottom: 0; 
+        width: 100vw; height: 100vh; 
+        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+        background-size: 400% 400%;
+        z-index: 10000; 
+        justify-content: center; 
+        align-items: center; 
+        animation: fadeInOverlay 0.3s ease-out, changingGradient 10s ease infinite; 
+    }
+    .countdown-overlay.show { display: flex; }
+    @keyframes fadeInOverlay { from { opacity: 0; } to { opacity: 1; } }
+    .countdown-content { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 30px; }
+    .countdown-number { font-size: 15em; font-weight: 900; color: white; text-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); line-height: 1; animation: countdownPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    @keyframes countdownPop { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
+    .countdown-text { font-size: 2.5em; font-weight: 600; color: rgba(255, 255, 255, 0.9); text-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); letter-spacing: 4px; text-transform: uppercase; animation: fadeInText 0.5s ease-out 0.2s both; }
+    @keyframes fadeInText { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .countdown-number.start { animation: startAnimation 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); font-size: 12em; color: #ffd700; text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
+    @keyframes startAnimation { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.15); } 100% { transform: scale(1); opacity: 1; } }
+    .countdown-text.start { animation: startTextAnimation 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); font-size: 3em; color: #ffd700; }
+    @keyframes startTextAnimation { 0% { opacity: 0; transform: translateY(-30px) scale(0.8); } 50% { transform: translateY(0) scale(1.1); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+    
+    .balap-mobil-game { 
+        /* Ganti warna background untuk suasana Antonim */
+        background: linear-gradient(-45deg, #a8d8ff, #90ee90, #ffd700, #ff9800, #a8d8ff);
+        background-size: 400% 400%;
+        animation: changingGradient 15s ease infinite;
+    }
+    .balap-mobil-field { position: relative; width: 100%; max-width: clamp(600px, 70vw, 900px); height: clamp(250px, 35vh, 350px); display: flex; align-items: center; justify-content: center; overflow: visible; }
+    
+    .race-track { 
+        position: relative; 
+        width: 100%; 
+        max-width: clamp(600px, 70vw, 900px); 
+        height: clamp(220px, 30vh, 300px);
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+    }
+    .track-image { 
+        position: absolute; 
+        bottom: 0; 
+        left: 0; 
+        width: 100%; 
+        height: auto; 
+        max-height: clamp(140px, 20vh, 200px);
+        object-fit: contain; 
+        z-index: 1; 
+    }
+    
+    .racer-container { position: absolute; left: 0; width: clamp(90px, 10vw, 120px); height: clamp(110px, 15vh, 150px); display: flex; align-items: flex-end; justify-content: center; z-index: 2; transition: left 0.5s ease-out; will-change: left, transform; }
+    .racer-image { position: absolute; bottom: 0; width: 100%; height: auto; max-height: 150px; object-fit: contain; object-position: center bottom; }
+    .racer-image.stand { display: block; } .racer-image.hop { display: none; }
+    
+    .left-racer { 
+        bottom: clamp(45px, 6vh, 70px);
+        left: 3.5%; 
+        z-index: 3; 
+        transform: scale(1); 
+    }
+    .right-racer { 
+        bottom: clamp(85px, 11vh, 120px);
+        left: 6.5%; 
+        z-index: 2; 
+        transform: scale(0.9); 
+    }
+
+    @keyframes hopParabolaFront { 0% { transform: translateY(0) scale(1); } 50% { transform: translateY(-60px) scale(1); } 100% { transform: translateY(0) scale(1); } }
+    @keyframes hopParabolaBack { 0% { transform: translateY(0) scale(0.9); } 50% { transform: translateY(-50px) scale(0.9); } 100% { transform: translateY(0) scale(0.9); } }
+    .left-racer.hopping { animation: hopParabolaFront 0.5s ease-in-out; }
+    .right-racer.hopping { animation: hopParabolaBack 0.5s ease-in-out; }
+
+    @keyframes shakeRacerFront { 0%, 100% { transform: translateX(0) scale(1); } 10%, 30%, 50%, 70%, 90% { transform: translateX(-4px) scale(1); } 20%, 40%, 60%, 80% { transform: translateX(4px) scale(1); } }
+    @keyframes shakeRacerBack { 0%, 100% { transform: translateX(0) scale(0.9); } 10%, 30%, 50%, 70%, 90% { transform: translateX(-4px) scale(0.9); } 20%, 40%, 60%, 80% { transform: translateX(4px) scale(0.9); } }
+    .left-racer.shaking { animation: shakeRacerFront 0.4s; }
+    .right-racer.shaking { animation: shakeRacerBack 0.4s; }
+    
+    @media screen and (max-width: 768px) { .countdown-number { font-size: 10em; } .countdown-number.start { font-size: 8em; } .countdown-text { font-size: 2em; } .countdown-text.start { font-size: 2.5em; } }
+    
+    @media screen and (max-height: 600px) and (orientation: landscape) {
+        .game-container { padding: 8px 15px; gap: 15px; }
+        .player-section { width: 260px; padding: 10px; gap: 8px; }
+        .question-box { padding: 10px 8px; font-size: 1.1em; min-height: 48px; }
+        /* .answer-box {} - Tidak ada di kode Anda */
+        .keypad { padding: 8px; gap: 6px; } .keypad-row { gap: 6px; }
+        .keypad button { height: 45px; font-size: 1.1em; }
+        .center-section { min-width: 250px; gap: 6px; } .center-section h1 { font-size: 1.1em; }
+        .instruction { font-size: 0.75em; }
+        .game-field { height: 160px; padding: 0 10px; }
+        .score-indicator { font-size: 0.9em; padding: 6px; margin-top: 6px; }
         
-        .fullscreen-icon {
-            font-size: 26px;
-            line-height: 1;
-            color: #1a237e;
-        }
-        .fullscreen-icon.collapse { display: none; }
-        body.fullscreen .fullscreen-icon.expand { display: none; }
-        body.fullscreen .fullscreen-icon.collapse { display: block; }
-
-        .profile-icon {
-            font-size: 26px;
-            color: #1a237e; 
-            line-height: 1;
-        }
-
-        .copyright-footer {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            z-index: 101;
-        }
-        .copyright-footer p {
-            margin: 0;
-            font-size: 0.9em;
-            color: rgba(26, 35, 126, 0.7);
-            font-weight: 500;
-        }
-
-        .page-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            height: 100dvh;
-            width: 100vw;
-            width: 100dvw;
-            padding: 1rem;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            position: fixed;
-            top: 0;
-            left: 0;
-        }
-
-        .content-page {
-            display: none;
-            width: 100%;
-            max-height: 100%;
-        }
+        .balap-mobil-field { max-width: 500px; height: 200px; } 
+        .race-track { max-width: 500px; height: 180px; }
+        .track-image { max-height: 120px; }
+        .racer-container { width: 90px; height: 110px; } .racer-image { max-height: 110px; }
+        .left-racer { bottom: 45px; }
+        .right-racer { bottom: 75px; }
         
-        .menu-card {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.75);
-            max-width: 800px;
-            overflow-y: auto;
-            max-height: calc(100vh - 40px);
-        }
+        .top-center-controls { top: 10px; gap: 8px; }
+        .fullscreen-btn, .home-btn, .profile-btn { width: 44px; height: 44px; }
         
-        .main-menu-btn {
-            font-size: clamp(1rem, 2.5vw, 1.5rem);
-            padding: clamp(12px, 2vh, 20px);
-            font-weight: 600;
-        }
-
-        .menu-btn.level-btn {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: clamp(3px, 0.6vh, 8px);
-            padding: clamp(10px, 1.5vh, 20px) clamp(20px, 2.5vw, 35px);
-            min-width: clamp(180px, 25vw, 280px);
-            color: white;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15),
-                        0 3px 8px rgba(0, 0, 0, 0.1);
-            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
-            border: none;
-            border-radius: clamp(10px, 1.5vw, 22px);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            font-weight: 600;
-        }
-        /* Level Colors Disesuaikan untuk Antonim */
-        .level-btn.umum { background: linear-gradient(135deg, #4caf50 0%, #45a049 100%); }
-        .level-btn.umum:hover { background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%); }
-        .level-btn.sifat { background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%); }
-        .level-btn.sifat:hover { background: linear-gradient(135deg, #ffa726 0%, #ff9800 100%); }
-        .level-btn.kerja { background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%); }
-        .level-btn.kerja:hover { background: linear-gradient(135deg, #ef5350 0%, #f44336 100%); }
-
-        .level-icon { font-size: clamp(1rem, 2vw, 1.6rem); line-height: 1; }
-        .level-name { font-size: clamp(1.1rem, 2.2vw, 1.8rem); white-space: nowrap; line-height: 1.2; }
-        .level-desc { font-size: clamp(0.65rem, 1.3vw, 0.85rem); opacity: 0.9; white-space: nowrap; line-height: 1.1; }
-
-        .game-container {
-            display: none;
-            width: 100vw;
-            width: 100dvw;
-            height: 100vh;
-            height: 100dvh;
-            max-width: 100%;
-            max-height: 100%;
-            flex-direction: row;
-            padding: clamp(10px, 2vh, 30px) clamp(20px, 3vw, 80px);
-            gap: clamp(20px, 4vw, 100px);
-            justify-content: space-between;
-            box-sizing: border-box;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            overflow: hidden;
-        }
-
-        .player-section {
-            width: clamp(200px, 22vw, 400px);
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            gap: clamp(8px, 1.5vh, 20px);
-            position: relative;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.35);
-            padding: clamp(10px, 2vh, 25px);
-            border-radius: clamp(12px, 2vw, 30px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
-                        0 2px 8px rgba(0, 0, 0, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-sizing: border-box;
-            align-self: center;
-            height: fit-content;
-            max-height: 90vh;
-        }
-
-        .question-box {
-            background: linear-gradient(135deg, var(--player-color) 0%, var(--player-color-dark) 100%);
-            color: white;
-            width: 100%;
-            padding: clamp(12px, 2vh, 28px) clamp(10px, 1.5vw, 22px);
-            border-radius: clamp(10px, 1.5vw, 22px);
-            font-size: clamp(1.2rem, 3vw, 2rem);
-            font-weight: bold;
-            text-align: center;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15),
-                        0 2px 4px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-            min-height: clamp(60px, 10vh, 100px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            letter-spacing: clamp(1px, 0.2vw, 3px);
-        }
-
-        .left-player { --player-color: #1a237e; --player-color-dark: #0d1642; }
-        .right-player { --player-color: #b71c1c; --player-color-dark: #7f0000; }
-
-        .answer-options {
-            width: 100%;
-        }
-        .option-btn {
-            font-size: clamp(0.8rem, 1.8vw, 1.1rem);
-            font-weight: 600;
-            padding: clamp(10px, 1.5vh, 16px);
-            transition: all 0.2s ease;
-            border: 2px solid transparent;
-            word-wrap: break-word;
-            white-space: normal;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .option-btn:hover {
-            transform: translateY(-2px);
-            border-color: #0d6efd;
-        }
-        .option-btn.correct {
-            background-color: #198754 !important;
-            color: white !important;
-            border-color: #198754 !important;
-            animation: pulse 0.3s;
-        }
-        .option-btn.wrong {
-            background-color: #dc3545 !important;
-            color: white !important;
-            border-color: #dc3545 !important;
-            animation: shake 0.5s;
-        }
-        .option-btn:disabled:hover {
-            transform: none;
-            border-color: transparent;
-        }
-
-
-        .score-indicator { width: 100%; text-align: center; font-size: 1.3em; font-weight: bold; color: #2c3e50; margin-top: 15px; padding: 14px; background: rgba(255, 255, 255, 0.4); border-radius: 18px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.6); }
-        .score-value { color: #2196f3; font-size: 1.15em; font-weight: 700; }
-
-        .center-section { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: clamp(10px, 2vh, 30px); min-width: clamp(250px, 30vw, 600px); position: relative; z-index: 1; }
-        .center-section h1 { color: #333; font-size: clamp(1rem, 3vw, 2rem); margin: 0; white-space: nowrap; }
-        .instruction { font-size: clamp(0.75rem, 2vw, 1.25rem); color: #666; margin: 0; white-space: nowrap; max-width: 100%; }
-
-        .game-field { position: relative; width: 100%; height: clamp(150px, 25vh, 350px); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 0 20px; }
-
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; right: 0; bottom: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(5px); justify-content: center; align-items: center; animation: fadeInModal 0.3s ease-out; }
-        @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
-        .modal-content { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 55px 70px; border-radius: 36px; text-align: center; box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4); animation: modalSlideIn 0.5s ease-out; max-width: 650px; min-width: 500px; border: 2px solid rgba(255, 255, 255, 0.2); position: relative; }
-        @keyframes modalSlideIn { from { transform: translateY(-50px) scale(0.9); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
-        .modal-content h2 { color: white; font-size: 2.2em; margin: 0 0 25px 0; text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4); display: flex; align-items: center; justify-content: center; gap: 15px; }
-        .modal-content p { color: rgba(255, 255, 255, 0.95); font-size: 1.15em; margin: 0 0 35px 0; }
-        .play-again-btn { background: rgba(255, 255, 255, 0.95); color: #667eea; border: none; padding: 18px 60px; font-size: 1.2em; font-weight: 700; border-radius: 50px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); }
-        .play-again-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35); }
-        .play-again-btn:active { transform: translateY(-1px) scale(0.98); }
-
-        .confetti { 
-            position: fixed; 
-            width: auto;
-            height: auto;
-            top: -20px;
-            z-index: 1001; 
-            animation: confettiFall linear forwards; 
-            pointer-events: none; 
-            font-size: 24px;
-            color: #000;
-        }
-        @keyframes confettiFall { to { transform: translateY(100vh) rotate(360deg); } }
-
-        @keyframes changingGradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .countdown-overlay { 
-            display: none; 
-            position: fixed; 
-            top: 0; left: 0; right: 0; bottom: 0; 
-            width: 100vw; height: 100vh; 
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            z-index: 10000; 
-            justify-content: center; 
-            align-items: center; 
-            animation: fadeInOverlay 0.3s ease-out, changingGradient 10s ease infinite; 
-        }
-        .countdown-overlay.show { display: flex; }
-        @keyframes fadeInOverlay { from { opacity: 0; } to { opacity: 1; } }
-        .countdown-content { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 30px; }
-        .countdown-number { font-size: 15em; font-weight: 900; color: white; text-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); line-height: 1; animation: countdownPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes countdownPop { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
-        .countdown-text { font-size: 2.5em; font-weight: 600; color: rgba(255, 255, 255, 0.9); text-shadow: 0 4px 16px rgba(0, 0, 0, 0.3); letter-spacing: 4px; text-transform: uppercase; animation: fadeInText 0.5s ease-out 0.2s both; }
-        @keyframes fadeInText { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .countdown-number.start { animation: startAnimation 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); font-size: 12em; color: #ffd700; text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); }
-        @keyframes startAnimation { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.15); } 100% { transform: scale(1); opacity: 1; } }
-        .countdown-text.start { animation: startTextAnimation 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); font-size: 3em; color: #ffd700; }
-        @keyframes startTextAnimation { 0% { opacity: 0; transform: translateY(-30px) scale(0.8); } 50% { transform: translateY(0) scale(1.1); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        .copyright-footer { bottom: 10px; } .copyright-footer p { font-size: 0.75em; }
+        .modal-content { padding: 30px 40px; min-width: 350px; max-width: 500px; }
+        .modal-content h2 { font-size: 1.5em; margin-bottom: 15px; }
+        .modal-content p { font-size: 0.95em; margin-bottom: 20px; }
+        .play-again-btn { padding: 12px 40px; font-size: 1em; }
+    }
+    @media screen and (max-height: 400px) and (orientation: landscape) {
+        .game-container { padding: 3px 8px; gap: 8px; }
+        .player-section { width: 200px; padding: 6px; gap: 5px; }
+        .question-box { padding: 6px 5px; font-size: 0.95em; min-height: 38px; }
+        /* .answer-box {} - Tidak ada di kode Anda */
+        .keypad { padding: 5px; gap: 4px; } .keypad-row { gap: 4px; }
+        .keypad button { height: 37px; font-size: 0.98em; }
+        .center-section { min-width: 180px; gap: 3px; } .center-section h1 { font-size: 0.85em; }
+        .instruction { font-size: 0.65em; }
+        .game-field { height: 110px; }
+        .score-indicator { font-size: 0.8em; padding: 4px; margin-top: 3px; }
         
-        .balap-mobil-game { 
-            /* Ganti warna background untuk suasana Antonim */
-            background: linear-gradient(-45deg, #a8d8ff, #90ee90, #ffd700, #ff9800, #a8d8ff);
-            background-size: 400% 400%;
-            animation: changingGradient 15s ease infinite;
-        }
-        .balap-mobil-field { position: relative; width: 100%; max-width: clamp(600px, 70vw, 900px); height: clamp(250px, 35vh, 350px); display: flex; align-items: center; justify-content: center; overflow: visible; }
+        .balap-mobil-field { max-width: 380px; height: 150px; } 
+        .race-track { max-width: 380px; height: 140px; }
+        .track-image { max-height: 95px; }
+        .racer-container { width: 65px; height: 85px; } .racer-image { max-height: 85px; }
+        .left-racer { bottom: 35px; }
+        .right-racer { bottom: 55px; }
         
-        .race-track { 
-            position: relative; 
-            width: 100%; 
-            max-width: clamp(600px, 70vw, 900px); 
-            height: clamp(220px, 30vh, 300px);
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-        }
-        .track-image { 
-            position: absolute; 
-            bottom: 0; 
-            left: 0; 
-            width: 100%; 
-            height: auto; 
-            max-height: clamp(140px, 20vh, 200px);
-            object-fit: contain; 
-            z-index: 1; 
-        }
-        
-        .racer-container { position: absolute; left: 0; width: clamp(90px, 10vw, 120px); height: clamp(110px, 15vh, 150px); display: flex; align-items: flex-end; justify-content: center; z-index: 2; transition: left 0.5s ease-out; will-change: left, transform; }
-        .racer-image { position: absolute; bottom: 0; width: 100%; height: auto; max-height: 150px; object-fit: contain; object-position: center bottom; }
-        .racer-image.stand { display: block; } .racer-image.hop { display: none; }
-        
-        .left-racer { 
-            bottom: clamp(45px, 6vh, 70px);
-            left: 3.5%; 
-            z-index: 3; 
-            transform: scale(1); 
-        }
-        .right-racer { 
-            bottom: clamp(85px, 11vh, 120px);
-            left: 6.5%; 
-            z-index: 2; 
-            transform: scale(0.9); 
-        }
+        .top-center-controls { top: 5px; gap: 5px; }
+        .fullscreen-btn, .home-btn, .profile-btn { width: 38px; height: 38px; }
 
-        @keyframes hopParabolaFront { 0% { transform: translateY(0) scale(1); } 50% { transform: translateY(-60px) scale(1); } 100% { transform: translateY(0) scale(1); } }
-        @keyframes hopParabolaBack { 0% { transform: translateY(0) scale(0.9); } 50% { transform: translateY(-50px) scale(0.9); } 100% { transform: translateY(0) scale(0.9); } }
-        .left-racer.hopping { animation: hopParabolaFront 0.5s ease-in-out; }
-        .right-racer.hopping { animation: hopParabolaBack 0.5s ease-in-out; }
+        .copyright-footer { bottom: 5px; } .copyright-footer p { font-size: 0.65em; }
+        .modal-content { padding: 25px 35px; min-width: 280px; max-width: 450px; }
+        .modal-content h2 { font-size: 1.3em; margin-bottom: 12px; }
+        .modal-content p { font-size: 0.85em; margin-bottom: 18px; }
+        .play-again-btn { padding: 10px 35px; font-size: 0.95em; }
+    }
+    
+    .profile-picture {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        border: 5px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        object-fit: cover;
+    }
 
-        @keyframes shakeRacerFront { 0%, 100% { transform: translateX(0) scale(1); } 10%, 30%, 50%, 70%, 90% { transform: translateX(-4px) scale(1); } 20%, 40%, 60%, 80% { transform: translateX(4px) scale(1); } }
-        @keyframes shakeRacerBack { 0%, 100% { transform: translateX(0) scale(0.9); } 10%, 30%, 50%, 70%, 90% { transform: translateX(-4px) scale(0.9); } 20%, 40%, 60%, 80% { transform: translateX(4px) scale(0.9); } }
-        .left-racer.shaking { animation: shakeRacerFront 0.4s; }
-        .right-racer.shaking { animation: shakeRacerBack 0.4s; }
-        
-        @media screen and (max-width: 768px) { .countdown-number { font-size: 10em; } .countdown-number.start { font-size: 8em; } .countdown-text { font-size: 2em; } .countdown-text.start { font-size: 2.5em; } }
-        
-        @media screen and (max-height: 600px) and (orientation: landscape) {
-            .game-container { padding: 8px 15px; gap: 15px; }
-            .player-section { width: 260px; padding: 10px; gap: 8px; }
-            .question-box { padding: 10px 8px; font-size: 1.1em; min-height: 48px; }
-            .answer-box { height: 45px; font-size: 1.3em; }
-            .keypad { padding: 8px; gap: 6px; } .keypad-row { gap: 6px; }
-            .keypad button { height: 45px; font-size: 1.1em; }
-            .center-section { min-width: 250px; gap: 6px; } .center-section h1 { font-size: 1.1em; }
-            .instruction { font-size: 0.75em; }
-            .game-field { height: 160px; padding: 0 10px; }
-            .score-indicator { font-size: 0.9em; padding: 6px; margin-top: 6px; }
-            
-            .balap-mobil-field { max-width: 500px; height: 200px; } 
-            .race-track { max-width: 500px; height: 180px; }
-            .track-image { max-height: 120px; }
-            .racer-container { width: 90px; height: 110px; } .racer-image { max-height: 110px; }
-            .left-racer { bottom: 45px; }
-            .right-racer { bottom: 75px; }
-            
-            .top-center-controls { top: 10px; gap: 8px; }
-            .fullscreen-btn, .home-btn, .profile-btn { width: 44px; height: 44px; }
-            
-            .copyright-footer { bottom: 10px; } .copyright-footer p { font-size: 0.75em; }
-            .modal-content { padding: 30px 40px; min-width: 350px; max-width: 500px; }
-            .modal-content h2 { font-size: 1.5em; margin-bottom: 15px; }
-            .modal-content p { font-size: 0.95em; margin-bottom: 20px; }
-            .play-again-btn { padding: 12px 40px; font-size: 1em; }
-        }
-        @media screen and (max-height: 400px) and (orientation: landscape) {
-            .game-container { padding: 3px 8px; gap: 8px; }
-            .player-section { width: 200px; padding: 6px; gap: 5px; }
-            .question-box { padding: 6px 5px; font-size: 0.95em; min-height: 38px; }
-            .answer-box { height: 35px; font-size: 1.05em; }
-            .keypad { padding: 5px; gap: 4px; } .keypad-row { gap: 4px; }
-            .keypad button { height: 37px; font-size: 0.98em; }
-            .center-section { min-width: 180px; gap: 3px; } .center-section h1 { font-size: 0.85em; }
-            .instruction { font-size: 0.65em; }
-            .game-field { height: 110px; }
-            .score-indicator { font-size: 0.8em; padding: 4px; margin-top: 3px; }
-            
-            .balap-mobil-field { max-width: 380px; height: 150px; } 
-            .race-track { max-width: 380px; height: 140px; }
-            .track-image { max-height: 95px; }
-            .racer-container { width: 65px; height: 85px; } .racer-image { max-height: 85px; }
-            .left-racer { bottom: 35px; }
-            .right-racer { bottom: 55px; }
-            
-            .top-center-controls { top: 5px; gap: 5px; }
-            .fullscreen-btn, .home-btn, .profile-btn { width: 38px; height: 38px; }
+    /* --- CSS BARU UNTUK CONTOH GAMBAR (KOREKSI TATA LETAK) --- */
+    .antonim-contoh-container {
+        padding: 10px 0;
+    }
 
-            .copyright-footer { bottom: 5px; } .copyright-footer p { font-size: 0.65em; }
-            .modal-content { padding: 25px 35px; min-width: 280px; max-width: 450px; }
-            .modal-content h2 { font-size: 1.3em; margin-bottom: 12px; }
-            .modal-content p { font-size: 0.85em; margin-bottom: 18px; }
-            .play-again-btn { padding: 10px 35px; font-size: 0.95em; }
-        }
-        
-        .profile-picture {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 5px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            object-fit: cover;
-        }
+    .contoh-item {
+        /* Gaya untuk box contoh */
+        background-color: rgba(26, 35, 126, 0.05); 
+        border: 1px solid rgba(26, 35, 126, 0.1);
+        height: 100%; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 
-        /* --- CSS BARU UNTUK CONTOH GAMBAR (KOREKSI TATA LETAK) --- */
-        .antonim-contoh-container {
-            padding: 10px 0;
-        }
+    .word-pair {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
 
-        .contoh-item {
-            /* Gaya untuk box contoh */
-            background-color: rgba(26, 35, 126, 0.05); 
-            border: 1px solid rgba(26, 35, 126, 0.1);
-            height: 100%; 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+    .image-pair {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        width: 100%;
+    }
 
-        .word-pair {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            width: 100%;
-        }
+    .img-antonim-half {
+        width: 30%; 
+        height: auto;
+        max-height: 160px; /* Batasi tinggi gambar */
+        object-fit: contain;
+        transition: transform 0.3s ease-out;
+    }
+    .img-antonim-half:hover {
+        transform: scale(1.05);
+    }
 
-        .image-pair {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            width: 100%;
-        }
+    .word-box {
+        font-weight: 600;
+        font-size: 1.1em;
+        color: #1a237e; /* Warna teks kata */
+        padding: 2px 5px;
+    }
 
+    @media screen and (max-width: 576px) {
+        /* Penyesuaian untuk layar kecil */
         .img-antonim-half {
-            width: 30%; 
-            height: auto;
-            max-height: 160px; /* Batasi tinggi gambar */
-            object-fit: contain;
-            transition: transform 0.3s ease-out;
+            max-height: 100px;
         }
-        .img-antonim-half:hover {
-            transform: scale(1.05);
-        }
-
         .word-box {
-            font-weight: 600;
-            font-size: 1.1em;
-            color: #1a237e; /* Warna teks kata */
-            padding: 2px 5px;
+            font-size: 1em;
         }
-
-        @media screen and (max-width: 576px) {
-            /* Penyesuaian untuk layar kecil */
-            .img-antonim-half {
-                max-height: 100px;
-            }
-            .word-box {
-                font-size: 1em;
-            }
-        }
-    </style>
+    }
+    /* --- CSS BARU UNTUK TOMBOL AUDIO MATERI --- */
+    .play-audio-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+        border-radius: 50%; /* Membuatnya bulat */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        flex-shrink: 0; /* Mencegah tombol penyet */
+    }
+</style>
 
 </head>
 <body>
@@ -595,7 +613,7 @@
             <i class="fas fa-home home-icon"></i>
         </button>
 
-        <button id="fullscreenBtn" class="fullscreen-btn hover-sound-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen">
+        <button id="fullscreenBtn" class="fullscreen-btn hover-sound-btn" onclick="toggleFullscreen()" title="Layar Penuh">
             <i class="fas fa-expand fullscreen-icon expand"></i>
             <i class="fas fa-compress fullscreen-icon collapse"></i>
         </button>
@@ -633,15 +651,25 @@
                     <p><strong>Lawan Kata</strong> atau <strong>Antonim</strong> adalah kata-kata yang maknanya berlawanan satu sama lain. Mempelajari antonim membantu kita memahami perbedaan makna kata.</p>
                     
                     <h4 class="fw-semibold mt-4">Contoh Lawan Kata</h4>
+                    
                     <div class="row row-cols-1 g-3 antonim-contoh-container text-center">
                         
                         <div class="col">
                             <div class="contoh-item p-2 rounded-3">
-                                <div class="word-pair">
-                                    <div class="image-pair">
-                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/1.png" alt="Gajah Besar" class="img-antonim-half">
-                                        <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
-                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/2.png" alt="Semut Kecil" class="img-antonim-half">
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-10">
+                                        <div class="word-pair">
+                                            <div class="image-pair">
+                                                <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/1.png" alt="Gajah Besar" class="img-antonim-half">
+                                                <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
+                                                <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/2.png" alt="Semut Kecil" class="img-antonim-half">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-center">
+                                        <button class="btn btn-primary play-audio-btn hover-sound-btn" onclick="playMateriAudio(audioBesarKecil)" title="Putar Suara">
+                                            <i class="fas fa-volume-up"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -649,11 +677,20 @@
                         
                         <div class="col">
                             <div class="contoh-item p-2 rounded-3">
-                                <div class="word-pair">
-                                    <div class="image-pair">
-                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/9.png" alt="Ular Panjang" class="img-antonim-half">
-                                        <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
-                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/10.png" alt="Ulat Pendek" class="img-antonim-half">
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-10">
+                                        <div class="word-pair">
+                                            <div class="image-pair">
+                                                <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/9.png" alt="Ular Panjang" class="img-antonim-half">
+                                                <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
+                                                <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/10.png" alt="Ulat Pendek" class="img-antonim-half">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-2 d-flex justify-content-center">
+                                        <button class="btn btn-primary play-audio-btn hover-sound-btn" onclick="playMateriAudio(audioPanjangPendek)" title="Putar Suara">
+                                            <i class="fas fa-volume-up"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -661,37 +698,64 @@
                         
                         <div class="col">
                             <div class="contoh-item p-2 rounded-3">
-                                <div class="word-pair">
-                                    <div class="image-pair">
-                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/5.png" alt="Wajah Senang" class="img-antonim-half">
-                                        <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
-                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/6.png" alt="Wajah Sedih" class="img-antonim-half">
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-10">
+                                        <div class="word-pair">
+                                            <div class="image-pair">
+                                                <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/5.png" alt="Wajah Senang" class="img-antonim-half">
+                                                <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
+                                                <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/6.png" alt="Wajah Sedih" class="img-antonim-half">
+                                            </div>
+                                        </div>
                                     </div>
+                                    <div class="col-2 d-flex justify-content-center">
+                                        <button class="btn btn-primary play-audio-btn hover-sound-btn" onclick="playMateriAudio(audioSenangSedih)" title="Putar Suara">
+                                            <i class="fas fa-volume-up"></i>
+                                        </button>
                                     </div>
+                                </div>
                             </div>
                         </div>
                         
                         <div class="col">
                             <div class="contoh-item p-2 rounded-3">
-                                <div class="word-pair">
-                                    <div class="image-pair">
-                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/3.png" alt="Orang Tidur" class="img-antonim-half">
-                                        <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
-                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/4.png" alt="Orang Bangun" class="img-antonim-half">
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-10">
+                                        <div class="word-pair">
+                                            <div class="image-pair">
+                                                <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/3.png" alt="Orang Tidur" class="img-antonim-half">
+                                                <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
+                                                <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/4.png" alt="Orang Bangun" class="img-antonim-half">
+                                            </div>
+                                        </div>
                                     </div>
+                                    <div class="col-2 d-flex justify-content-center">
+                                        <button class="btn btn-primary play-audio-btn hover-sound-btn" onclick="playMateriAudio(audioTidurBangun)" title="Putar Suara">
+                                            <i class="fas fa-volume-up"></i>
+                                        </button>
                                     </div>
+                                </div>
                             </div>
                         </div>
                         
                         <div class="col">
                             <div class="contoh-item p-2 rounded-3">
-                                <div class="word-pair">
-                                    <div class="image-pair">
-                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/7.png" alt="Tangan Buka" class="img-antonim-half">
-                                        <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
-                                        <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/8.png" alt="Tangan Tutup" class="img-antonim-half">
+                                <div class="row g-2 align-items-center">
+                                    <div class="col-10">
+                                        <div class="word-pair">
+                                            <div class="image-pair">
+                                                <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/7.png" alt="Tangan Buka" class="img-antonim-half">
+                                                <i class="fas fa-arrows-alt-h mx-2 text-info fs-4"></i>
+                                                <img src="https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20MPI%202/8.png" alt="Tangan Tutup" class="img-antonim-half">
+                                            </div>
+                                        </div>
                                     </div>
+                                    <div class="col-2 d-flex justify-content-center">
+                                        <button class="btn btn-primary play-audio-btn hover-sound-btn" onclick="playMateriAudio(audioBukaTutup)" title="Putar Suara">
+                                            <i class="fas fa-volume-up"></i>
+                                        </button>
                                     </div>
+                                </div>
                             </div>
                         </div>
             
@@ -726,14 +790,15 @@
                     <li>Jawab pertanyaan <strong>Lawan Kata</strong> dengan benar untuk memajukan pembalap.</li>
                     <li>Gunakan tombol <strong>"Kembali"</strong> atau tombol <i class="fas fa-home" style="color: #1a237e; vertical-align: middle; font-size: 20px;"></i> untuk kembali ke menu utama.</li>
                 </ol>
-				
-				<hr class="my-4">
+                
+                <hr class="my-4">
                 <div class="text-center">
                     <button class="btn btn-secondary btn-lg px-5 shadow hover-sound-btn" onclick="backToGameTypeMenu()">
                         <i class="fas fa-arrow-left me-2"></i> Kembali
                     </button>
                 </div>
             </div>
+          
         </div>
 
         <div id="levelMenuWaktu" class="content-page container">
@@ -742,15 +807,15 @@
                 <p class="fs-5 text-muted mb-4">Pilih Level</p>
                 <div class="d-grid gap-3 mx-auto" style="max-width: 600px;">
                     <button class="btn menu-btn level-btn umum hover-sound-btn" onclick="selectLevel('antonim_umum')">
-                        <span class="level-icon">📚</span>
+                        <span class="level-icon"><i class="fas fa-book-open"></i></span>
                         <span class="level-name">Kata Umum</span>
                         </button>
                     <button class="btn menu-btn level-btn sifat hover-sound-btn" onclick="selectLevel('antonim_sifat')">
-                        <span class="level-icon">✨</span>
+                        <span class="level-icon"><i class="fas fa-smile-beam"></i></span>
                         <span class="level-name">Kata Sifat</span>
                         </button>
-                    <button class="btn menu-btn level-btn kerja hover-sound-btn" onclick="selectLevel('antonim_kerja')">
-                        <span class="level-icon">🏃</span>
+                    <button class="btn menu-btn level-btn level-btn kerja hover-sound-btn" onclick="selectLevel('antonim_kerja')">
+                        <span class="level-icon"><i class="fas fa-person-running"></i></span>
                         <span class="level-name">Kata Kerja</span>
                         </button>
                 </div>
@@ -813,7 +878,7 @@
 
     <div id="winnerModal" class="modal">
         <div class="modal-content">
-            <h2 id="winnerText">🎉 Pemain Menang! 🎉</h2>
+            <h2 id="winnerText"><i class="fas fa-trophy"></i> Pemain Menang! <i class="fas fa-trophy"></i></h2>
             <p id="winnerMessage">Selamat! Kamu berhasil mencapai garis finish!</p>
             <button class="play-again-btn hover-sound-btn" onclick="closeModal()">Main Lagi</button>
         </div>
@@ -836,10 +901,11 @@
             <div id="countdownNumber" class="countdown-number">3</div>
             <div id="countdownText" class="countdown-text">Bersiap...</div>
         </div>
+        
     </div>
 
     <div class="copyright-footer">
-        <p>© IWayanYogi 2025</p>
+        <p><i class="fas fa-copyright"></i> IWayanYogi 2025</p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -896,7 +962,25 @@ const ANTONIM_DATA = {
     ]
 };
 
-// --- AUDIO (Tidak Diubah karena menggunakan file eksternal) ---
+// --- AUDIO MATERI (PERBAIKAN: URL dan Nama File DIBENARKAN) ---
+        // Jalur dan nama file ini sudah disesuaikan dengan screenshot GitHub Anda
+        const audioBesarKecil = new Audio('https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20suara%20MPI%202/besarkecil.mp3');
+        const audioPanjangPendek = new Audio('https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20suara%20MPI%202/panjangpendek.mp3');
+        const audioSenangSedih = new Audio('https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20suara%20MPI%202/senangsedih.mp3');
+        const audioTidurBangun = new Audio('https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20suara%20MPI%202/tidurbangun.mp3');
+        const audioBukaTutup = new Audio('https://raw.githubusercontent.com/Wayanyogi666/MPI2/main/aset%20suara%20MPI%202/bukatutup.mp3');
+
+// Fungsi pemutar audio materi
+function playMateriAudio(audioElement) {
+    audioElement.volume = 1.0; 
+    audioElement.currentTime = 0;
+    audioElement.play().catch(error => {
+        console.log("Materi Audio play failed:", error.message);
+    });
+}
+// --- AKHIR AUDIO MATERI ---
+
+// --- AUDIO UTAMA (Tidak Diubah) ---
 const audioCorrect = new Audio('https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinCarBenar.mp3');
 const audioWrong = new Audio('https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinCarSalah.mp3');
 const audioMove = new Audio('https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinCar.mp3');
@@ -954,6 +1038,17 @@ function showPage(pageId) {
         if (fullscreenBtn) fullscreenBtn.style.display = 'flex';
         if (profileBtn) profileBtn.style.display = 'flex';
     }
+
+    /* --- TAMBAHAN SCRIPT UNTUK FOOTER --- */
+    const footer = document.querySelector('.copyright-footer');
+    if (footer) {
+        if (pageId === 'gameScreenBalapmobil') {
+            footer.style.display = 'none'; // Sembunyikan footer di layar game
+        } else {
+            footer.style.display = 'block'; // Tampilkan footer di halaman lain
+        }
+    }
+    /* --- AKHIR TAMBAHAN SCRIPT --- */
 }
 
 function selectGameType(gameType) {
