@@ -234,7 +234,7 @@
         .level-btn.kerja:hover { background: linear-gradient(135deg, #ef5350 0%, #f44336 100%); }
 
         .level-icon { font-size: clamp(1rem, 2vw, 1.6rem); line-height: 1; }
-        .level-name { font-size: clamp(0.85rem, 1.8vw, 1.3rem); white-space: nowrap; line-height: 1.2; }
+        .level-name { font-size: clamp(1.1rem, 2.2vw, 1.8rem); white-space: nowrap; line-height: 1.2; }
         .level-desc { font-size: clamp(0.65rem, 1.3vw, 0.85rem); opacity: 0.9; white-space: nowrap; line-height: 1.1; }
 
         .game-container {
@@ -696,8 +696,7 @@
                         </div>
             
                     </div>
-                    <h4 class="fw-semibold mt-4">Cara Bermain Game</h4>
-                    <p>Di dalam game, Kamu akan diberikan satu kata. Tugas kamu adalah memilih <strong>Lawan Kata</strong> yang paling tepat dari pilihan yang tersedia!</p>
+                    
                 </div>
                 <hr class="my-4">
                 <div class="text-center">
@@ -727,8 +726,8 @@
                     <li>Jawab pertanyaan <strong>Lawan Kata</strong> dengan benar untuk memajukan pembalap.</li>
                     <li>Gunakan tombol <strong>"Kembali"</strong> atau tombol <i class="fas fa-home" style="color: #1a237e; vertical-align: middle; font-size: 20px;"></i> untuk kembali ke menu utama.</li>
                 </ol>
-
-                <hr class="my-4">
+				
+				<hr class="my-4">
                 <div class="text-center">
                     <button class="btn btn-secondary btn-lg px-5 shadow hover-sound-btn" onclick="backToGameTypeMenu()">
                         <i class="fas fa-arrow-left me-2"></i> Kembali
@@ -741,22 +740,19 @@
             <div class="card p-4 p-md-5 shadow-lg rounded-4 menu-card mx-auto text-center" style="max-width: 600px;">
                 <h2 class="fw-bold text-success mb-2">Balap Mobil: Lawan Kata</h2>
                 <p class="fs-5 text-muted mb-4">Pilih Level</p>
-                <div class="d-grid gap-3 mx-auto" style="max-width: 400px;">
+                <div class="d-grid gap-3 mx-auto" style="max-width: 600px;">
                     <button class="btn menu-btn level-btn umum hover-sound-btn" onclick="selectLevel('antonim_umum')">
                         <span class="level-icon">📚</span>
                         <span class="level-name">Kata Umum</span>
-                        <span class="level-desc">Besar, Jauh, Buka, dll.</span>
-                    </button>
+                        </button>
                     <button class="btn menu-btn level-btn sifat hover-sound-btn" onclick="selectLevel('antonim_sifat')">
                         <span class="level-icon">✨</span>
                         <span class="level-name">Kata Sifat</span>
-                        <span class="level-desc">Senang, Bersih, Lebar, dll.</span>
-                    </button>
+                        </button>
                     <button class="btn menu-btn level-btn kerja hover-sound-btn" onclick="selectLevel('antonim_kerja')">
                         <span class="level-icon">🏃</span>
                         <span class="level-name">Kata Kerja</span>
-                        <span class="level-desc">Tidur, Datang, Pergi, dll.</span>
-                    </button>
+                        </button>
                 </div>
                 <hr class="my-4">
                 <div class="text-center">
@@ -1399,6 +1395,3 @@ backToGameTypeMenu();
 </body>
 
 </html>
-
-
-
