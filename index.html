@@ -1166,6 +1166,26 @@ const ANTONIM_DATA = {
     ]
 };
 
+// --- TAMBAHAN BARU: DEFINISI 15 PASANGAN MEMORY ---
+const MEMORY_ANTONYM_PAIRS = [
+    { id: 1, word1: 'besar', word2: 'kecil' },
+    { id: 2, word1: 'panjang', word2: 'pendek' },
+    { id: 3, word1: 'senang', word2: 'sedih' },
+    { id: 4, word1: 'tidur', word2: 'bangun' },
+    { id: 5, word1: 'buka', word2: 'tutup' },
+    { id: 6, word1: 'bersih', word2: 'kotor' },
+    { id: 7, word1: 'gelap', word2: 'terang' },
+    { id: 8, word1: 'naik', word2: 'turun' },
+    { id: 9, word1: 'duduk', word2: 'berdiri' },
+    { id: 10, word1: 'panas', word2: 'dingin' },
+    { id: 11, word1: 'kiri', word2: 'kanan' },
+    { id: 12, word1: 'cepat', word2: 'lambat' },
+    { id: 13, word1: 'tebal', word2: 'tipis' },
+    { id: 14, word1: 'tinggi', word2: 'rendah' },
+    { id: 15, word1: 'basah', word2: 'kering' },
+];
+
+
 const IMAGE_ASSETS = {
     'besar': 'aset%20MPI%202/1.png',
     'kecil': 'aset%20MPI%202/2.png',
@@ -1263,7 +1283,7 @@ function showPage(pageId) {
         if (fullscreenBtn) fullscreenBtn.style.display = 'flex';
         if (profileBtn) profileBtn.style.display = 'flex';
         
-        // (Perbaikan 2) Kembalikan centering untuk menu utama
+        // Kembalikan centering untuk menu utama
                  if (pageContainer) {
             pageContainer.style.display = 'flex';
             pageContainer.style.alignItems = 'center';
@@ -1299,7 +1319,7 @@ function selectGameType(gameType) {
         initMatchingGame();
     } else if (gameType === 'ingatan') {
         showPage('ingatanPage');
-        initMemoryGame();
+        initMemoryGame(); // Panggil fungsi yang telah diperbarui
     } else if (gameType === 'melengkapi') {
         showPage('melengkapiPage');
         initFillInGame();
@@ -1312,10 +1332,18 @@ function backToGameTypeMenu() {
     showPage('gameTypeMenu');
 }
 
+// --- VARIABEL GLOBAL UNTUK GAME MENCOCOKKAN ---
 let selectedCol1 = {};
 let selectedCol2 = {};
 let correctMatches = 0;
 const totalMatches = 4;
+
+// --- VARIABEL GLOBAL UNTUK GAME MEMORY (DITAMBAHKAN/DIPOSISIKAN DENGAN BENAR) ---
+let memoryCards = [];
+let flippedCards = [];
+let lockBoard = false;
+let memoryMoves = 0;
+
 
 function initMatchingGame() {
     selectedCol1 = {};
@@ -1329,29 +1357,29 @@ function initMatchingGame() {
     // Data Pasangan Gambar-Gambar
     // Kiri: Kata Kunci, Kanan: Antonim
     const pairs = [
-        { id: 1, imgLeft: IMAGE_ASSETS.besar, imgRight: IMAGE_ASSETS.kecil },
-        { id: 2, imgLeft: IMAGE_ASSETS.bersih, imgRight: IMAGE_ASSETS.kotor },
-        { id: 3, imgLeft: IMAGE_ASSETS.senang, imgRight: IMAGE_ASSETS.sedih },
-        { id: 4, imgLeft: IMAGE_ASSETS.gelap, imgRight: IMAGE_ASSETS.terang }
+        { id: 1, imgLeft: IMAGE_ASSETS.besar, imgRight: IMAGE_ASSETS.kecil, pairId: 1 },
+        { id: 2, imgLeft: IMAGE_ASSETS.bersih, imgRight: IMAGE_ASSETS.kotor, pairId: 2 },
+        { id: 3, imgLeft: IMAGE_ASSETS.senang, imgRight: IMAGE_ASSETS.sedih, pairId: 3 },
+        { id: 4, imgLeft: IMAGE_ASSETS.gelap, imgRight: IMAGE_ASSETS.terang, pairId: 4 }
     ];
 
-    const itemsLeft = shuffleArray(pairs.map(p => ({ id: p.id, img: p.imgLeft })));
-	const itemsRight = shuffleArray(pairs.map(p => ({ id: p.id, img: p.imgRight })));
+    const itemsLeft = shuffleArray(pairs.map(p => ({ id: p.id, img: p.imgLeft, pairId: p.pairId })));
+	const itemsRight = shuffleArray(pairs.map(p => ({ id: p.id, img: p.imgRight, pairId: p.pairId })));
 
     col1.innerHTML = '';
     col2.innerHTML = '';
 
     // Isi Kolom KIRI dengan Gambar
-    itemsLeft.forEach(item => {
-        col1.innerHTML += `<li class="match-item" data-id="${item.id}">
+    itemsLeft.forEach((item, index) => {
+        col1.innerHTML += `<li class="match-item" data-id="${item.id}" data-pair-id="${item.pairId}" data-index="${index}">
                             <img src="${item.img}" alt="Gambar Kiri">
                             <span style="display:none;">Left</span>
                            </li>`;
     });
 
     // Isi Kolom KANAN dengan Gambar (Bukan Kata)
-    itemsRight.forEach(item => {
-        col2.innerHTML += `<li class="match-item" data-id="${item.id}">
+    itemsRight.forEach((item, index) => {
+        col2.innerHTML += `<li class="match-item" data-id="${item.id}" data-pair-id="${item.pairId}" data-index="${index}">
                             <img src="${item.img}" alt="Gambar Kanan">
                             <span style="display:none;">Right</span>
                            </li>`;
@@ -1375,109 +1403,101 @@ function initMatchingGame() {
     });
 
     checkBtn.style.display = 'block';
-    checkBtn.onclick = checkFinalMatch; // Ganti nama fungsi ke checkFinalMatch
+    checkBtn.onclick = checkFinalMatch;
     document.getElementById('resetMatchBtn').onclick = initMatchingGame;
 }
 // Ganti seluruh fungsi selectItem yang sudah ada
 function selectItem(item, col) {
-    // Abaikan jika sudah benar (sudah diklik pada cek akhir)
+    // Abaikan jika sudah benar
     if (item.classList.contains('correct')) return;
 
-    const itemIndex = item.dataset.index;
+    // Gunakan pair-id untuk mempermudah logika
+    const itemId = item.dataset.pairId;
     
+    // Hapus 'wrong' jika ada
+    item.classList.remove('wrong'); 
+
     if (col === 1) {
-        // Jika item ini sudah dipilih, batalkan pilihan
+        // Kolom KIRI (Item yang ingin dicari antonimnya)
         if (item.classList.contains('selected')) {
             item.classList.remove('selected');
-            delete selectedCol1[itemIndex];
+            delete selectedCol1[itemId];
         } else {
-            // Pilih item ini
+            // Hapus pilihan lama di kolom 1
+            col1.querySelectorAll('.match-item').forEach(i => i.classList.remove('selected'));
             item.classList.add('selected');
-            selectedCol1[itemIndex] = item;
+            selectedCol1 = { [itemId]: item }; // Hanya satu item di col1 yang bisa dipilih
         }
-    } else { // Kolom 2
-        // Jika item ini sudah dipilih, batalkan pilihan
+    } else { // Kolom 2 (Pilihan Antonim)
+        // Kolom KANAN (Item pilihan antonim)
         if (item.classList.contains('selected')) {
             item.classList.remove('selected');
-            delete selectedCol2[itemIndex];
+            delete selectedCol2[itemId];
         } else {
             // Pilih item ini
             item.classList.add('selected');
-            selectedCol2[itemIndex] = item;
+            selectedCol2[itemId] = item;
         }
     }
-}
-
-// Hapus fungsi checkMatch lama, dan gunakan fungsi ini:
-function checkFinalMatch() {
-    const col1Items = document.querySelectorAll('#match-col-1 .match-item');
-    const col2Items = document.querySelectorAll('#match-col-2 .match-item');
-    let totalSelections = Object.keys(selectedCol1).length;
-    let correctCount = 0;
     
-    if (totalSelections !== totalMatches) {
-        alert(`Anda harus mencocokkan ${totalMatches} pasangan. Saat ini Anda baru memilih ${totalSelections} item di kolom kiri.`);
-        return;
-    }
+    // Otomatis cek jika 1 item di kiri dan 1 item di kanan dipilih
+    if (Object.keys(selectedCol1).length === 1 && Object.keys(selectedCol2).length === 1) {
+        const item1Id = Object.keys(selectedCol1)[0];
+        const item2Id = Object.keys(selectedCol2)[0];
+        const item1 = selectedCol1[item1Id];
+        const item2 = selectedCol2[item2Id];
 
-    // 1. Reset visual dan hitung kecocokan
-    col1Items.forEach(item1 => {
-        item1.classList.remove('selected', 'correct', 'wrong');
-        const index1 = item1.dataset.index;
-        
-        // Cek apakah item ini memiliki pasangan yang dipilih di kolom 2 (berdasarkan index)
-        const item2 = selectedCol2[index1];
-        
-        if (item2) {
-            item2.classList.remove('selected', 'correct', 'wrong');
+        // Cek Kecocokan ID Pasangan (Logika Penting: id harus sama)
+        if (item1.dataset.id === item2.dataset.id) {
+            playSound(audioMatch);
+            item1.classList.add('correct');
+            item2.classList.add('correct');
+            correctMatches++;
             
-            // Periksa Kecocokan ID Pasangan (Logika Penting)
-            if (item1.dataset.pairId === item2.dataset.pairId) {
-                correctCount++;
-                item1.classList.add('correct');
-                item2.classList.add('correct');
-            } else {
-                item1.classList.add('wrong');
-                item2.classList.add('wrong');
+            // Hapus listener agar tidak bisa diklik lagi
+            item1.removeEventListener('click', item1.currentListener);
+            item2.removeEventListener('click', item2.currentListener);
+            
+            // Reset pilihan setelah pasangan benar
+            selectedCol1 = {};
+            selectedCol2 = {};
+
+            if (correctMatches === totalMatches) {
+                setTimeout(() => {
+                    playSound(audioWin);
+                    alert(`🎉 Selamat! Semua ${totalMatches} pasangan kamu benar! Kerja Bagus!`);
+                    document.getElementById('checkMatchBtn').style.display = 'none';
+                }, 500);
             }
         } else {
-            // Jika item di col1 dipilih, tetapi tidak ada pasangannya yang dipilih di col2 (kasus ini seharusnya jarang terjadi jika user benar-benar memilih 4 pasang)
+            // Jawaban Salah
+            playSound(audioWrong);
             item1.classList.add('wrong');
+            item2.classList.add('wrong');
+            
+            // Hapus penanda salah setelah 800ms
+            setTimeout(() => {
+                item1.classList.remove('selected', 'wrong');
+                item2.classList.remove('selected', 'wrong');
+                selectedCol1 = {};
+                selectedCol2 = {};
+            }, 800);
         }
-    });
-
-    // 2. Beri Feedback
-    if (correctCount === totalMatches) {
-        playSound(audioWin);
-        alert(`🎉 Selamat! Semua ${totalMatches} pasangan kamu benar! Kerja Bagus!`);
-        document.getElementById('checkMatchBtn').style.display = 'none';
-    } else {
-        playSound(audioWrong);
-        let salahCount = totalMatches - correctCount;
-        alert(`❌ Hasilmu: ${correctCount} Benar dan ${salahCount} Salah. Jangan menyerah, coba lagi!`);
-        
-        // Hapus penanda salah setelah 1.5 detik
-        setTimeout(() => {
-            col1Items.forEach(item => {
-                if(item.classList.contains('wrong')) item.classList.remove('wrong');
-            });
-            col2Items.forEach(item => {
-                if(item.classList.contains('wrong')) item.classList.remove('wrong');
-            });
-        }, 1500);
     }
-    
-    // Reset data pilihan setelah pemeriksaan
-    selectedCol1 = {};
-    selectedCol2 = {};
+}
+
+// Hapus fungsi checkFinalMatch karena logika digeser ke selectItem
+function checkFinalMatch() {
+    // Fungsi ini tidak diperlukan lagi karena pengecekan dilakukan real-time di selectItem
+    if (correctMatches === totalMatches) {
+        alert("Semua pasangan sudah benar! Klik Ulangi untuk bermain lagi.");
+    } else {
+        alert("Pencocokan dilakukan secara real-time. Pilih satu item di kiri, lalu pasangannya di kanan.");
+    }
 }
 
 
-let memoryCards = [];
-let flippedCards = [];
-let lockBoard = false;
-let memoryMoves = 0;
-
+// --- FUNGSI initMemoryGame() YANG SUDAH DIPERBARUI ---
 function initMemoryGame() {
     const grid = document.getElementById('memory-grid');
     grid.innerHTML = '';
@@ -1486,41 +1506,48 @@ function initMemoryGame() {
     flippedCards = [];
     lockBoard = false;
 
-    const pairs = [
-        { id: 1, img: IMAGE_ASSETS.besar },
-        { id: 1, img: IMAGE_ASSETS.kecil },
-        { id: 2, img: IMAGE_ASSETS.panjang },
-        { id: 2, img: IMAGE_ASSETS.pendek },
-        { id: 3, img: IMAGE_ASSETS.senang },
-        { id: 3, img: IMAGE_ASSETS.sedih },
-        { id: 4, img: IMAGE_ASSETS.tidur },
-        { id: 4, img: IMAGE_ASSETS.bangun }
-    ];
+    // Ambil 4 pasangan antonim secara acak dari daftar MEMORY_ANTONYM_PAIRS
+    const pairsToUse = shuffleArray([...MEMORY_ANTONYM_PAIRS]).slice(0, 4); 
 
-    memoryCards = shuffleArray([...pairs]);
+    const cards = [];
+    pairsToUse.forEach(pair => {
+        // Kartu pertama (word1)
+        cards.push({ id: pair.id, imgKey: pair.word1 });
+        // Kartu kedua (word2/antonimnya)
+        cards.push({ id: pair.id, imgKey: pair.word2 }); 
+    });
+
+    memoryCards = shuffleArray(cards); // Mengacak 8 kartu
 
     memoryCards.forEach((card, index) => {
         const cardElement = document.createElement('button');
         cardElement.classList.add('memory-card');
-        cardElement.dataset.id = card.id;
-        cardElement.dataset.index = index;
+        cardElement.dataset.id = card.id; // ID yang sama untuk pasangan
+        cardElement.dataset.index = index; 
+        cardElement.dataset.imgKey = card.imgKey;
 
+        // Mengganti ikon pertanyaan dengan ikon otak (fas fa-brain)
         cardElement.innerHTML = `
             <div class="card-inner">
                 <div class="card-front">
-                    <i class="fas fa-question"></i>
+                    <i class="fas fa-brain"></i> 
                 </div>
                 <div class="card-back">
-                    <img src="${card.img}" alt="Gambar Kartu">
+                    <img src="${IMAGE_ASSETS[card.imgKey]}" alt="${card.imgKey}">
                 </div>
             </div>
         `;
         grid.appendChild(cardElement);
         cardElement.addEventListener('click', flipCard);
+        
+        // Pastikan kartu tidak terbalik di awal
+        cardElement.classList.remove('flipped', 'matched');
     });
 
     document.getElementById('resetMemoryBtn').onclick = initMemoryGame;
 }
+// --- AKHIR FUNGSI initMemoryGame() ---
+
 
 function flipCard() {
     if (lockBoard) return;
@@ -1542,10 +1569,14 @@ function flipCard() {
     checkForMemoryMatch();
 }
 
+// --- FUNGSI checkForMemoryMatch() YANG SUDAH DIPERBARUI ---
 function checkForMemoryMatch() {
+    // Pengecekan hanya berdasarkan ID pasangan
     let isMatch = flippedCards[0].dataset.id === flippedCards[1].dataset.id;
     isMatch ? disableCards() : unflipCards();
 }
+// --- AKHIR FUNGSI checkForMemoryMatch() ---
+
 
 function disableCards() {
     playSound(audioMatch);
@@ -1992,6 +2023,6 @@ function closeProfileModal() {
 // Inisialisasi Awal
 backToGameTypeMenu();
 
-    </script>
+</script>
 </body>
 </html>
