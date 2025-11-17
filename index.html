@@ -6,12 +6,12 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="icon" type="image/x-icon" href="https://lh3.googleusercontent.com/d/19TNRds6ofL8omolE0436xCM_kjSw7MwN">
+    <link rel="icon" type="image/x-icon" href="https://lh3.googleusercontent.com/d/1WBKDOPjBxceiMVk38F0Rh9ptWjCbGsxr">
     <title>Lawan Kata (Antonim)</title>
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
     @font-face {
@@ -39,25 +39,19 @@
         font-family: 'Poppins', 'Arial', sans-serif;
     }
 
-    /* --- PERBAIKAN KRITIS: Menghapus overflow: hidden di html dan body --- */
-    
     html {
-        /* HAPUS: overflow: hidden (sebelumnya ada di tag html inline) */
         height: 100%;
         width: 100%;
     }
 
     body {
-        /* HAPUS: overflow: hidden */
         height: 100vh;
         height: 100dvh;
         width: 100vw;
         width: 100dvw;
         margin: 0;
         padding: 0;
-        /* Biarkan overflow default (auto) agar bisa scroll jika ada konten berlebihan */
-        overflow-x: hidden; /* Hanya sembunyikan horizontal scroll untuk berjaga-jaga */
-        
+        overflow-x: hidden; 
         display: flex;
         justify-content: center;
         align-items: center;
@@ -68,7 +62,6 @@
         -webkit-touch-callout: none;
     }
 
-    /* Ini sudah BENAR (fixed), biarkan saja */
     .top-center-controls {
         position: fixed;
         top: 20px;
@@ -79,7 +72,7 @@
         z-index: 10002;
     }
 
-    .fullscreen-btn {
+    .fullscreen-btn, .home-btn, .profile-btn {
         width: 56px;
         height: 56px;
         background: rgba(255, 255, 255, 0.4);
@@ -97,67 +90,31 @@
         overflow: hidden;
     }
 
-    .home-btn {
-        width: 56px;
-        height: 56px;
-        background: rgba(255, 255, 255, 0.4);
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        border-radius: 16px;
-        cursor: pointer;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12),
-                    0 2px 4px rgba(0, 0, 0, 0.08);
-        backdrop-filter: blur(12px);
-        padding: 0;
-        overflow: hidden;
+    .home-btn { display: none; }
+    .profile-btn { display: flex; }
+    
+    .home-icon, .fullscreen-icon, .profile-icon {
+        font-size: 26px;
+        color: #1a237e;
+        line-height: 1;
     }
+.btn-secondary,
+.play-again-btn {
+    transition: all 0.3s ease;
+}
 
-    .profile-btn {
-        width: 56px;
-        height: 56px;
-        background: rgba(255, 255, 255, 0.4);
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        border-radius: 16px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12),
-                    0 2px 4px rgba(0, 0, 0, 0.08);
-        backdrop-filter: blur(12px);
-        padding: 0;
-        overflow: hidden;
-    }
+.btn-secondary:hover,
+.play-again-btn:hover {
+    transform: scale(1.03);
+}
     
-    .home-icon {
-        font-size: 26px;
-        color: #1a237e;
-        line-height: 1;
-    }
-    
-    .fullscreen-icon {
-        font-size: 26px;
-        line-height: 1;
-        color: #1a237e;
-    }
     .fullscreen-icon.collapse { display: none; }
     body.fullscreen .fullscreen-icon.expand { display: none; }
     body.fullscreen .fullscreen-icon.collapse { display: block; }
 
-    .profile-icon {
-        font-size: 26px;
-        color: #1a237e; 
-        line-height: 1;
-    }
-
-    /* Ini sudah BENAR (fixed), biarkan saja */
     .copyright-footer {
         position: fixed;
-        bottom: 10px; /* DIUBAH: dari 20px menjadi 10px */
+        bottom: 10px;
         left: 50%;
         transform: translateX(-50%);
         text-align: center;
@@ -170,50 +127,91 @@
         font-weight: 500;
     }
 
-    /* --- PERBAIKAN: '.page-container' --- */
-    /* HAPUS 'position: fixed' dan ganti height/width agar bisa di-scroll oleh body */
-    /* Namun, kita pertahankan height 100% dari body untuk centering, dan biarkan body yang scroll */
-    .page-container {
-        display: flex;
-        /* Biarkan body yang menengahkan container ini, jika isinya tidak melebihi tinggi */
-        align-items: center; 
-        justify-content: center;
-        /* Kita ganti agar bisa tumbuh/shrink */
-        height: 100%; 
-        min-height: 100dvh; /* Pastikan minimal setinggi viewport */
-        width: 100vw;
-        width: 100dvw;
-        padding: 1rem;
-        /* Hapus overflow-y: auto dari sini, biarkan body yang menangani scroll */
-        /* overflow-y: auto; */ 
-        -webkit-overflow-scrolling: touch;
+.top-center-controls {
+    position: fixed;
+    /* FIX 1: Pindahkan ke Pojok Kanan Atas */
+    top: 30px; 
+    right: 30px; /* Posisikan di kanan */
+    left: auto; /* Nonaktifkan centering horizontal */
+    transform: none; /* Nonaktifkan translateX(-50%) */
+    display: flex;
+    gap: 10px;
+    z-index: 10002;
+}
+
+.page-container {
+    display: flex;
+    /* FIX 2: Selalu mulai dari atas, tidak lagi di tengah vertikal (default) */
+    align-items: flex-start; 
+    justify-content: center;
+    height: 100%; 
+    min-height: 100dvh;
+    width: 100vw;
+    width: 100dvw;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.menu-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    width: 100%;
+    /* FIX 3: Perbesar max-width agar terlihat lebih lebar di desktop */
+    max-width: 900px; 
+    overflow-y: auto; 
+    
+    /* FIX 4: Mengurangi margin-top karena tombol sudah bergeser ke kanan. */
+    margin-top: 40px; 
+    
+    /* FIX 5: Maksimalkan ketinggian vertikal */
+    max-height: calc(100dvh - 60px); 
+    
+    padding: 1.5rem; /* Default padding */
+}
+
+@media (min-width: 768px) {
+    .menu-card {
+        padding: 2.5rem; 
+        /* Margin atas (60px) memberikan jarak presisi dari tombol (30px) */
+        margin-top: 60px;
+        /* Ketinggian dimaksimalkan */
+        max-height: calc(100dvh - 80px); 
+    }
+}
+
+@media screen and (max-height: 450px) and (orientation: landscape) {
+    /* FIX 6: Sesuaikan posisi tombol di landscape */
+    .top-center-controls {
+        top: 5px;
+        right: 10px;
+    }
+    .menu-card {
+        margin-top: 20px;
+        max-height: calc(100dvh - 30px); 
+    }
+}
+    .main-menu-btn {
+        font-size: clamp(0.9rem, 2.2vw, 1.3rem); /* Ukuran font disesuaikan */
+        padding: clamp(10px, 1.8vh, 18px);
+        font-weight: 600;
+         transition: all 0.3s ease;
     }
 
-    .content-page {
-        display: none;
-        width: 100%;
-        /* Biarkan konten menentukan tinggi, bukan dibatasi */
-        max-height: 100%; 
+     .main-menu-btn:hover {
+        transform: scale(1.03);
     }
-    
-    .menu-card {
-        background: rgba(255, 255, 255, 0.6);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.75);
-        max-width: 800px;
-        /* Pertahankan ini agar konten kartu yang terlalu tinggi tetap bisa di-scroll di dalam kartu */
-        overflow-y: auto; 
-        /* DIUBAH: Diberi 120px (80px atas, 40px bawah) ruang agar tidak tumpang tindih */
-        max-height: calc(100vh - 120px);
-    }
-    
-    .main-menu-btn {
-        font-size: clamp(1rem, 2.5vw, 1.5rem);
-        padding: clamp(12px, 2vh, 20px);
-        font-weight: 600;
-    }
+.fullscreen-btn, .home-btn, .profile-btn {
+    /* ... (style Anda yang sudah ada) ... */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Ini mungkin sudah ada */
+}
+
+.fullscreen-btn:hover, .home-btn:hover, .profile-btn:hover {
+    transform: scale(1.1);
+}
 
     .menu-btn.level-btn {
+        /* ... (style level-btn tetap sama) ... */
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -232,20 +230,27 @@
         overflow: hidden;
         font-weight: 600;
     }
-    /* Level Colors Disesuaikan untuk Antonim */
     .level-btn.umum { background: linear-gradient(135deg, #4caf50 0%, #45a049 100%); }
-    .level-btn.umum:hover { background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%); }
+    .level-btn.umum:hover { 
+        background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%); 
+        transform: scale(1.03);
+    }
     .level-btn.sifat { background: linear-gradient(135deg, #ff9800 0%, #f57c00 100%); }
-    .level-btn.sifat:hover { background: linear-gradient(135deg, #ffa726 0%, #ff9800 100%); }
+    .level-btn.sifat:hover { 
+        background: linear-gradient(135deg, #ffa726 0%, #ff9800 100%); 
+        transform: scale(1.03);
+    }
     .level-btn.kerja { background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%); }
-    .level-btn.kerja:hover { background: linear-gradient(135deg, #ef5350 0%, #f44336 100%); }
+    .level-btn.kerja:hover { 
+        background: linear-gradient(135deg, #ef5350 0%, #f44336 100%); 
+        transform: scale(1.03);
+    }
 
     .level-icon { font-size: clamp(1rem, 2vw, 1.6rem); line-height: 1; }
     .level-name { font-size: clamp(1.1rem, 2.2vw, 1.8rem); white-space: nowrap; line-height: 1.2; }
     .level-desc { font-size: clamp(0.65rem, 1.3vw, 0.85rem); opacity: 0.9; white-space: nowrap; line-height: 1.1; }
 
     .game-container {
-        /* PERBAIKAN: JANGAN position: fixed agar bisa di-center oleh body */
         display: none;
         width: 100vw;
         width: 100dvw;
@@ -259,14 +264,13 @@
         justify-content: space-between;
         box-sizing: border-box;
         align-items: center;
-        position: absolute; /* Ganti fixed ke absolute agar tidak mengganggu scroll body */
+        position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
         overflow: hidden;
     }
-
     .player-section {
         width: clamp(200px, 22vw, 400px);
         flex-shrink: 0;
@@ -287,7 +291,6 @@
         height: fit-content;
         max-height: 90vh;
     }
-
     .question-box {
         background: linear-gradient(135deg, var(--player-color) 0%, var(--player-color-dark) 100%);
         color: white;
@@ -308,13 +311,9 @@
         overflow: hidden;
         letter-spacing: clamp(1px, 0.2vw, 3px);
     }
-
     .left-player { --player-color: #1a237e; --player-color-dark: #0d1642; }
     .right-player { --player-color: #b71c1c; --player-color-dark: #7f0000; }
-
-    .answer-options {
-        width: 100%;
-    }
+    .answer-options { width: 100%; }
     .option-btn {
         font-size: clamp(0.8rem, 1.8vw, 1.1rem);
         font-weight: 600;
@@ -348,17 +347,14 @@
         transform: none;
         border-color: transparent;
     }
-
-
     .score-indicator { width: 100%; text-align: center; font-size: 1.3em; font-weight: bold; color: #2c3e50; margin-top: 15px; padding: 14px; background: rgba(255, 255, 255, 0.4); border-radius: 18px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.6); }
     .score-value { color: #2196f3; font-size: 1.15em; font-weight: 700; }
-
     .center-section { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: clamp(10px, 2vh, 30px); min-width: clamp(250px, 30vw, 600px); position: relative; z-index: 1; }
     .center-section h1 { color: #333; font-size: clamp(1rem, 3vw, 2rem); margin: 0; white-space: nowrap; }
     .instruction { font-size: clamp(0.75rem, 2vw, 1.25rem); color: #666; margin: 0; white-space: nowrap; max-width: 100%; }
-
     .game-field { position: relative; width: 100%; height: clamp(150px, 25vh, 350px); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 0 20px; }
 
+    /* ... (CSS modal, confetti, countdown tetap sama) ... */
     .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; right: 0; bottom: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(5px); justify-content: center; align-items: center; animation: fadeInModal 0.3s ease-out; }
     @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
     .modal-content { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 55px 70px; border-radius: 36px; text-align: center; box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4); animation: modalSlideIn 0.5s ease-out; max-width: 650px; min-width: 500px; border: 2px solid rgba(255, 255, 255, 0.2); position: relative; }
@@ -368,38 +364,10 @@
     .play-again-btn { background: rgba(255, 255, 255, 0.95); color: #667eea; border: none; padding: 18px 60px; font-size: 1.2em; font-weight: 700; border-radius: 50px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25); }
     .play-again-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35); }
     .play-again-btn:active { transform: translateY(-1px) scale(0.98); }
-
-    .confetti { 
-        position: fixed; 
-        width: auto;
-        height: auto;
-        top: -20px;
-        z-index: 1001; 
-        animation: confettiFall linear forwards; 
-        pointer-events: none; 
-        font-size: 24px;
-        color: #000;
-    }
+    .confetti { position: fixed; width: auto; height: auto; top: -20px; z-index: 1001; animation: confettiFall linear forwards; pointer-events: none; font-size: 24px; color: #000; }
     @keyframes confettiFall { to { transform: translateY(100vh) rotate(360deg); } }
-
-    @keyframes changingGradient {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    .countdown-overlay { 
-        display: none; 
-        position: fixed; 
-        top: 0; left: 0; right: 0; bottom: 0; 
-        width: 100vw; height: 100vh; 
-        background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-        background-size: 400% 400%;
-        z-index: 10000; 
-        justify-content: center; 
-        align-items: center; 
-        animation: fadeInOverlay 0.3s ease-out, changingGradient 10s ease infinite; 
-    }
+    @keyframes changingGradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    .countdown-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw; height: 100vh; background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); background-size: 400% 400%; z-index: 10000; justify-content: center; align-items: center; animation: fadeInOverlay 0.3s ease-out, changingGradient 10s ease infinite; }
     .countdown-overlay.show { display: flex; }
     @keyframes fadeInOverlay { from { opacity: 0; } to { opacity: 1; } }
     .countdown-content { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 30px; }
@@ -411,86 +379,42 @@
     @keyframes startAnimation { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.15); } 100% { transform: scale(1); opacity: 1; } }
     .countdown-text.start { animation: startTextAnimation 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); font-size: 3em; color: #ffd700; }
     @keyframes startTextAnimation { 0% { opacity: 0; transform: translateY(-30px) scale(0.8); } 50% { transform: translateY(0) scale(1.1); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-    
-    .balap-mobil-game { 
-        /* Ganti warna background untuk suasana Antonim */
-        background: linear-gradient(-45deg, #a8d8ff, #90ee90, #ffd700, #ff9800, #a8d8ff);
-        background-size: 400% 400%;
-        animation: changingGradient 15s ease infinite;
-    }
+    .balap-mobil-game { background: linear-gradient(-45deg, #a8d8ff, #90ee90, #ffd700, #ff9800, #a8d8ff); background-size: 400% 400%; animation: changingGradient 15s ease infinite; }
     .balap-mobil-field { position: relative; width: 100%; max-width: clamp(600px, 70vw, 900px); height: clamp(250px, 35vh, 350px); display: flex; align-items: center; justify-content: center; overflow: visible; }
-    
-    .race-track { 
-        position: relative; 
-        width: 100%; 
-        max-width: clamp(600px, 70vw, 900px); 
-        height: clamp(220px, 30vh, 300px);
-        display: flex; 
-        align-items: center; 
-        justify-content: center; 
-    }
-    .track-image { 
-        position: absolute; 
-        bottom: 0; 
-        left: 0; 
-        width: 100%; 
-        height: auto; 
-        max-height: clamp(140px, 20vh, 200px);
-        object-fit: contain; 
-        z-index: 1; 
-    }
-    
+    .race-track { position: relative; width: 100%; max-width: clamp(600px, 70vw, 900px); height: clamp(220px, 30vh, 300px); display: flex; align-items: center; justify-content: center; }
+    .track-image { position: absolute; bottom: 0; left: 0; width: 100%; height: auto; max-height: clamp(140px, 20vh, 200px); object-fit: contain; z-index: 1; }
     .racer-container { position: absolute; left: 0; width: clamp(90px, 10vw, 120px); height: clamp(110px, 15vh, 150px); display: flex; align-items: flex-end; justify-content: center; z-index: 2; transition: left 0.5s ease-out; will-change: left, transform; }
     .racer-image { position: absolute; bottom: 0; width: 100%; height: auto; max-height: 150px; object-fit: contain; object-position: center bottom; }
     .racer-image.stand { display: block; } .racer-image.hop { display: none; }
-    
-    .left-racer { 
-        bottom: clamp(45px, 6vh, 70px);
-        left: 3.5%; 
-        z-index: 3; 
-        transform: scale(1); 
-    }
-    .right-racer { 
-        bottom: clamp(85px, 11vh, 120px);
-        left: 6.5%; 
-        z-index: 2; 
-        transform: scale(0.9); 
-    }
-
+    .left-racer { bottom: clamp(45px, 6vh, 70px); left: 3.5%; z-index: 3; transform: scale(1); }
+    .right-racer { bottom: clamp(85px, 11vh, 120px); left: 6.5%; z-index: 2; transform: scale(0.9); }
     @keyframes hopParabolaFront { 0% { transform: translateY(0) scale(1); } 50% { transform: translateY(-60px) scale(1); } 100% { transform: translateY(0) scale(1); } }
     @keyframes hopParabolaBack { 0% { transform: translateY(0) scale(0.9); } 50% { transform: translateY(-50px) scale(0.9); } 100% { transform: translateY(0) scale(0.9); } }
     .left-racer.hopping { animation: hopParabolaFront 0.5s ease-in-out; }
     .right-racer.hopping { animation: hopParabolaBack 0.5s ease-in-out; }
-
     @keyframes shakeRacerFront { 0%, 100% { transform: translateX(0) scale(1); } 10%, 30%, 50%, 70%, 90% { transform: translateX(-4px) scale(1); } 20%, 40%, 60%, 80% { transform: translateX(4px) scale(1); } }
     @keyframes shakeRacerBack { 0%, 100% { transform: translateX(0) scale(0.9); } 10%, 30%, 50%, 70%, 90% { transform: translateX(-4px) scale(0.9); } 20%, 40%, 60%, 80% { transform: translateX(4px) scale(0.9); } }
     .left-racer.shaking { animation: shakeRacerFront 0.4s; }
     .right-racer.shaking { animation: shakeRacerBack 0.4s; }
-    
     @media screen and (max-width: 768px) { .countdown-number { font-size: 10em; } .countdown-number.start { font-size: 8em; } .countdown-text { font-size: 2em; } .countdown-text.start { font-size: 2.5em; } }
-    
     @media screen and (max-height: 600px) and (orientation: landscape) {
         .game-container { padding: 8px 15px; gap: 15px; }
         .player-section { width: 260px; padding: 10px; gap: 8px; }
         .question-box { padding: 10px 8px; font-size: 1.1em; min-height: 48px; }
-        /* .answer-box {} - Tidak ada di kode Anda */
         .keypad { padding: 8px; gap: 6px; } .keypad-row { gap: 6px; }
         .keypad button { height: 45px; font-size: 1.1em; }
         .center-section { min-width: 250px; gap: 6px; } .center-section h1 { font-size: 1.1em; }
         .instruction { font-size: 0.75em; }
         .game-field { height: 160px; padding: 0 10px; }
         .score-indicator { font-size: 0.9em; padding: 6px; margin-top: 6px; }
-        
         .balap-mobil-field { max-width: 500px; height: 200px; } 
         .race-track { max-width: 500px; height: 180px; }
         .track-image { max-height: 120px; }
         .racer-container { width: 90px; height: 110px; } .racer-image { max-height: 110px; }
         .left-racer { bottom: 45px; }
         .right-racer { bottom: 75px; }
-        
         .top-center-controls { top: 10px; gap: 8px; }
         .fullscreen-btn, .home-btn, .profile-btn { width: 44px; height: 44px; }
-        
         .copyright-footer { bottom: 10px; } .copyright-footer p { font-size: 0.75em; }
         .modal-content { padding: 30px 40px; min-width: 350px; max-width: 500px; }
         .modal-content h2 { font-size: 1.5em; margin-bottom: 15px; }
@@ -501,24 +425,20 @@
         .game-container { padding: 3px 8px; gap: 8px; }
         .player-section { width: 200px; padding: 6px; gap: 5px; }
         .question-box { padding: 6px 5px; font-size: 0.95em; min-height: 38px; }
-        /* .answer-box {} - Tidak ada di kode Anda */
         .keypad { padding: 5px; gap: 4px; } .keypad-row { gap: 4px; }
         .keypad button { height: 37px; font-size: 0.98em; }
         .center-section { min-width: 180px; gap: 3px; } .center-section h1 { font-size: 0.85em; }
         .instruction { font-size: 0.65em; }
         .game-field { height: 110px; }
         .score-indicator { font-size: 0.8em; padding: 4px; margin-top: 3px; }
-        
         .balap-mobil-field { max-width: 380px; height: 150px; } 
         .race-track { max-width: 380px; height: 140px; }
         .track-image { max-height: 95px; }
         .racer-container { width: 65px; height: 85px; } .racer-image { max-height: 85px; }
         .left-racer { bottom: 35px; }
         .right-racer { bottom: 55px; }
-        
         .top-center-controls { top: 5px; gap: 5px; }
         .fullscreen-btn, .home-btn, .profile-btn { width: 38px; height: 38px; }
-
         .copyright-footer { bottom: 5px; } .copyright-footer p { font-size: 0.65em; }
         .modal-content { padding: 25px 35px; min-width: 280px; max-width: 450px; }
         .modal-content h2 { font-size: 1.3em; margin-bottom: 12px; }
@@ -533,15 +453,14 @@
         border: 5px solid rgba(255, 255, 255, 0.5);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         object-fit: cover;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    /* --- CSS BARU UNTUK CONTOH GAMBAR (KOREKSI TATA LETAK) --- */
-    .antonim-contoh-container {
-        padding: 10px 0;
-    }
-
+    /* ... (CSS Materi tetap sama) ... */
+    .antonim-contoh-container { padding: 10px 0; }
     .contoh-item {
-        /* Gaya untuk box contoh */
         background-color: rgba(26, 35, 126, 0.05); 
         border: 1px solid rgba(26, 35, 126, 0.1);
         height: 100%; 
@@ -549,61 +468,214 @@
         flex-direction: column;
         justify-content: center;
     }
-
-    .word-pair {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
-    }
-
-    .image-pair {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        width: 100%;
-    }
-
+    .word-pair { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+    .image-pair { display: flex; align-items: center; justify-content: center; gap: 5px; width: 100%; }
     .img-antonim-half {
         width: 30%; 
         height: auto;
-        max-height: 160px; /* Batasi tinggi gambar */
+        max-height: 160px;
         object-fit: contain;
         transition: transform 0.3s ease-out;
     }
-    .img-antonim-half:hover {
-        transform: scale(1.05);
-    }
-
-    .word-box {
-        font-weight: 600;
-        font-size: 1.1em;
-        color: #1a237e; /* Warna teks kata */
-        padding: 2px 5px;
-    }
-
+    .img-antonim-half:hover { transform: scale(1.05); }
+    .word-box { font-weight: 600; font-size: 1.1em; color: #1a237e; padding: 2px 5px; }
     @media screen and (max-width: 576px) {
-        /* Penyesuaian untuk layar kecil */
-        .img-antonim-half {
-            max-height: 100px;
-        }
-        .word-box {
-            font-size: 1em;
-        }
+        .img-antonim-half { max-height: 100px; }
+        .word-box { font-size: 1em; }
     }
-    /* --- CSS BARU UNTUK TOMBOL AUDIO MATERI --- */
     .play-audio-btn {
         width: 50px;
         height: 50px;
         font-size: 1.25rem;
-        border-radius: 50%; /* Membuatnya bulat */
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 0;
-        flex-shrink: 0; /* Mencegah tombol penyet */
+        flex-shrink: 0;
     }
+
+
+    /* --- 1. Game Mencocokkan (Matching Game) --- */
+    .matching-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 1rem;
+    }
+    .match-item {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        margin-bottom: 0.5rem;
+        border: 2px solid #ddd;
+        border-radius: 12px;
+        background-color: #fff;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 1.1rem;
+        font-weight: 600;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .match-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .match-item img {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        margin-right: 15px;
+    }
+    .match-item.selected {
+        background-color: #0d6efd;
+        color: white;
+        border-color: #0a58ca;
+    }
+    .match-item.correct {
+        background-color: #198754;
+        color: white;
+        border-color: #146c43;
+        opacity: 0.7;
+        pointer-events: none;
+    }
+    .match-item.wrong {
+        animation: shake 0.5s;
+        background-color: #dc3545;
+        color: white;
+        border-color: #b02a37;
+    }
+
+    /* --- 2. Game Ingatan (Memory Game) --- */
+    #memory-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        max-width: 600px;
+        margin: 0 auto;
+        perspective: 1000px;
+    }
+    .memory-card {
+        background-color: transparent;
+        width: 100%;
+        aspect-ratio: 1 / 1; 
+        border: none;
+        padding: 0;
+        cursor: pointer;
+    }
+    .card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .memory-card.flipped .card-inner {
+        transform: rotateY(180deg);
+    }
+    .card-front, .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .card-front {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-size: 3rem;
+    }
+    .card-back {
+        background-color: #fff;
+        color: black;
+        transform: rotateY(180deg);
+        padding: 10px;
+    }
+    .card-back img {
+        width: 90%;
+        height: 90%;
+        object-fit: contain;
+    }
+    .memory-card.matched {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    /* --- 3. Game Melengkapi (Fill-in-the-blank) --- */
+    .fill-in-sentence {
+        font-size: 1.2rem;
+        font-weight: 500;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap; /* Agar responsif */
+    }
+    .drop-zone {
+        display: inline-block;
+        width: 120px;
+        height: 50px;
+        border: 2px dashed #0d6efd;
+        border-radius: 8px;
+        margin: 0 10px;
+        background-color: #fff;
+        transition: all 0.2s ease;
+        vertical-align: middle;
+        text-align: center;
+        line-height: 46px; /* 50px - 4px border */
+        font-weight: 600;
+    }
+    .drop-zone.over {
+        background-color: #cfe2ff;
+        border-style: solid;
+    }
+    .drop-zone.correct {
+        background-color: #d1e7dd;
+        border-color: #198754;
+        color: #146c43;
+    }
+    .drop-zone.wrong {
+        background-color: #f8d7da;
+        border-color: #dc3545;
+        color: #b02a37;
+    }
+    #word-bank {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        padding: 1.5rem;
+        background-color: #e9ecef;
+        border-radius: 12px;
+    }
+    .draggable-word {
+        padding: 0.75rem 1.25rem;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 50px; /* pill shape */
+        cursor: grab;
+        font-weight: 600;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease;
+    }
+    .draggable-word:active {
+        cursor: grabbing;
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    .draggable-word.used {
+        opacity: 0.3;
+        pointer-events: none;
+    }
+
 </style>
 
 </head>
@@ -612,48 +684,77 @@
         <button id="homeBtn" class="home-btn hover-sound-btn" onclick="backToGameTypeMenu()" title="Menu Utama" style="display: none;">
             <i class="fas fa-home home-icon"></i>
         </button>
-
         <button id="fullscreenBtn" class="fullscreen-btn hover-sound-btn" onclick="toggleFullscreen()" title="Layar Penuh">
             <i class="fas fa-expand fullscreen-icon expand"></i>
             <i class="fas fa-compress fullscreen-icon collapse"></i>
         </button>
-
         <button id="profileBtn" class="profile-btn hover-sound-btn" onclick="showProfileModal()" title="Profil Pengembang">
             <i class="fas fa-user profile-icon"></i>
         </button>
     </div>
 
-
     <div class="page-container">
 
+ 
         <div id="gameTypeMenu" class="content-page container text-center" style="display: flex;">
-            <div class="card p-4 p-md-5 shadow-lg rounded-4 menu-card mx-auto" style="max-width: 600px;">
-                <h1 class="display-5 fw-bold text-primary mb-3">Lawan Kata (Antonim)</h1>
-                <p class="fs-5 text-muted mb-4">Pilih menu di bawah ini</p>
-                <div class="d-grid gap-3">
-                    <button class="btn btn-primary btn-lg main-menu-btn shadow hover-sound-btn" onclick="selectGameType('materi-antonim')">
-                        <i class="fas fa-book-reader me-2"></i> Materi Lawan Kata (Antonim)
-                    </button>
-                    <button class="btn btn-info btn-lg main-menu-btn shadow text-dark-emphasis hover-sound-btn" onclick="selectGameType('tujuan-petunjuk')">
-                        <i class="fas fa-book-open me-2"></i> Tujuan & Petunjuk
-                    </button>
-                    <button class="btn btn-success btn-lg main-menu-btn shadow hover-sound-btn" onclick="selectGameType('balap-mobil')">
-                        <i class="fas fa-flag-checkered me-2"></i> Game Balap Mobil
-                    </button>
-                </div>
-            </div>
+    <div class="card p-4 p-md-5 shadow-lg rounded-4 menu-card mx-auto" style="max-width: 600px;">
+        <h1 class="display-5 fw-bold text-primary mb-3">Lawan Kata (Antonim)</h1>
+        <p class="fs-5 text-muted mb-4">Pilih menu di bawah ini</p>
+        <div class="d-grid gap-3">
+            
+            <button class="btn btn-danger btn-lg main-menu-btn shadow hover-sound-btn" 
+                    style="background: linear-gradient(135deg, #ff6b81 0%, #e84393 100%); border: none;"
+                     onclick="selectGameType('petunjuk')">
+                <i class="fas fa-list-ol me-2"></i> Petunjuk Penggunaan
+            </button>
+            
+            <button class="btn btn-success btn-lg main-menu-btn shadow hover-sound-btn" 
+                    style="background: linear-gradient(135deg, #a4ff82 0%, #7bed9f 100%); border: none; color: #1e3d59 !important;"
+                     onclick="selectGameType('tujuan')">
+                <i class="fas fa-bullseye me-2"></i> Tujuan Pembelajaran
+            </button>
+            
+            <button class="btn btn-primary btn-lg main-menu-btn shadow hover-sound-btn" 
+                    style="background: linear-gradient(135deg, #4ac6ff 0%, #1e90ff 100%); border: none; color: white;"
+                     onclick="selectGameType('materi-antonim')">
+                <i class="fas fa-book-reader me-2"></i> Materi Lawan Kata
+            </button>
+            
+            <button class="btn btn-warning btn-lg main-menu-btn shadow hover-sound-btn" 
+                    style="background: linear-gradient(135deg, #ffcf4d 0%, #ffc107 100%); border: none; color: #333 !important;"
+                     onclick="selectGameType('mencocokkan')">
+                <i class="fas fa-link me-2"></i> Belajar Mencocokkan
+            </button>
+            
+            <button class="btn btn-secondary btn-lg main-menu-btn shadow hover-sound-btn" 
+                    style="background: linear-gradient(135deg, #e0aaff 0%, #a879ff 100%); border: none; color: white;"
+                     onclick="selectGameType('ingatan')">
+                <i class="fas fa-brain me-2"></i> Melatih Ingatan
+            </button>
+            
+            <button class="btn btn-dark btn-lg main-menu-btn shadow hover-sound-btn" 
+                    style="background: linear-gradient(135deg, #ff9800 0%, #ff7043 100%); border: none; color: white;"
+                     onclick="selectGameType('melengkapi')">
+                <i class="fas fa-edit me-2"></i> Melengkapi Kalimat
+            </button>
+
+            <button class="btn btn-success btn-lg main-menu-btn shadow hover-sound-btn" 
+                    style="background: linear-gradient(135deg, #00b894 0%, #00cec9 100%); border: none; color: white;"
+                     onclick="selectGameType('balap-mobil')">
+                <i class="fas fa-flag-checkered me-2"></i> Game Balap Mobil
+            </button>
         </div>
+    </div>
+</div>
+
 
         <div id="materiWaktu" class="content-page container">
             <div class="card p-4 p-md-5 shadow-lg rounded-4 menu-card mx-auto">
                 <h2 class="text-center fw-bold text-primary mb-4">Materi Lawan Kata (Antonim)</h2>
                 <div class="text-start fs-5">
                     <p><strong>Lawan Kata</strong> atau <strong>Antonim</strong> adalah kata-kata yang maknanya berlawanan satu sama lain. Mempelajari antonim membantu kita memahami perbedaan makna kata.</p>
-                    
                     <h4 class="fw-semibold mt-4">Contoh Lawan Kata</h4>
-                    
                     <div class="row row-cols-1 g-3 antonim-contoh-container text-center">
-                        
                         <div class="col">
                             <div class="contoh-item p-2 rounded-3">
                                 <div class="row g-2 align-items-center">
@@ -674,7 +775,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="col">
                             <div class="contoh-item p-2 rounded-3">
                                 <div class="row g-2 align-items-center">
@@ -695,7 +795,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="col">
                             <div class="contoh-item p-2 rounded-3">
                                 <div class="row g-2 align-items-center">
@@ -716,7 +815,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="col">
                             <div class="contoh-item p-2 rounded-3">
                                 <div class="row g-2 align-items-center">
@@ -737,7 +835,6 @@
                                 </div>
                             </div>
                         </div>
-                        
                         <div class="col">
                             <div class="contoh-item p-2 rounded-3">
                                 <div class="row g-2 align-items-center">
@@ -758,9 +855,7 @@
                                 </div>
                             </div>
                         </div>
-            
                     </div>
-                    
                 </div>
                 <hr class="my-4">
                 <div class="text-center">
@@ -771,26 +866,15 @@
             </div>
         </div>
 
-        <div id="tujuanPetunjuk" class="content-page container">
+        <div id="tujuanPage" class="content-page container">
              <div class="card p-4 p-md-5 shadow-lg rounded-4 menu-card mx-auto">
-                <h2 class="text-center fw-bold text-info mb-4">Tujuan & Petunjuk</h2>
-                
+                <h2 class="text-center fw-bold text-info mb-4">Tujuan Pembelajaran</h2>
                 <h4 class="fw-semibold mt-3">Tujuan Pembelajaran</h4>
                 <ul class="fs-5">
                     <li>Siswa dapat mengenal konsep <strong>Lawan Kata</strong> (Antonim).</li>
                     <li>Siswa dapat mengidentifikasi lawan kata dari kata-kata umum.</li>
                     <li>Siswa dapat menguji pemahaman melalui permainan interaktif.</li>
                 </ul>
-
-                <h4 class="fw-semibold mt-4">Petunjuk Penggunaan</h4>
-                 <ol class="fs-5">
-                    <li>Pilih menu <strong>"Materi Lawan Kata"</strong> untuk belajar.</li>
-                    <li>Pilih menu <strong>"Game Balap Mobil"</strong> untuk bermain.</li>
-                    <li>Di dalam game, pilih level kesulitan (berdasarkan jenis kata) untuk memulai.</li>
-                    <li>Jawab pertanyaan <strong>Lawan Kata</strong> dengan benar untuk memajukan pembalap.</li>
-                    <li>Gunakan tombol <strong>"Kembali"</strong> atau tombol <i class="fas fa-home" style="color: #1a237e; vertical-align: middle; font-size: 20px;"></i> untuk kembali ke menu utama.</li>
-                </ol>
-                
                 <hr class="my-4">
                 <div class="text-center">
                     <button class="btn btn-secondary btn-lg px-5 shadow hover-sound-btn" onclick="backToGameTypeMenu()">
@@ -798,9 +882,133 @@
                     </button>
                 </div>
             </div>
-          
         </div>
 
+        <div id="petunjukPage" class="content-page container">
+             <div class="card p-4 p-md-5 shadow-lg rounded-4 menu-card mx-auto">
+                <h2 class="text-center fw-bold text-warning mb-4">Petunjuk Penggunaan</h2>
+                <h4 class="fw-semibold mt-4">Petunjuk Penggunaan</h4>
+                 <ol class="fs-5">
+                    <li>Pilih menu <strong>"Materi Lawan Kata"</strong> untuk belajar.</li>
+                    <li>Pilih menu <strong>"Tujuan Pembelajaran"</strong> untuk melihat tujuan.</li>
+                    <li>Pilih menu <strong>"Belajar Mencocokkan"</strong> untuk latihan menarik garis (klik).</li>
+                    <li>Pilih menu <strong>"Melatih Ingatan"</strong> untuk bermain kartu memori.</li>
+                    <li>Pilih menu <strong>"Melengkapi Kalimat"</strong> untuk latihan menyusun kalimat.</li>
+                    <li>Pilih menu <strong>"Game Balap Mobil"</strong> untuk bermain game balapan.</li>
+                    <li>Gunakan tombol <strong>"Kembali"</strong> atau tombol <i class="fas fa-home" style="color: #1a237e; vertical-align: middle; font-size: 20px;"></i> untuk kembali ke menu utama.</li>
+                </ol>
+                <hr class="my-4">
+                <div class="text-center">
+                    <button class="btn btn-secondary btn-lg px-5 shadow hover-sound-btn" onclick="backToGameTypeMenu()">
+                        <i class="fas fa-arrow-left me-2"></i> Kembali
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mencocokkanPage" class="content-page container">
+             <div class="card p-4 p-md-5 shadow-lg rounded-4 menu-card mx-auto">
+                <h2 class="text-center fw-bold text-info mb-4">Belajar Mencocokkan</h2>
+                <p class="text-center fs-5 text-muted">Klik satu item di kiri, lalu klik pasangannya di kanan. Tekan "Cek" untuk melihat hasilnya.</p>
+                
+                <div class="matching-container">
+                    <div class="row justify-content-center g-3">
+                        <div class="col-md-5 col-12">
+                            <ul id="match-col-1" class="list-unstyled">
+                                </ul>
+                        </div>
+                        <div class="col-md-5 col-12">
+                            <ul id="match-col-2" class="list-unstyled">
+                                </ul>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4 d-flex gap-3 justify-content-center">
+                        <button id="checkMatchBtn" class="btn btn-primary btn-lg shadow hover-sound-btn">
+                            <i class="fas fa-check me-2"></i> Cek Pasangan
+                        </button>
+                        <button id="resetMatchBtn" class="btn btn-warning btn-lg shadow hover-sound-btn">
+                            <i class="fas fa-redo me-2"></i> Ulangi
+                        </button>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+                <div class="text-center">
+                    <button class="btn btn-secondary btn-lg px-5 shadow hover-sound-btn" onclick="backToGameTypeMenu()">
+                        <i class="fas fa-arrow-left me-2"></i> Kembali
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="ingatanPage" class="content-page container">
+             <div class="card p-4 p-md-5 shadow-lg rounded-4 menu-card mx-auto">
+                <h2 class="text-center fw-bold text-secondary mb-2">Melatih Ingatan</h2>
+                <p class="text-center fs-5 text-muted">Temukan 4 pasang gambar lawan kata!</p>
+                <p class="text-center fs-4 fw-bold">Langkah: <span id="memory-moves" class="text-primary">0</span></p>
+
+                <div id="memory-grid" class="my-4">
+                    </div>
+
+                <div class="text-center">
+                     <button id="resetMemoryBtn" class="btn btn-primary btn-lg shadow hover-sound-btn">
+                        <i class="fas fa-redo me-2"></i> Mulai Ulang
+                    </button>
+                </div>
+
+                <hr class="my-4">
+                <div class="text-center">
+                    <button class="btn btn-secondary btn-lg px-5 shadow hover-sound-btn" onclick="backToGameTypeMenu()">
+                        <i class="fas fa-arrow-left me-2"></i> Kembali
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="melengkapiPage" class="content-page container">
+             <div class="card p-4 p-md-5 shadow-lg rounded-4 menu-card mx-auto">
+                <h2 class="text-center fw-bold text-dark mb-4">Melengkapi Kalimat</h2>
+                <p class="text-center fs-5 text-muted">Tarik kata dari kotak di bawah ke tempat yang kosong.</p>
+                
+                <div id="fill-in-container" class="my-4">
+                    <div class="fill-in-sentence">
+                        Gajah itu 
+                        <span class="drop-zone" data-answer="besar"></span>
+                        , sedangkan semut itu 
+                        <span class="drop-zone" data-answer="kecil"></span>
+                        .
+                    </div>
+                    <div class="fill-in-sentence">
+                        Ular itu 
+                        <span class="drop-zone" data-answer="panjang"></span>
+                        , sedangkan ulat itu 
+                        <span class="drop-zone" data-answer="pendek"></span>
+                        .
+                    </div>
+                </div>
+
+                <div id="word-bank-container">
+                    <p class="text-center fs-5 fw-semibold">Pilihan Kata:</p>
+                    <div id="word-bank">
+                        <div class="draggable-word" draggable="true" data-word="kecil">Kecil</div>
+                        <div class="draggable-word" draggable="true" data-word="panjang">Panjang</div>
+                        <div class="draggable-word" draggable="true" data-word="besar">Besar</div>
+                        <div class="draggable-word" draggable="true" data-word="pendek">Pendek</div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                     <button id="resetFillInBtn" class="btn btn-primary btn-lg shadow hover-sound-btn">
+                        <i class="fas fa-redo me-2"></i> Ulangi
+                    </button>
+                </div>
+
+                <hr class="my-4">
+                <div class="text-center">
+                    <button class="btn btn-secondary btn-lg px-5 shadow hover-sound-btn" onclick="backToGameTypeMenu()">
+                        <i class="fas fa-arrow-left me-2"></i> Kembali
+                    </button>
+                </div>
+            </div>
+        </div>
         <div id="levelMenuWaktu" class="content-page container">
             <div class="card p-4 p-md-5 shadow-lg rounded-4 menu-card mx-auto text-center" style="max-width: 600px;">
                 <h2 class="fw-bold text-success mb-2">Balap Mobil: Lawan Kata</h2>
@@ -839,7 +1047,6 @@
                 </div>
                 <div class="score-indicator">Posisi: <span class="score-value">0/5</span></div>
             </div>
-
             <div class="center-section balap-mobil-center">
                 <h1>Balap Mobil Lawan Kata</h1>
                 <div id="centralQuestionBox" class="question-box text-center mb-3 fs-4" style="--player-color: #333; --player-color-dark: #222; min-height: 80px; width: 100%; max-width: 600px; font-size: clamp(1rem, 2.5vw, 1.75rem); letter-spacing: 1px;">
@@ -848,12 +1055,10 @@
                 <div class="game-field balap-mobil-field">
                     <div class="race-track">
                         <img src="https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinTrack.png" alt="Track" class="track-image">
-                        
                         <div class="racer-container left-racer">
                             <img src="https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinCar1.png" alt="Pemain Kiri" class="racer-image stand">
                             <img src="https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinCar1Jalan.png" alt="Pemain Kiri Hop" class="racer-image hop" style="display: none;">
                         </div>
-                        
                         <div class="racer-container right-racer">
                             <img src="https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinCar2.png" alt="Pemain Kanan" class="racer-image stand">
                             <img src="https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinCar2Jalan.png" alt="Pemain Kanan Hop" class="racer-image hop" style="display: none;">
@@ -862,7 +1067,6 @@
                 </div>
                 <p class="instruction">Pilih **Lawan Kata** yang tepat untuk melaju sampai garis finish!</p>
             </div>
-
             <div class="player-section right-player">
                 <div class="answer-options d-grid gap-2">
                     <button class="btn btn-light btn-lg option-btn shadow-sm hover-sound-btn" onclick="handleAnswer('right', 0)">...</button>
@@ -901,31 +1105,32 @@
             <div id="countdownNumber" class="countdown-number">3</div>
             <div id="countdownText" class="countdown-text">Bersiap...</div>
         </div>
-        
     </div>
 
     <div class="copyright-footer">
-        <p><i class="fas fa-copyright"></i> IWayanYogi 2025</p>
+        <p><i class="fas fa-copyright"></i> Direktorat Sekolah Dasar Kemendikdasmen 2025</p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <script>
+// Fungsi shuffle array
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
 const RACE_LENGTH = 5;
 
 const gameState = {
-    leftPlayer: {
-        score: 0,
-        racePosition: 0,
-    },
-    rightPlayer: {
-        score: 0,
-        racePosition: 0,
-    },
+    leftPlayer: { score: 0, racePosition: 0 },
+    rightPlayer: { score: 0, racePosition: 0 },
     currentGameType: 'balap-mobil',
-    currentMode: 'antonim', // Diubah dari 'waktu' ke 'antonim'
-    currentLevel: 'antonim_umum', // Diubah dari 'waktu_beginner' ke 'antonim_umum'
-
+    currentMode: 'antonim',
+    currentLevel: 'antonim_umum',
     currentQuestionData: {
         question: "Memuat...",
         options: ["...", "...", "...", "..."],
@@ -934,7 +1139,6 @@ const gameState = {
     gameCooldown: false
 };
 
-// --- DATA SOAL ANTONIM (Kelas 1-2 SD) ---
 const ANTONIM_DATA = {
     antonim_umum: [
         { word: 'Besar', antonym: 'Kecil', distractors: ['Lebar', 'Panjang', 'Tinggi'] },
@@ -962,46 +1166,69 @@ const ANTONIM_DATA = {
     ]
 };
 
-// --- AUDIO MATERI (PERBAIKAN: URL dan Nama File DIBENARKAN) ---
-        // Jalur dan nama file ini sudah disesuaikan dengan screenshot GitHub Anda
-        const audioBesarKecil = new Audio('aset%20suara%20MPI%202/besarkecil.mp3');
-        const audioPanjangPendek = new Audio('aset%20suara%20MPI%202/panjangpendek.mp3');
-        const audioSenangSedih = new Audio('aset%20suara%20MPI%202/senangsedih.mp3');
-        const audioTidurBangun = new Audio('aset%20suara%20MPI%202/tidurbangun.mp3');
-        const audioBukaTutup = new Audio('aset%20suara%20MPI%202/bukatutup.mp3');
+const IMAGE_ASSETS = {
+    'besar': 'aset%20MPI%202/1.png',
+    'kecil': 'aset%20MPI%202/2.png',
+    'tidur': 'aset%20MPI%202/3.png',
+    'bangun': 'aset%20MPI%202/4.png',
+    'senang': 'aset%20MPI%202/5.png',
+    'sedih': 'aset%20MPI%202/6.png',
+    'buka': 'aset%20MPI%202/7.png',
+    'tutup': 'aset%20MPI%202/8.png',
+    'panjang': 'aset%20MPI%202/9.png',
+    'pendek': 'aset%20MPI%202/10.png',
+	'bersih': 'aset%20MPI%202/15.png',
+    'kotor': 'aset%20MPI%202/16.png',
+    'gelap': 'aset%20MPI%202/17.png',
+    'terang': 'aset%20MPI%202/18.png',
+	'naik': 'aset%20MPI%202/11.png',
+    'turun': 'aset%20MPI%202/12.png',
+    'duduk': 'aset%20MPI%202/13.png',
+    'berdiri': 'aset%20MPI%202/14.png',
+	'panas': 'aset%20MPI%202/19.png',
+    'dingin': 'aset%20MPI%202/20.png',
+    'kiri': 'aset%20MPI%202/21.png',
+    'kanan': 'aset%20MPI%202/22.png',
+	'cepat': 'aset%20MPI%202/23.png',
+    'lambat': 'aset%20MPI%202/24.png',
+	'tebal': 'aset%20MPI%202/25.png',
+    'tipis': 'aset%20MPI%202/26.png',
+	'tinggi': 'aset%20MPI%202/27.png',
+    'rendah': 'aset%20MPI%202/28.png',
+	'basah': 'aset%20MPI%202/29.png',
+    'kering': 'aset%20MPI%202/30.png',
+};
 
-// Fungsi pemutar audio materi
-function playMateriAudio(audioElement) {
-    audioElement.volume = 1.0; 
-    audioElement.currentTime = 0;
-    audioElement.play().catch(error => {
-        console.log("Materi Audio play failed:", error.message);
-    });
-}
-// --- AKHIR AUDIO MATERI ---
-
-// --- AUDIO UTAMA (Tidak Diubah) ---
+const audioBesarKecil = new Audio('aset%20suara%20MPI%202/besarkecil.mp3');
+const audioPanjangPendek = new Audio('aset%20suara%20MPI%202/panjangpendek.mp3');
+const audioSenangSedih = new Audio('aset%20suara%20MPI%202/senangsedih.mp3');
+const audioTidurBangun = new Audio('aset%20suara%20MPI%202/tidurbangun.mp3');
+const audioBukaTutup = new Audio('aset%20suara%20MPI%202/bukatutup.mp3');
 const audioCorrect = new Audio('https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinCarBenar.mp3');
 const audioWrong = new Audio('https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinCarSalah.mp3');
 const audioMove = new Audio('https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinCar.mp3');
 const audioWin = new Audio('https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinWinner.mp3');
 const audioStart = new Audio('https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinStart.mp3');
 const audioHover = new Audio('https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinKlik.mp3');
+const audioFlip = new Audio('https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinKlik.mp3'); 
+const audioMatch = new Audio('https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinCarBenar.mp3'); 
 
-function playSound(audioElement) {
-    audioElement.volume = 0.7; 
+function playMateriAudio(audioElement) {
+    audioElement.volume = 1.0; 
     audioElement.currentTime = 0;
-    audioElement.play().catch(error => {
-        console.log("Audio play failed (will retry on next user interaction):", error.message);
-    });
+    audioElement.play().catch(error => console.log("Materi Audio play failed:", error.message));
+}
+
+function playSound(audioElement, volume = 0.7) {
+    audioElement.volume = volume; 
+    audioElement.currentTime = 0;
+    audioElement.play().catch(error => console.log("Audio play failed:", error.message));
 }
 
 function playHoverSound() {
-    audioHover.volume = 0.3;
-    playSound(audioHover);
+    playSound(audioHover, 0.3);
 }
 
-// --- FUNGSI NAVIGASI (Tidak ada perubahan signifikan) ---
 const allPages = document.querySelectorAll('.content-page, .game-container');
 
 function showPage(pageId) {
@@ -1016,11 +1243,13 @@ function showPage(pageId) {
         } else {
             pageToShow.style.display = 'block';
             
+            // Atur .page-container untuk scroll di halaman konten
             const pageContainer = document.querySelector('.page-container');
             if (pageContainer) {
-                pageContainer.style.display = 'flex';
-                pageContainer.style.alignItems = 'center';
-                pageContainer.style.justifyContent = 'center';
+                pageContainer.style.display = 'block'; // Ubah ke block agar bisa scroll
+                pageContainer.style.alignItems = ''; // Hapus align-items
+                pageContainer.style.justifyContent = ''; // Hapus justify-content
+                pageContainer.scrollTop = 0; // Scroll ke atas setiap pindah halaman
             }
         }
     }
@@ -1033,30 +1262,47 @@ function showPage(pageId) {
         if (homeBtn) homeBtn.style.display = 'none';
         if (fullscreenBtn) fullscreenBtn.style.display = 'flex';
         if (profileBtn) profileBtn.style.display = 'flex';
+        
+        // (Perbaikan 2) Kembalikan centering untuk menu utama
+                 if (pageContainer) {
+            pageContainer.style.display = 'flex';
+            pageContainer.style.alignItems = 'center';
+            pageContainer.style.justifyContent = 'center';
+         }
+
     } else {
         if (homeBtn) homeBtn.style.display = 'flex';
         if (fullscreenBtn) fullscreenBtn.style.display = 'flex';
         if (profileBtn) profileBtn.style.display = 'flex';
     }
 
-    /* --- TAMBAHAN SCRIPT UNTUK FOOTER --- */
     const footer = document.querySelector('.copyright-footer');
     if (footer) {
         if (pageId === 'gameScreenBalapmobil') {
-            footer.style.display = 'none'; // Sembunyikan footer di layar game
+            footer.style.display = 'none';
         } else {
-            footer.style.display = 'block'; // Tampilkan footer di halaman lain
+            footer.style.display = 'block';
         }
     }
-    /* --- AKHIR TAMBAHAN SCRIPT --- */
 }
 
 function selectGameType(gameType) {
     gameState.currentGameType = gameType;
-    if (gameType === 'materi-antonim') { // Diubah dari 'materi-waktu'
-        showPage('materiWaktu'); // ID halaman tetap sama, konten sudah diubah di HTML
-    } else if (gameType === 'tujuan-petunjuk') {
-        showPage('tujuanPetunjuk');
+    if (gameType === 'materi-antonim') {
+        showPage('materiWaktu');
+    } else if (gameType === 'tujuan') {
+        showPage('tujuanPage');
+    } else if (gameType === 'petunjuk') {
+        showPage('petunjukPage');
+    } else if (gameType === 'mencocokkan') {
+        showPage('mencocokkanPage');
+        initMatchingGame();
+    } else if (gameType === 'ingatan') {
+        showPage('ingatanPage');
+        initMemoryGame();
+    } else if (gameType === 'melengkapi') {
+        showPage('melengkapiPage');
+        initFillInGame();
     } else if (gameType === 'balap-mobil') {
         showPage('levelMenuWaktu');
     }
@@ -1066,26 +1312,368 @@ function backToGameTypeMenu() {
     showPage('gameTypeMenu');
 }
 
-// --- LOGIKA GAME (Perubahan minor di handleAnswer, Perubahan besar di generateQuestion) ---
+let selectedCol1 = {};
+let selectedCol2 = {};
+let correctMatches = 0;
+const totalMatches = 4;
+
+function initMatchingGame() {
+    selectedCol1 = {};
+    selectedCol2 = {};
+	correctMatches = 0;
+    
+    const col1 = document.getElementById('match-col-1');
+    const col2 = document.getElementById('match-col-2');
+    const checkBtn = document.getElementById('checkMatchBtn');
+    
+    // Data Pasangan Gambar-Gambar
+    // Kiri: Kata Kunci, Kanan: Antonim
+    const pairs = [
+        { id: 1, imgLeft: IMAGE_ASSETS.besar, imgRight: IMAGE_ASSETS.kecil },
+        { id: 2, imgLeft: IMAGE_ASSETS.bersih, imgRight: IMAGE_ASSETS.kotor },
+        { id: 3, imgLeft: IMAGE_ASSETS.senang, imgRight: IMAGE_ASSETS.sedih },
+        { id: 4, imgLeft: IMAGE_ASSETS.gelap, imgRight: IMAGE_ASSETS.terang }
+    ];
+
+    const itemsLeft = shuffleArray(pairs.map(p => ({ id: p.id, img: p.imgLeft })));
+	const itemsRight = shuffleArray(pairs.map(p => ({ id: p.id, img: p.imgRight })));
+
+    col1.innerHTML = '';
+    col2.innerHTML = '';
+
+    // Isi Kolom KIRI dengan Gambar
+    itemsLeft.forEach(item => {
+        col1.innerHTML += `<li class="match-item" data-id="${item.id}">
+                            <img src="${item.img}" alt="Gambar Kiri">
+                            <span style="display:none;">Left</span>
+                           </li>`;
+    });
+
+    // Isi Kolom KANAN dengan Gambar (Bukan Kata)
+    itemsRight.forEach(item => {
+        col2.innerHTML += `<li class="match-item" data-id="${item.id}">
+                            <img src="${item.img}" alt="Gambar Kanan">
+                            <span style="display:none;">Right</span>
+                           </li>`;
+    });
+
+    // Hapus kelas 'correct' dan 'selected' dari semua item lama
+    document.querySelectorAll('.match-item').forEach(item => {
+        item.classList.remove('selected', 'correct', 'wrong');
+        // Hapus listener lama jika ada (untuk jaga-jaga)
+        item.removeEventListener('click', item.currentListener);
+    });
+
+    // Pasang Event Listeners Baru
+    col1.querySelectorAll('.match-item').forEach(item => {
+        item.currentListener = () => selectItem(item, 1);
+        item.addEventListener('click', item.currentListener);
+    });
+    col2.querySelectorAll('.match-item').forEach(item => {
+        item.currentListener = () => selectItem(item, 2);
+        item.addEventListener('click', item.currentListener);
+    });
+
+    checkBtn.style.display = 'block';
+    checkBtn.onclick = checkFinalMatch; // Ganti nama fungsi ke checkFinalMatch
+    document.getElementById('resetMatchBtn').onclick = initMatchingGame;
+}
+// Ganti seluruh fungsi selectItem yang sudah ada
+function selectItem(item, col) {
+    // Abaikan jika sudah benar (sudah diklik pada cek akhir)
+    if (item.classList.contains('correct')) return;
+
+    const itemIndex = item.dataset.index;
+    
+    if (col === 1) {
+        // Jika item ini sudah dipilih, batalkan pilihan
+        if (item.classList.contains('selected')) {
+            item.classList.remove('selected');
+            delete selectedCol1[itemIndex];
+        } else {
+            // Pilih item ini
+            item.classList.add('selected');
+            selectedCol1[itemIndex] = item;
+        }
+    } else { // Kolom 2
+        // Jika item ini sudah dipilih, batalkan pilihan
+        if (item.classList.contains('selected')) {
+            item.classList.remove('selected');
+            delete selectedCol2[itemIndex];
+        } else {
+            // Pilih item ini
+            item.classList.add('selected');
+            selectedCol2[itemIndex] = item;
+        }
+    }
+}
+
+// Hapus fungsi checkMatch lama, dan gunakan fungsi ini:
+function checkFinalMatch() {
+    const col1Items = document.querySelectorAll('#match-col-1 .match-item');
+    const col2Items = document.querySelectorAll('#match-col-2 .match-item');
+    let totalSelections = Object.keys(selectedCol1).length;
+    let correctCount = 0;
+    
+    if (totalSelections !== totalMatches) {
+        alert(`Anda harus mencocokkan ${totalMatches} pasangan. Saat ini Anda baru memilih ${totalSelections} item di kolom kiri.`);
+        return;
+    }
+
+    // 1. Reset visual dan hitung kecocokan
+    col1Items.forEach(item1 => {
+        item1.classList.remove('selected', 'correct', 'wrong');
+        const index1 = item1.dataset.index;
+        
+        // Cek apakah item ini memiliki pasangan yang dipilih di kolom 2 (berdasarkan index)
+        const item2 = selectedCol2[index1];
+        
+        if (item2) {
+            item2.classList.remove('selected', 'correct', 'wrong');
+            
+            // Periksa Kecocokan ID Pasangan (Logika Penting)
+            if (item1.dataset.pairId === item2.dataset.pairId) {
+                correctCount++;
+                item1.classList.add('correct');
+                item2.classList.add('correct');
+            } else {
+                item1.classList.add('wrong');
+                item2.classList.add('wrong');
+            }
+        } else {
+            // Jika item di col1 dipilih, tetapi tidak ada pasangannya yang dipilih di col2 (kasus ini seharusnya jarang terjadi jika user benar-benar memilih 4 pasang)
+            item1.classList.add('wrong');
+        }
+    });
+
+    // 2. Beri Feedback
+    if (correctCount === totalMatches) {
+        playSound(audioWin);
+        alert(`🎉 Selamat! Semua ${totalMatches} pasangan kamu benar! Kerja Bagus!`);
+        document.getElementById('checkMatchBtn').style.display = 'none';
+    } else {
+        playSound(audioWrong);
+        let salahCount = totalMatches - correctCount;
+        alert(`❌ Hasilmu: ${correctCount} Benar dan ${salahCount} Salah. Jangan menyerah, coba lagi!`);
+        
+        // Hapus penanda salah setelah 1.5 detik
+        setTimeout(() => {
+            col1Items.forEach(item => {
+                if(item.classList.contains('wrong')) item.classList.remove('wrong');
+            });
+            col2Items.forEach(item => {
+                if(item.classList.contains('wrong')) item.classList.remove('wrong');
+            });
+        }, 1500);
+    }
+    
+    // Reset data pilihan setelah pemeriksaan
+    selectedCol1 = {};
+    selectedCol2 = {};
+}
+
+
+let memoryCards = [];
+let flippedCards = [];
+let lockBoard = false;
+let memoryMoves = 0;
+
+function initMemoryGame() {
+    const grid = document.getElementById('memory-grid');
+    grid.innerHTML = '';
+    memoryMoves = 0;
+    document.getElementById('memory-moves').textContent = memoryMoves;
+    flippedCards = [];
+    lockBoard = false;
+
+    const pairs = [
+        { id: 1, img: IMAGE_ASSETS.besar },
+        { id: 1, img: IMAGE_ASSETS.kecil },
+        { id: 2, img: IMAGE_ASSETS.panjang },
+        { id: 2, img: IMAGE_ASSETS.pendek },
+        { id: 3, img: IMAGE_ASSETS.senang },
+        { id: 3, img: IMAGE_ASSETS.sedih },
+        { id: 4, img: IMAGE_ASSETS.tidur },
+        { id: 4, img: IMAGE_ASSETS.bangun }
+    ];
+
+    memoryCards = shuffleArray([...pairs]);
+
+    memoryCards.forEach((card, index) => {
+        const cardElement = document.createElement('button');
+        cardElement.classList.add('memory-card');
+        cardElement.dataset.id = card.id;
+        cardElement.dataset.index = index;
+
+        cardElement.innerHTML = `
+            <div class="card-inner">
+                <div class="card-front">
+                    <i class="fas fa-question"></i>
+                </div>
+                <div class="card-back">
+                    <img src="${card.img}" alt="Gambar Kartu">
+                </div>
+            </div>
+        `;
+        grid.appendChild(cardElement);
+        cardElement.addEventListener('click', flipCard);
+    });
+
+    document.getElementById('resetMemoryBtn').onclick = initMemoryGame;
+}
+
+function flipCard() {
+    if (lockBoard) return;
+    if (this === flippedCards[0]) return; 
+
+    playSound(audioFlip, 0.5);
+    this.classList.add('flipped');
+
+    if (flippedCards.length === 0) {
+        flippedCards[0] = this;
+        return;
+    }
+
+    flippedCards[1] = this;
+    memoryMoves++;
+    document.getElementById('memory-moves').textContent = memoryMoves;
+    lockBoard = true;
+
+    checkForMemoryMatch();
+}
+
+function checkForMemoryMatch() {
+    let isMatch = flippedCards[0].dataset.id === flippedCards[1].dataset.id;
+    isMatch ? disableCards() : unflipCards();
+}
+
+function disableCards() {
+    playSound(audioMatch);
+    flippedCards[0].classList.add('matched');
+    flippedCards[1].classList.add('matched');
+    resetBoard();
+    
+        if (document.querySelectorAll('.memory-card.matched').length === memoryCards.length) {
+        setTimeout(() => alert(`Kamu Menang dengan ${memoryMoves} langkah!`), 500);
+    }
+}
+
+function unflipCards() {
+    playSound(audioWrong);
+    setTimeout(() => {
+        flippedCards[0].classList.remove('flipped');
+        flippedCards[1].classList.remove('flipped');
+        resetBoard();
+    }, 1200);
+}
+
+function resetBoard() {
+    [flippedCards, lockBoard] = [[], false];
+}
+
+let draggedWord = null;
+
+function initFillInGame() {
+    const draggables = document.querySelectorAll('.draggable-word');
+    const dropZones = document.querySelectorAll('.drop-zone');
+    
+    // Reset
+    draggables.forEach(word => {
+        word.classList.remove('used');
+        word.draggable = true;
+    });
+    dropZones.forEach(zone => {
+        zone.innerHTML = '';
+        zone.classList.remove('correct', 'wrong');
+        zone.dataset.filled = "false";
+    });
+
+    draggables.forEach(word => {
+        word.addEventListener('dragstart', dragStart);
+        word.addEventListener('dragend', dragEnd);
+    });
+
+    dropZones.forEach(zone => {
+        zone.addEventListener('dragover', dragOver);
+        zone.addEventListener('dragenter', dragEnter);
+        zone.addEventListener('dragleave', dragLeave);
+        zone.addEventListener('drop', drop);
+    });
+
+    document.getElementById('resetFillInBtn').onclick = initFillInGame;
+}
+
+function dragStart(e) {
+    if (e.target.classList.contains('used')) return;
+    draggedWord = e.target;
+    e.dataTransfer.setData('text', e.target.dataset.word);
+    setTimeout(() => e.target.style.opacity = '0.5', 0);
+}
+
+function dragEnd(e) {
+    e.target.style.opacity = '1';
+    draggedWord = null;
+}
+
+function dragOver(e) {
+    e.preventDefault();
+}
+
+function dragEnter(e) {
+    e.preventDefault();
+    if (e.target.classList.contains('drop-zone') && e.target.dataset.filled === "false") {
+        e.target.classList.add('over');
+    }
+}
+
+function dragLeave(e) {
+    if (e.target.classList.contains('drop-zone')) {
+        e.target.classList.remove('over');
+    }
+}
+
+function drop(e) {
+    e.preventDefault();
+    const zone = e.target;
+    if (zone.classList.contains('drop-zone') && zone.dataset.filled === "false") {
+        zone.classList.remove('over');
+        
+        const droppedWord = e.dataTransfer.getData('text');
+        
+        if (droppedWord === zone.dataset.answer) {
+            // Jawaban Benar
+            playSound(audioMatch);
+            zone.innerHTML = `<strong>${droppedWord}</strong>`;
+            zone.classList.add('correct');
+            zone.dataset.filled = "true";
+            draggedWord.classList.add('used');
+            draggedWord.draggable = false;
+        } else {
+            // Jawaban Salah
+            playSound(audioWrong);
+            zone.classList.add('wrong');
+            zone.innerHTML = `<strong>${droppedWord}</strong>`;
+            setTimeout(() => {
+                zone.classList.remove('wrong');
+                zone.innerHTML = '';
+            }, 1000);
+        }
+    }
+}
+
+
 function handleAnswer(player, selectedIndex) {
     if (gameState.gameCooldown) return;
-
     gameState.gameCooldown = true;
-
     const isCorrect = (selectedIndex === gameState.currentQuestionData.correctAnswerIndex);
     const playerButtons = document.querySelectorAll(`#gameScreenBalapmobil .${player}-player .option-btn`);
-
     document.querySelectorAll('#gameScreenBalapmobil .option-btn').forEach(btn => btn.disabled = true);
 
     if (isCorrect) {
         playSound(audioCorrect);
         playerButtons[selectedIndex].classList.add('correct');
-        
-        if (player === 'left') {
-            gameState.leftPlayer.racePosition++;
-        } else {
-            gameState.rightPlayer.racePosition++;
-        }
+        if (player === 'left') gameState.leftPlayer.racePosition++;
+        else gameState.rightPlayer.racePosition++;
         updateRacerPosition(player);
         updateScoreDisplay(player);
         
@@ -1097,19 +1685,15 @@ function handleAnswer(player, selectedIndex) {
             setTimeout(() => showWinnerModal('Pemain Kanan', 'Selamat! Kamu berhasil mencapai garis finish!'), 600);
             return;
         }
-
         setTimeout(generateNewQuestion, 600);
-
     } else {
         playSound(audioWrong);
         playerButtons[selectedIndex].classList.add('wrong');
         playerButtons[gameState.currentQuestionData.correctAnswerIndex].classList.add('correct');
-
         const racerClass = player === 'left' ? '.left-racer' : '.right-racer';
         const racerContainer = document.querySelector(`#gameScreenBalapmobil ${racerClass}`);
         racerContainer.classList.add('shaking');
         setTimeout(() => racerContainer.classList.remove('shaking'), 500);
-
         setTimeout(generateNewQuestion, 1500);
     }
 }
@@ -1117,30 +1701,21 @@ function handleAnswer(player, selectedIndex) {
 function updateScoreDisplay(player) {
     const gameScreen = '#gameScreenBalapmobil';
     const scoreElement = document.querySelector(`${gameScreen} .${player}-player .score-value`);
-    
     if (scoreElement) {
-        const score = player === 'left' ? 
-            gameState.leftPlayer.racePosition : 
-            gameState.rightPlayer.racePosition;
+        const score = player === 'left' ? gameState.leftPlayer.racePosition : gameState.rightPlayer.racePosition;
         scoreElement.textContent = `${score}/${RACE_LENGTH}`;
     }
 }
 
 function updateRacerPosition(player) {
     playSound(audioMove);
-    
     const racerClass = player === 'left' ? '.left-racer' : '.right-racer';
     const racerContainer = document.querySelector(`#gameScreenBalapmobil ${racerClass}`);
     const standImage = racerContainer.querySelector('.stand');
     const hopImage = racerContainer.querySelector('.hop');
-    
     const raceTrack = document.querySelector('#gameScreenBalapmobil .race-track');
     const trackWidth = raceTrack ? raceTrack.offsetWidth : 900;
-    
-    const racePosition = player === 'left' ? 
-        gameState.leftPlayer.racePosition : 
-        gameState.rightPlayer.racePosition;
-    
+    const racePosition = player === 'left' ? gameState.leftPlayer.racePosition : gameState.rightPlayer.racePosition;
     const TOTAL_HOPS = RACE_LENGTH;
     let START_PIXEL, FINISH_PIXEL, HOP_DISTANCE;
     
@@ -1170,35 +1745,28 @@ function updateRacerPosition(player) {
 }
 
 let confettiInterval = null;
-
 function createConfetti() {
     const duration = 3000;
     const animationEnd = Date.now() + duration;
-    
     const icons = [
         { icon: 'fa-car-side', color: '#1a237e' },
         { icon: 'fa-flag-checkered', color: '#333333' },
         { icon: 'fa-car-side', color: '#b71c1c' },
         { icon: 'fa-flag-checkered', color: '#FFFFFF' }
     ];
-    
     function randomInRange(min, max) { return Math.random() * (max - min) + min; }
-    
     confettiInterval = setInterval(function() {
         if (Date.now() > animationEnd) {
              clearInterval(confettiInterval);
              confettiInterval = null;
              return;
         }
-
         for (let i = 0; i < 3; i++) {
             const confetti = document.createElement('div');
             confetti.className = 'confetti';
-            
             const iconData = icons[Math.floor(Math.random() * icons.length)];
             confetti.innerHTML = `<i class="fas ${iconData.icon}"></i>`;
             confetti.style.color = iconData.color;
-
             confetti.style.left = randomInRange(0, 100) + '%';
             confetti.style.animationDuration = randomInRange(2, 4) + 's';
             document.body.appendChild(confetti);
@@ -1209,15 +1777,11 @@ function createConfetti() {
 
 function showWinnerModal(winner, message) {
     playSound(audioWin);
-    
     createConfetti();
     const modal = document.getElementById('winnerModal');
-    
     document.getElementById('winnerText').innerHTML = `<i class="fas fa-car-side me-2" style="color: ${winner === 'Pemain Kiri' ? '#667eea' : '#f44336'}"></i><span>${winner} Menang!</span><i class="fas fa-flag-checkered ms-2"></i>`;
-    
     document.getElementById('winnerMessage').textContent = message;
     modal.style.display = 'flex';
-    
     document.getElementById('homeBtn').style.display = 'none';
     document.getElementById('fullscreenBtn').style.display = 'none';
     document.getElementById('profileBtn').style.display = 'none';
@@ -1225,61 +1789,31 @@ function showWinnerModal(winner, message) {
 
 function closeModal() {
     document.getElementById('winnerModal').style.display = 'none';
-
     document.getElementById('homeBtn').style.display = 'flex';
     document.getElementById('fullscreenBtn').style.display = 'flex';
     document.getElementById('profileBtn').style.display = 'flex';
-    
     if (confettiInterval) {
         clearInterval(confettiInterval);
         confettiInterval = null;
     }
     document.querySelectorAll('.confetti').forEach(c => c.remove());
-    
     showCountdown();
 }
 
-/**
- * FUNGSI BARU: Menggantikan generateTimeQuestion()
- * Menghasilkan soal Lawan Kata (Antonim).
- */
 function generateAntonimQuestion() {
     const dataSet = ANTONIM_DATA[gameState.currentLevel];
     if (!dataSet || dataSet.length === 0) {
-        return {
-            question: "Data soal tidak ditemukan!",
-            options: ["Eror", "Eror", "Eror", "Eror"],
-            correctAnswerIndex: 0
-        };
+        return { question: "Data soal tidak ditemukan!", options: ["Eror", "Eror", "Eror", "Eror"], correctAnswerIndex: 0 };
     }
-    
-    // Pilih soal secara acak
     const questionIndex = Math.floor(Math.random() * dataSet.length);
     const questionData = dataSet[questionIndex];
-    
     const questionWord = questionData.word;
     const correctAnswer = questionData.antonym;
     const distractors = questionData.distractors;
-    
-    // Pastikan distractors mencukupi (minimal 3)
     let options = [correctAnswer, ...distractors];
-    
-    // Ambil hanya 4 opsi pertama
     options = options.slice(0, 4);
-
-    // Fungsi untuk mengacak array
-    const shuffleArray = (array) => {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    };
-    
     const shuffledOptions = shuffleArray(options);
-    
     const correctAnswerIndex = shuffledOptions.findIndex(opt => opt === correctAnswer);
-
     return {
         question: `Lawan Kata dari **${questionWord}** adalah...`,
         options: shuffledOptions,
@@ -1287,26 +1821,20 @@ function generateAntonimQuestion() {
     };
 }
 
-
 function generateNewQuestion() {
-    // Panggil fungsi pembuatan soal yang baru
     const newQuestionData = generateAntonimQuestion();
     gameState.currentQuestionData = newQuestionData;
-    
     const centralQuestionBox = document.getElementById('centralQuestionBox');
     if(centralQuestionBox) {
-        centralQuestionBox.innerHTML = newQuestionData.question; // Menggunakan innerHTML karena ada tag <strong>
+        centralQuestionBox.innerHTML = newQuestionData.question;
     }
-
     const allButtons = document.querySelectorAll('#gameScreenBalapmobil .option-btn');
     allButtons.forEach((btn, index) => {
         const optionIndex = index % 4; 
         btn.textContent = newQuestionData.options[optionIndex];
-        
         btn.classList.remove('correct', 'wrong');
         btn.disabled = false;
     });
-
     gameState.gameCooldown = false;
 }
 
@@ -1314,45 +1842,36 @@ function resetGame() {
     gameState.leftPlayer = { ...gameState.leftPlayer, score: 0, racePosition: 0 };
     gameState.rightPlayer = { ...gameState.rightPlayer, score: 0, racePosition: 0 };
     gameState.gameCooldown = true;
-
     recalculateRacerPositions(); 
-    
     document.querySelectorAll('.racer-container').forEach(container => {
         container.querySelector('.stand').style.display = 'block';
         container.querySelector('.hop').style.display = 'none';
         container.classList.remove('hopping', 'shaking');
     });
-
     updateScoreDisplay('left');
     updateScoreDisplay('right');
-    
     generateNewQuestion();
 }
 
 function selectLevel(level) {
     gameState.currentLevel = level;
-    gameState.currentMode = 'antonim'; // Pastikan mode diatur ke 'antonim'
+    gameState.currentMode = 'antonim';
     showCountdown();
 }
 
 function showCountdown() {
     const overlay = document.getElementById('countdownOverlay');
-    
     document.getElementById('homeBtn').style.display = 'none';
     document.getElementById('fullscreenBtn').style.display = 'none';
     document.getElementById('profileBtn').style.display = 'none';
-
     overlay.classList.add('show');
-    
     playSound(audioStart);
-
     const sequence = [
         { number: '3', text: 'Bersiap...' },
         { number: '2', text: 'Konsentrasi...' },
         { number: '1', text: 'Fokus...' },
         { number: 'Mulai!', text: 'Ayooo Kamu Bisa!!!...', isStart: true }
     ];
-    
     function updateCountdown(index) {
         if (index >= sequence.length) {
             setTimeout(() => {
@@ -1366,16 +1885,13 @@ function showCountdown() {
         const textEl = document.getElementById('countdownText');
         numberEl.textContent = current.number;
         textEl.textContent = current.text;
-        
         if (current.isStart) { 
             numberEl.classList.add('start'); 
             textEl.classList.add('start'); 
-        } 
-        else { 
+        } else { 
             numberEl.classList.remove('start'); 
             textEl.classList.remove('start'); 
         }
-
         numberEl.style.animation = 'none'; textEl.style.animation = 'none';
         void numberEl.offsetHeight;
         numberEl.style.animation = ''; textEl.style.animation = '';
@@ -1388,9 +1904,7 @@ function startGame() {
     document.getElementById('homeBtn').style.display = 'flex';
     document.getElementById('fullscreenBtn').style.display = 'flex';
     document.getElementById('profileBtn').style.display = 'flex';
-    
     showPage('gameScreenBalapmobil');
-    
     resetGame();
 }
 
@@ -1426,10 +1940,8 @@ document.addEventListener('MSFullscreenChange', handleFullscreenChange);
 function recalculateRacerPositions() {
     const raceTrack = document.querySelector('#gameScreenBalapmobil .race-track');
     if (!raceTrack || raceTrack.offsetWidth === 0) return; 
-    
     const trackWidth = raceTrack.offsetWidth;
     const TOTAL_HOPS = RACE_LENGTH;
-
     const leftRacer = document.querySelector('#gameScreenBalapmobil .left-racer');
     if (leftRacer) {
         const START_LEFT = trackWidth * 0.035;
@@ -1439,7 +1951,6 @@ function recalculateRacerPositions() {
         leftRacer.style.left = `${leftPosition}px`;
         leftRacer.style.transform = 'scale(1)';
     }
-    
     const rightRacer = document.querySelector('#gameScreenBalapmobil .right-racer');
     if (rightRacer) {
         const START_RIGHT = trackWidth * 0.065;
@@ -1468,25 +1979,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-
 function showProfileModal() {
     const modal = document.getElementById('profileModal');
-    if (modal) {
-        modal.style.display = 'flex';
-    }
+    if (modal) modal.style.display = 'flex';
 }
 
 function closeProfileModal() {
     const modal = document.getElementById('profileModal');
-    if (modal) {
-        modal.style.display = 'none';
-    }
+    if (modal) modal.style.display = 'none';
 }
 
-
+// Inisialisasi Awal
 backToGameTypeMenu();
 
     </script>
 </body>
-
 </html>
