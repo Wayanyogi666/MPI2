@@ -544,16 +544,6 @@
         color: white;
         border-color: #b02a37;
     }
-
-    /* --- 2. Game Ingatan (Memory Game) --- */
-    #memory-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
-        max-width: 600px;
-        margin: 0 auto;
-        perspective: 1000px;
-    }
     .memory-card {
         background-color: transparent;
         width: 100%;
@@ -946,8 +936,8 @@
                 <p class="text-center fs-5 text-muted">Temukan 4 pasang gambar lawan kata!</p>
                 <p class="text-center fs-4 fw-bold">Langkah: <span id="memory-moves" class="text-primary">0</span></p>
 
-                <div id="memory-grid" class="my-4">
-                    </div>
+                <div id="memory-grid" class="row g-2 g-md-3 my-4" style="max-width: 600px; margin-left: auto; margin-right: auto; perspective: 1000px;">
+				</div>
 
                 <div class="text-center">
                      <button id="resetMemoryBtn" class="btn btn-primary btn-lg shadow hover-sound-btn">
@@ -1100,6 +1090,19 @@
         </div>
     </div>
 
+    <div id="memoryGameResultModal" class="modal">
+        <div class="modal-content">
+            <h2 id="memoryGameResultTitle"><i class="fas fa-trophy" style="color: #ffd700;"></i> Hebat! <i class="fas fa-trophy" style="color: #ffd700;"></i></h2>
+            <p id="memoryGameResultMessage" style="font-size: 1.2em;">Kamu menyelesaikan permainan dengan 0 langkah.</p>
+            
+            <button class="play-again-btn hover-sound-btn" onclick="closeMemoryGameModal()" style="background: #28a745;">
+                <i class="fas fa-redo"></i> Main Lagi
+            </button>
+            <button class="play-again-btn hover-sound-btn" onclick="backToGameTypeMenu()" style="background: #6c757d; margin-top: 15px;">
+                <i class="fas fa-home"></i> Kembali ke Menu
+            </button>
+        </div>
+    </div>
     <div id="countdownOverlay" class="countdown-overlay">
         <div class="countdown-content">
             <div id="countdownNumber" class="countdown-number">3</div>
@@ -1497,7 +1500,19 @@ function checkFinalMatch() {
 }
 
 
-// --- FUNGSI initMemoryGame() YANG SUDAH DIPERBARUI ---
+// ===== [BLOK JAVASCRIPT LAMA DIGANTI DENGAN BLOK INI] =====
+
+// --- [BLOK PENGGANTI] UNTUK GAME MELATIH INGATAN ---
+
+// Variabel untuk game memory
+// let memoryCards = []; // (Sudah didefinisikan di atas)
+// let flippedCards = []; // (Sudah didefinisikan di atas)
+// let lockBoard = false; // (Sudah didefinisikan di atas)
+// let memoryMoves = 0; // (Sudah didefinisikan di atas)
+
+/**
+ * [FUNGSI UTAMA] Memulai atau Mengulang Game Memory
+ */
 function initMemoryGame() {
     const grid = document.getElementById('memory-grid');
     grid.innerHTML = '';
@@ -1506,9 +1521,11 @@ function initMemoryGame() {
     flippedCards = [];
     lockBoard = false;
 
-    // Ambil 4 pasangan antonim secara acak dari daftar MEMORY_ANTONYM_PAIRS
+    // 1. Ambil 4 pasang antonim secara acak dari daftar MEMORY_ANTONYM_PAIRS
+    //    (Logika ini sudah benar dari file 123.html Anda)
     const pairsToUse = shuffleArray([...MEMORY_ANTONYM_PAIRS]).slice(0, 4); 
 
+    // 2. Buat daftar kartu (total 8 kartu)
     const cards = [];
     pairsToUse.forEach(pair => {
         // Kartu pertama (word1)
@@ -1517,16 +1534,18 @@ function initMemoryGame() {
         cards.push({ id: pair.id, imgKey: pair.word2 }); 
     });
 
-    memoryCards = shuffleArray(cards); // Mengacak 8 kartu
+    // 3. Acak 8 kartu tersebut
+    memoryCards = shuffleArray(cards);
 
+    // 4. Buat elemen HTML untuk setiap kartu dan masukkan ke grid
     memoryCards.forEach((card, index) => {
         const cardElement = document.createElement('button');
         cardElement.classList.add('memory-card');
         cardElement.dataset.id = card.id; // ID yang sama untuk pasangan
         cardElement.dataset.index = index; 
-        cardElement.dataset.imgKey = card.imgKey;
+        cardElement.dataset.imgKey = card.imgKey; // Nama file gambar
 
-        // Mengganti ikon pertanyaan dengan ikon otak (fas fa-brain)
+        // HTML untuk bagian depan (ikon) dan belakang (gambar) kartu
         cardElement.innerHTML = `
             <div class="card-inner">
                 <div class="card-front">
@@ -1537,70 +1556,151 @@ function initMemoryGame() {
                 </div>
             </div>
         `;
-        grid.appendChild(cardElement);
-        cardElement.addEventListener('click', flipCard);
         
-        // Pastikan kartu tidak terbalik di awal
+        const colDiv = document.createElement('div');
+        colDiv.classList.add('col-3');
+
+        colDiv.appendChild(cardElement);
+        grid.appendChild(colDiv);
+        
+        cardElement.addEventListener('click', flipCard);
         cardElement.classList.remove('flipped', 'matched');
     });
 
+    // 5. Hubungkan tombol reset
     document.getElementById('resetMemoryBtn').onclick = initMemoryGame;
 }
-// --- AKHIR FUNGSI initMemoryGame() ---
 
-
+/**
+ * [HELPER] Dipanggil saat kartu diklik
+ */
 function flipCard() {
+    // Jangan lakukan apa-apa jika board terkunci atau kartu yang sama diklik
     if (lockBoard) return;
     if (this === flippedCards[0]) return; 
 
-    playSound(audioFlip, 0.5);
+    playSound(audioFlip, 0.5); // Suara membalik kartu
     this.classList.add('flipped');
 
+    // Jika ini kartu pertama yang dibuka
     if (flippedCards.length === 0) {
         flippedCards[0] = this;
         return;
     }
 
+    // Jika ini kartu kedua
     flippedCards[1] = this;
-    memoryMoves++;
+    memoryMoves++; // Tambah jumlah langkah
     document.getElementById('memory-moves').textContent = memoryMoves;
-    lockBoard = true;
+    lockBoard = true; // Kunci board
 
+    // Cek apakah pasangannya cocok
     checkForMemoryMatch();
 }
 
-// --- FUNGSI checkForMemoryMatch() YANG SUDAH DIPERBARUI ---
+/**
+ * [HELPER] Memeriksa apakah kedua kartu yang dibuka cocok
+ */
 function checkForMemoryMatch() {
-    // Pengecekan hanya berdasarkan ID pasangan
+    // Pengecekan berdasarkan 'data-id' pasangan
     let isMatch = flippedCards[0].dataset.id === flippedCards[1].dataset.id;
-    isMatch ? disableCards() : unflipCards();
-}
-// --- AKHIR FUNGSI checkForMemoryMatch() ---
-
-
-function disableCards() {
-    playSound(audioMatch);
-    flippedCards[0].classList.add('matched');
-    flippedCards[1].classList.add('matched');
-    resetBoard();
     
-        if (document.querySelectorAll('.memory-card.matched').length === memoryCards.length) {
-        setTimeout(() => alert(`Kamu Menang dengan ${memoryMoves} langkah!`), 500);
+    if (isMatch) {
+        disableCards(); // Cocok
+    } else {
+        unflipCards(); // Tidak cocok
     }
 }
 
+/**
+ * [HELPER] Jika kartu cocok
+ */
+function disableCards() {
+    playSound(audioMatch); // Suara benar
+    
+    // Tandai sebagai 'matched'
+    flippedCards[0].classList.add('matched');
+    flippedCards[1].classList.add('matched');
+    
+    // Cek apakah semua kartu sudah 'matched' (menang)
+    if (document.querySelectorAll('#memory-grid .memory-card.matched').length === memoryCards.length) {
+        // Panggil modal kemenangan, BUKAN alert()
+        setTimeout(() => {
+            showMemoryGameModal(`Kamu menang dengan ${memoryMoves} langkah!`);
+        }, 500); 
+    }
+    
+    resetBoard(); // Reset papan untuk giliran berikutnya
+}
+
+/**
+ * [HELPER] Jika kartu tidak cocok
+ */
 function unflipCards() {
-    playSound(audioWrong);
+    playSound(audioWrong); // Suara salah
+    
+    // Biarkan kartu terlihat sebentar, lalu balikkan lagi
     setTimeout(() => {
         flippedCards[0].classList.remove('flipped');
         flippedCards[1].classList.remove('flipped');
-        resetBoard();
+        resetBoard(); // Reset papan
     }, 1200);
 }
 
+/**
+ * [HELPER] Mereset status papan permainan
+ */
 function resetBoard() {
     [flippedCards, lockBoard] = [[], false];
 }
+
+/**
+ * [FUNGSI MODAL BARU] Menampilkan modal kemenangan
+ */
+function showMemoryGameModal(message) {
+    playSound(audioWin); // Suara menang
+    
+    // (Opsional) Tampilkan confetti seperti di game balap
+    if (typeof createConfetti === 'function') {
+        createConfetti();
+    }
+    
+    // Atur pesan dan tampilkan modal
+    document.getElementById('memoryGameResultMessage').textContent = message;
+    document.getElementById('memoryGameResultModal').style.display = 'flex';
+    
+    // Sembunyikan tombol kontrol atas
+    document.getElementById('homeBtn').style.display = 'none';
+    document.getElementById('fullscreenBtn').style.display = 'none';
+    document.getElementById('profileBtn').style.display = 'none';
+}
+
+/**
+ * [FUNGSI MODAL BARU] Menutup modal dan memulai ulang game
+ */
+function closeMemoryGameModal() {
+    document.getElementById('memoryGameResultModal').style.display = 'none';
+    
+    // Tampilkan kembali tombol kontrol atas
+    document.getElementById('homeBtn').style.display = 'flex';
+    document.getElementById('fullscreenBtn').style.display = 'flex';
+    document.getElementById('profileBtn').style.display = 'flex';
+    
+    // (Opsional) Hentikan confetti
+    if (typeof confettiInterval !== 'undefined' && confettiInterval) {
+        clearInterval(confettiInterval);
+        confettiInterval = null;
+    }
+    document.querySelectorAll('.confetti').forEach(c => c.remove());
+    
+    // Mulai ulang permainan
+    initMemoryGame();
+}
+
+// --- [AKHIR BLOK PENGGANTI] ---
+
+// ===== [AKHIR BLOK JAVASCRIPT YANG DIGANTI] =====
+
 
 let draggedWord = null;
 
