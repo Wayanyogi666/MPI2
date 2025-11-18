@@ -64,9 +64,10 @@
 
     .top-center-controls {
         position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
+        top: 30px; 
+        right: 30px; /* Posisikan di kanan */
+        left: auto; /* Nonaktifkan centering horizontal */
+        transform: none; /* Nonaktifkan translateX(-50%) */
         display: flex;
         gap: 10px;
         z-index: 10002;
@@ -98,15 +99,15 @@
         color: #1a237e;
         line-height: 1;
     }
-.btn-secondary,
-.play-again-btn {
-    transition: all 0.3s ease;
-}
+    .btn-secondary,
+    .play-again-btn {
+        transition: all 0.3s ease;
+    }
 
-.btn-secondary:hover,
-.play-again-btn:hover {
-    transform: scale(1.03);
-}
+    .btn-secondary:hover,
+    .play-again-btn:hover {
+        transform: scale(1.03);
+    }
     
     .fullscreen-icon.collapse { display: none; }
     body.fullscreen .fullscreen-icon.expand { display: none; }
@@ -127,72 +128,50 @@
         font-weight: 500;
     }
 
-.top-center-controls {
-    position: fixed;
-    /* FIX 1: Pindahkan ke Pojok Kanan Atas */
-    top: 30px; 
-    right: 30px; /* Posisikan di kanan */
-    left: auto; /* Nonaktifkan centering horizontal */
-    transform: none; /* Nonaktifkan translateX(-50%) */
-    display: flex;
-    gap: 10px;
-    z-index: 10002;
-}
+    .page-container {
+        display: flex;
+        align-items: flex-start; 
+        justify-content: center;
+        height: 100%; 
+        min-height: 100dvh;
+        width: 100vw;
+        width: 100dvw;
+        padding: 1rem;
+        overflow-y: auto;
+    }
 
-.page-container {
-    display: flex;
-    /* FIX 2: Selalu mulai dari atas, tidak lagi di tengah vertikal (default) */
-    align-items: flex-start; 
-    justify-content: center;
-    height: 100%; 
-    min-height: 100dvh;
-    width: 100vw;
-    width: 100dvw;
-    padding: 1rem;
-    overflow-y: auto;
-}
-
-.menu-card {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.75);
-    width: 100%;
-    /* FIX 3: Perbesar max-width agar terlihat lebih lebar di desktop */
-    max-width: 900px; 
-    overflow-y: auto; 
-    
-    /* FIX 4: Mengurangi margin-top karena tombol sudah bergeser ke kanan. */
-    margin-top: 40px; 
-    
-    /* FIX 5: Maksimalkan ketinggian vertikal */
-    max-height: calc(100dvh - 60px); 
-    
-    padding: 1.5rem; /* Default padding */
-}
-
-@media (min-width: 768px) {
     .menu-card {
-        padding: 2.5rem; 
-        /* Margin atas (60px) memberikan jarak presisi dari tombol (30px) */
-        margin-top: 60px;
-        /* Ketinggian dimaksimalkan */
-        max-height: calc(100dvh - 80px); 
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.75);
+        width: 100%;
+        max-width: 900px; 
+        overflow-y: auto; 
+        margin-top: 40px; 
+        max-height: calc(100dvh - 60px); 
+        padding: 1.5rem; 
     }
-}
 
-@media screen and (max-height: 450px) and (orientation: landscape) {
-    /* FIX 6: Sesuaikan posisi tombol di landscape */
-    .top-center-controls {
-        top: 5px;
-        right: 10px;
+    @media (min-width: 768px) {
+        .menu-card {
+            padding: 2.5rem; 
+            margin-top: 60px;
+            max-height: calc(100dvh - 80px); 
+        }
     }
-    .menu-card {
-        margin-top: 20px;
-        max-height: calc(100dvh - 30px); 
+
+    @media screen and (max-height: 450px) and (orientation: landscape) {
+        .top-center-controls {
+            top: 5px;
+            right: 10px;
+        }
+        .menu-card {
+            margin-top: 20px;
+            max-height: calc(100dvh - 30px); 
+        }
     }
-}
     .main-menu-btn {
-        font-size: clamp(0.9rem, 2.2vw, 1.3rem); /* Ukuran font disesuaikan */
+        font-size: clamp(0.9rem, 2.2vw, 1.3rem); 
         padding: clamp(10px, 1.8vh, 18px);
         font-weight: 600;
          transition: all 0.3s ease;
@@ -201,17 +180,15 @@
      .main-menu-btn:hover {
         transform: scale(1.03);
     }
-.fullscreen-btn, .home-btn, .profile-btn {
-    /* ... (style Anda yang sudah ada) ... */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Ini mungkin sudah ada */
-}
+    .fullscreen-btn, .home-btn, .profile-btn {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+    }
 
-.fullscreen-btn:hover, .home-btn:hover, .profile-btn:hover {
-    transform: scale(1.1);
-}
+    .fullscreen-btn:hover, .home-btn:hover, .profile-btn:hover {
+        transform: scale(1.1);
+    }
 
     .menu-btn.level-btn {
-        /* ... (style level-btn tetap sama) ... */
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -260,8 +237,8 @@
         max-height: 100%;
         flex-direction: row;
         padding: clamp(10px, 2vh, 30px) clamp(20px, 3vw, 80px);
-        gap: clamp(20px, 4vw, 100px);
-        justify-content: space-between;
+        gap: clamp(40px);
+        justify-content: center;
         box-sizing: border-box;
         align-items: center;
         position: absolute;
@@ -354,7 +331,6 @@
     .instruction { font-size: clamp(0.75rem, 2vw, 1.25rem); color: #666; margin: 0; white-space: nowrap; max-width: 100%; }
     .game-field { position: relative; width: 100%; height: clamp(150px, 25vh, 350px); display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 0 20px; }
 
-    /* ... (CSS modal, confetti, countdown tetap sama) ... */
     .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; right: 0; bottom: 0; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.75); backdrop-filter: blur(5px); justify-content: center; align-items: center; animation: fadeInModal 0.3s ease-out; }
     @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
     .modal-content { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 55px 70px; border-radius: 36px; text-align: center; box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4); animation: modalSlideIn 0.5s ease-out; max-width: 650px; min-width: 500px; border: 2px solid rgba(255, 255, 255, 0.2); position: relative; }
@@ -496,54 +472,70 @@
     }
 
 
-    /* --- 1. Game Mencocokkan (Matching Game) --- */
+    /* --- 1. Game Mencocokkan (Matching Game - DIPERBAIKI) --- */
     .matching-container {
-        max-width: 700px;
+        max-width: 900px; /* Lebih lebar agar muat gambar besar */
         margin: 0 auto;
         padding: 1rem;
     }
     .match-item {
         display: flex;
+        flex-direction: column; /* Gambar di atas, bukan di samping */
         align-items: center;
-        padding: 0.75rem 1rem;
-        margin-bottom: 0.5rem;
-        border: 2px solid #ddd;
-        border-radius: 12px;
+        justify-content: center;
+        padding: 1.5rem; /* Padding lebih besar */
+        margin-bottom: 0;
+        border: 3px solid #e0e0e0; /* Border standar */
+        border-radius: 16px;
         background-color: #fff;
         cursor: pointer;
         transition: all 0.2s ease;
-        font-size: 1.1rem;
-        font-weight: 600;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        height: 100%;
+        min-height: 180px; /* Tinggi minimal agar kotak terlihat besar */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
     .match-item:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        border-color: #4ac6ff; /* Warna highlight saat di-hover */
     }
     .match-item img {
-        width: 60px;
-        height: 60px;
+        width: 100%;
+        max-width: 140px; /* Ukuran gambar diperbesar mirip materi */
+        height: 140px;    /* Tinggi disamakan agar rapi */
         object-fit: contain;
-        margin-right: 15px;
+        margin-right: 0;
+        margin-bottom: 0;
     }
     .match-item.selected {
-        background-color: #0d6efd;
+        background-color: #e7f1ff;
         color: white;
-        border-color: #0a58ca;
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.25);
     }
     .match-item.correct {
-        background-color: #198754;
-        color: white;
-        border-color: #146c43;
-        opacity: 0.7;
+        background-color: rgba(25, 135, 84, 0.2) !important;
+        color: #198754;
+        border-color: #198754 !important;
+        opacity: 1;
         pointer-events: none;
+        transform: scale(1.02);
     }
     .match-item.wrong {
         animation: shake 0.5s;
-        background-color: #dc3545;
+        background-color: rgba(220, 53, 69, 0.2) !important;
         color: white;
-        border-color: #b02a37;
+        border-color: #dc3545 !important;
     }
+    
+    @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+        100% { transform: translateX(0); }
+    }
+
     /* --- PERBAIKAN CSS GAME MEMORY --- */
     .memory-card {
         background-color: transparent;
@@ -611,17 +603,59 @@
     }
 
     /* --- 3. Game Melengkapi (Fill-in-the-blank) --- */
-    .fill-in-sentence {
-        font-size: 1.2rem;
-        font-weight: 500;
-        padding: 1.5rem;
-        margin-bottom: 1rem;
-        background-color: #f8f9fa;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap; /* Agar responsif */
-    }
+    /* --- GANTI BLOK YANG DI GAMBAR DENGAN SEMUA INI --- */
+
+.fill-in-sentence {
+    display: none; /* PENTING: Sembunyikan soal secara default */
+    font-size: 1.3rem; 
+    font-weight: 500;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    background-color: #fff; 
+    border: 2px solid #ffd700; 
+    border-radius: 16px;
+    line-height: 2; 
+    animation: slideIn 0.4s ease-out;
+}
+
+/* INI KODE BARU (JANGAN LUPA DIKOPAS JUGA) */
+.fill-in-sentence.active {
+    display: block; /* Hanya tampilkan jika punya class 'active' */
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.fill-in-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.nav-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    padding: 10px 20px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+.nav-btn:active { transform: scale(0.95); }
+.nav-btn:disabled { background: #ccc; cursor: not-allowed; opacity: 0.7; }
+
+#word-bank-container {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    padding: 15px;
+    border: 2px dashed #1a237e;
+    margin-top: 10px;
+}
     .drop-zone {
         display: inline-block;
         width: 120px;
@@ -912,37 +946,40 @@
         <div id="mencocokkanPage" class="content-page container">
              <div class="card p-4 p-md-5 shadow-lg rounded-4 menu-card mx-auto">
                 <h2 class="text-center fw-bold text-info mb-4">Belajar Mencocokkan</h2>
-                <p class="text-center fs-5 text-muted">Klik satu item di kiri, lalu klik pasangannya di kanan. Tekan "Cek" untuk melihat hasilnya.</p>
+                <p class="text-center fs-5 text-muted">Klik gambar di kiri, lalu klik pasangannya di kanan.</p>
                 
                 <div class="matching-container">
-                    <div class="row justify-content-center g-3">
-                        <div class="col-md-5 col-12">
-                            <ul id="match-col-1" class="list-unstyled">
-                                </ul>
+                    <div class="row justify-content-center g-4">
+                        <div class="col-5"> 
+                            <h4 class="text-center text-primary mb-3">Gambar A</h4>
+                            <div id="match-col-1" class="d-flex flex-column gap-3"></div>
                         </div>
-                        <div class="col-md-5 col-12">
-                            <ul id="match-col-2" class="list-unstyled">
-                                </ul>
+                        
+                        <div class="col-2 d-flex align-items-center justify-content-center">
+                             <i class="fas fa-exchange-alt text-muted fs-1"></i>
+                        </div>
+
+                        <div class="col-5">
+                            <h4 class="text-center text-danger mb-3">Lawan Kata</h4>
+                            <div id="match-col-2" class="d-flex flex-column gap-3"></div>
                         </div>
                     </div>
-                    <div class="text-center mt-4 d-flex gap-3 justify-content-center">
-                        <button id="checkMatchBtn" class="btn btn-primary btn-lg shadow hover-sound-btn">
-                            <i class="fas fa-check me-2"></i> Cek Pasangan
+                    
+                    <div class="text-center mt-5">
+                        <button id="resetMatchBtn" class="btn btn-warning btn-lg shadow hover-sound-btn rounded-pill px-5">
+                            <i class="fas fa-redo me-2"></i> Acak Ulang
                         </button>
-                        <button id="resetMatchBtn" class="btn btn-warning btn-lg shadow hover-sound-btn">
-                            <i class="fas fa-redo me-2"></i> Ulangi
-                        </button>
+                        <button id="checkMatchBtn" style="display:none;"></button>
                     </div>
                 </div>
 
                 <hr class="my-4">
                 <div class="text-center">
-                    <button class="btn btn-secondary btn-lg px-5 shadow hover-sound-btn" onclick="backToGameTypeMenu()">
-                        <i class="fas fa-arrow-left me-2"></i> Kembali
-                    </button>
+                    <button class="btn btn-secondary btn-lg px-5 shadow hover-sound-btn" onclick="backToGameTypeMenu()"><i class="fas fa-arrow-left me-2"></i> Kembali</button>
                 </div>
             </div>
         </div>
+
         <div id="ingatanPage" class="content-page container">
              <div class="card p-4 p-md-5 shadow-lg rounded-4 menu-card mx-auto">
                 <h2 class="text-center fw-bold text-secondary mb-2">Melatih Ingatan</h2>
@@ -967,72 +1004,83 @@
             </div>
         </div>
         <div id="melengkapiPage" class="content-page container">
-             <div class="card p-4 p-md-5 shadow-lg rounded-4 menu-card mx-auto">
-                <h2 class="text-center fw-bold text-dark mb-4">Melengkapi Kalimat</h2>
-                <p class="text-center fs-5 text-muted">Tarik kata dari kotak di bawah ke tempat yang kosong.</p>
-                
-                <div id="fill-in-container" class="my-4">
-                    <div class="fill-in-sentence">
-                        1. Gajah adalah hewan yang 
-                        <span class="drop-zone" data-answer="besar"></span>
-                        , sedangkan semut adalah hewan yang 
-                        <span class="drop-zone" data-answer="kecil"></span>
-                        .
-                    </div>
-                    
-                    <div class="fill-in-sentence">
-                        2. Matahari terasa sangat 
-                        <span class="drop-zone" data-answer="panas"></span>
-                        , sebaliknya es batu terasa 
-                        <span class="drop-zone" data-answer="dingin"></span>
-                        .
-                    </div>
+    <div class="card p-3 p-md-5 shadow-lg rounded-4 menu-card mx-auto" style="max-width: 800px;">
+        <h2 class="text-center fw-bold text-dark mb-2">Melengkapi Kalimat</h2>
+        <p class="text-center fs-6 text-muted mb-4">Tarik kata ke kotak kosong.</p>
+        
+        <div class="fill-in-controls mx-auto">
+            <button id="prevSoalBtn" class="nav-btn hover-sound-btn" onclick="changeFillInSlide(-1)">
+                <i class="fas fa-chevron-left"></i> Sebelumnya
+            </button>
+            <span class="fs-5 fw-bold text-primary" id="soalIndicator">Soal 1 / 4</span>
+            <button id="nextSoalBtn" class="nav-btn hover-sound-btn" onclick="changeFillInSlide(1)">
+                Selanjutnya <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
 
-                    <div class="fill-in-sentence">
-                        3. Kelinci berlari dengan 
-                        <span class="drop-zone" data-answer="cepat"></span>
-                        , namun kura-kura berjalan dengan 
-                        <span class="drop-zone" data-answer="lambat"></span>
-                        .
-                    </div>
-
-                    <div class="fill-in-sentence">
-                        4. Langit malam hari tampak 
-                        <span class="drop-zone" data-answer="gelap"></span>
-                        , tetapi siang hari tampak 
-                        <span class="drop-zone" data-answer="terang"></span>
-                        .
-                    </div>
-                </div>
-
-                <div id="word-bank-container">
-                    <p class="text-center fs-5 fw-semibold">Pilihan Kata:</p>
-                    <div id="word-bank">
-                        <div class="draggable-word" draggable="true" data-word="kecil">Kecil</div>
-                        <div class="draggable-word" draggable="true" data-word="besar">Besar</div>
-                        <div class="draggable-word" draggable="true" data-word="panas">Panas</div>
-                        <div class="draggable-word" draggable="true" data-word="dingin">Dingin</div>
-                        <div class="draggable-word" draggable="true" data-word="cepat">Cepat</div>
-                        <div class="draggable-word" draggable="true" data-word="lambat">Lambat</div>
-                        <div class="draggable-word" draggable="true" data-word="gelap">Gelap</div>
-                        <div class="draggable-word" draggable="true" data-word="terang">Terang</div>
-                    </div>
-                </div>
-
-                <div class="text-center mt-4">
-                     <button id="resetFillInBtn" class="btn btn-primary btn-lg shadow hover-sound-btn">
-                        <i class="fas fa-redo me-2"></i> Ulangi Soal
-                    </button>
-                </div>
-
-                <hr class="my-4">
-                <div class="text-center">
-                    <button class="btn btn-secondary btn-lg px-5 shadow hover-sound-btn" onclick="backToGameTypeMenu()">
-                        <i class="fas fa-arrow-left me-2"></i> Kembali
-                    </button>
-                </div>
+        <div id="fill-in-container" class="my-2">
+            <div class="fill-in-sentence active">
+                1. Gajah adalah hewan yang 
+                <span class="drop-zone" data-answer="besar"></span>
+                , sedangkan semut adalah hewan yang 
+                <span class="drop-zone" data-answer="kecil"></span>
+                .
             </div>
-        </div>        <div id="levelMenuWaktu" class="content-page container">
+            
+            <div class="fill-in-sentence">
+                2. Matahari terasa sangat 
+                <span class="drop-zone" data-answer="panas"></span>
+                , sebaliknya es batu terasa 
+                <span class="drop-zone" data-answer="dingin"></span>
+                .
+            </div>
+
+            <div class="fill-in-sentence">
+                3. Kelinci berlari dengan 
+                <span class="drop-zone" data-answer="cepat"></span>
+                , namun kura-kura berjalan dengan 
+                <span class="drop-zone" data-answer="lambat"></span>
+                .
+            </div>
+
+            <div class="fill-in-sentence">
+                4. Langit malam hari tampak 
+                <span class="drop-zone" data-answer="gelap"></span>
+                , tetapi siang hari tampak 
+                <span class="drop-zone" data-answer="terang"></span>
+                .
+            </div>
+        </div>
+
+        <div id="word-bank-container">
+            <p class="text-center fs-6 fw-semibold mb-2 text-muted">Pilihan Jawaban:</p>
+            <div id="word-bank">
+                <div class="draggable-word" draggable="true" data-word="kecil">Kecil</div>
+                <div class="draggable-word" draggable="true" data-word="besar">Besar</div>
+                <div class="draggable-word" draggable="true" data-word="panas">Panas</div>
+                <div class="draggable-word" draggable="true" data-word="dingin">Dingin</div>
+                <div class="draggable-word" draggable="true" data-word="cepat">Cepat</div>
+                <div class="draggable-word" draggable="true" data-word="lambat">Lambat</div>
+                <div class="draggable-word" draggable="true" data-word="gelap">Gelap</div>
+                <div class="draggable-word" draggable="true" data-word="terang">Terang</div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+                <button id="resetFillInBtn" class="btn btn-warning btn-lg shadow hover-sound-btn rounded-pill">
+                <i class="fas fa-redo me-2"></i> Ulangi Semua
+            </button>
+        </div>
+
+        <hr class="my-3">
+        <div class="text-center">
+            <button class="btn btn-secondary btn-lg px-5 shadow hover-sound-btn" onclick="backToGameTypeMenu()">
+                <i class="fas fa-arrow-left me-2"></i> Kembali
+            </button>
+        </div>
+    </div>
+</div>        
+		<div id="levelMenuWaktu" class="content-page container">
             <div class="card p-4 p-md-5 shadow-lg rounded-4 menu-card mx-auto text-center" style="max-width: 600px;">
                 <h2 class="fw-bold text-success mb-2">Balap Mobil: Lawan Kata</h2>
                 <p class="fs-5 text-muted mb-4">Pilih Level</p>
@@ -1202,7 +1250,26 @@ const ANTONIM_DATA = {
     ]
 };
 
-// --- TAMBAHAN BARU: DEFINISI 15 PASANGAN MEMORY ---
+// --- SAYA KEMBALIKAN SEMUA KEY GAMBAR 1-30 AGAR TIDAK ERROR ---
+const IMAGE_ASSETS = {
+    'besar': 'aset%20MPI%202/1.png', 'kecil': 'aset%20MPI%202/2.png',
+    'tidur': 'aset%20MPI%202/3.png', 'bangun': 'aset%20MPI%202/4.png',
+    'senang': 'aset%20MPI%202/5.png', 'sedih': 'aset%20MPI%202/6.png',
+    'buka': 'aset%20MPI%202/7.png', 'tutup': 'aset%20MPI%202/8.png',
+    'panjang': 'aset%20MPI%202/9.png', 'pendek': 'aset%20MPI%202/10.png',
+    'naik': 'aset%20MPI%202/11.png', 'turun': 'aset%20MPI%202/12.png',
+    'duduk': 'aset%20MPI%202/13.png', 'berdiri': 'aset%20MPI%202/14.png',
+	'bersih': 'aset%20MPI%202/15.png', 'kotor': 'aset%20MPI%202/16.png',
+    'gelap': 'aset%20MPI%202/17.png', 'terang': 'aset%20MPI%202/18.png',
+	'panas': 'aset%20MPI%202/19.png', 'dingin': 'aset%20MPI%202/20.png',
+    'kiri': 'aset%20MPI%202/21.png', 'kanan': 'aset%20MPI%202/22.png',
+	'cepat': 'aset%20MPI%202/23.png', 'lambat': 'aset%20MPI%202/24.png',
+	'tebal': 'aset%20MPI%202/25.png', 'tipis': 'aset%20MPI%202/26.png',
+	'tinggi': 'aset%20MPI%202/27.png', 'rendah': 'aset%20MPI%202/28.png',
+	'basah': 'aset%20MPI%202/29.png', 'kering': 'aset%20MPI%202/30.png',
+};
+
+// --- DEFINISI 15 PASANGAN UNTUK MEMORY ---
 const MEMORY_ANTONYM_PAIRS = [
     { id: 1, word1: 'besar', word2: 'kecil' },
     { id: 2, word1: 'panjang', word2: 'pendek' },
@@ -1221,45 +1288,13 @@ const MEMORY_ANTONYM_PAIRS = [
     { id: 15, word1: 'basah', word2: 'kering' },
 ];
 
-
-const IMAGE_ASSETS = {
-    'besar': 'aset%20MPI%202/1.png',
-    'kecil': 'aset%20MPI%202/2.png',
-    'tidur': 'aset%20MPI%202/3.png',
-    'bangun': 'aset%20MPI%202/4.png',
-    'senang': 'aset%20MPI%202/5.png',
-    'sedih': 'aset%20MPI%202/6.png',
-    'buka': 'aset%20MPI%202/7.png',
-    'tutup': 'aset%20MPI%202/8.png',
-    'panjang': 'aset%20MPI%202/9.png',
-    'pendek': 'aset%20MPI%202/10.png',
-	'bersih': 'aset%20MPI%202/15.png',
-    'kotor': 'aset%20MPI%202/16.png',
-    'gelap': 'aset%20MPI%202/17.png',
-    'terang': 'aset%20MPI%202/18.png',
-	'naik': 'aset%20MPI%202/11.png',
-    'turun': 'aset%20MPI%202/12.png',
-    'duduk': 'aset%20MPI%202/13.png',
-    'berdiri': 'aset%20MPI%202/14.png',
-	'panas': 'aset%20MPI%202/19.png',
-    'dingin': 'aset%20MPI%202/20.png',
-    'kiri': 'aset%20MPI%202/21.png',
-    'kanan': 'aset%20MPI%202/22.png',
-	'cepat': 'aset%20MPI%202/23.png',
-    'lambat': 'aset%20MPI%202/24.png',
-	'tebal': 'aset%20MPI%202/25.png',
-    'tipis': 'aset%20MPI%202/26.png',
-	'tinggi': 'aset%20MPI%202/27.png',
-    'rendah': 'aset%20MPI%202/28.png',
-	'basah': 'aset%20MPI%202/29.png',
-    'kering': 'aset%20MPI%202/30.png',
-};
-
+// --- PERBAIKAN AUDIO (Menghapus nama folder karena ada di root) ---
 const audioBesarKecil = new Audio('besarkecil.mp3');
 const audioPanjangPendek = new Audio('panjangpendek.mp3');
 const audioSenangSedih = new Audio('senangsedih.mp3');
 const audioTidurBangun = new Audio('tidurbangun.mp3');
 const audioBukaTutup = new Audio('bukatutup.mp3');
+
 const audioCorrect = new Audio('https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinCarBenar.mp3');
 const audioWrong = new Audio('https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinCarSalah.mp3');
 const audioMove = new Audio('https://bangbin85.github.io/Game/IFP2025/Berpacu-Waktu/bangbin_Waktu_File/bangbinCar.mp3');
@@ -1313,23 +1348,27 @@ function showPage(pageId) {
     const homeBtn = document.getElementById('homeBtn');
     const fullscreenBtn = document.getElementById('fullscreenBtn');
     const profileBtn = document.getElementById('profileBtn');
+    const pageContainer = document.querySelector('.page-container');
 
+    // --- 1. Logika Tombol (Tetap seperti semula) ---
     if (pageId === 'gameTypeMenu') {
         if (homeBtn) homeBtn.style.display = 'none';
         if (fullscreenBtn) fullscreenBtn.style.display = 'flex';
         if (profileBtn) profileBtn.style.display = 'flex';
-        
-        // Kembalikan centering untuk menu utama
-                 if (pageContainer) {
-            pageContainer.style.display = 'flex';
-            pageContainer.style.alignItems = 'center';
-            pageContainer.style.justifyContent = 'center';
-         }
-
     } else {
         if (homeBtn) homeBtn.style.display = 'flex';
         if (fullscreenBtn) fullscreenBtn.style.display = 'flex';
         if (profileBtn) profileBtn.style.display = 'flex';
+    }
+
+    // --- 2. Logika Posisi (PERBAIKAN DI SINI) ---
+    // Tambahkan 'levelMenuWaktu' agar ikut rata tengah
+    if (pageId === 'gameTypeMenu' || pageId === 'levelMenuWaktu') {
+        if (pageContainer) {
+            pageContainer.style.display = 'flex';
+            pageContainer.style.alignItems = 'center';
+            pageContainer.style.justifyContent = 'center';
+         }
     }
 
     const footer = document.querySelector('.copyright-footer');
@@ -1355,7 +1394,7 @@ function selectGameType(gameType) {
         initMatchingGame();
     } else if (gameType === 'ingatan') {
         showPage('ingatanPage');
-        initMemoryGame(); // Panggil fungsi yang telah diperbarui
+        initMemoryGame(); 
     } else if (gameType === 'melengkapi') {
         showPage('melengkapiPage');
         initFillInGame();
@@ -1368,184 +1407,163 @@ function backToGameTypeMenu() {
     showPage('gameTypeMenu');
 }
 
-// --- VARIABEL GLOBAL UNTUK GAME MENCOCOKKAN ---
-let selectedCol1 = {};
-let selectedCol2 = {};
+// --- FUNGSI MENCOCOKKAN BARU (GAMBAR BESAR & CEK REALTIME) ---
+let selectedCol1 = null; // Hanya simpan 1 item yang dipilih
+let selectedCol2 = null;
 let correctMatches = 0;
-const totalMatches = 4;
-
-// --- VARIABEL GLOBAL UNTUK GAME MEMORY (DITAMBAHKAN/DIPOSISIKAN DENGAN BENAR) ---
-let memoryCards = [];
-let flippedCards = [];
-let lockBoard = false;
-let memoryMoves = 0;
-
+const totalMatches = 4; // Jumlah pasangan yang ditampilkan
 
 function initMatchingGame() {
-    selectedCol1 = {};
-    selectedCol2 = {};
-	correctMatches = 0;
+    selectedCol1 = null;
+    selectedCol2 = null;
+    correctMatches = 0;
     
     const col1 = document.getElementById('match-col-1');
     const col2 = document.getElementById('match-col-2');
     const checkBtn = document.getElementById('checkMatchBtn');
     
-    // Data Pasangan Gambar-Gambar
-    // Kiri: Kata Kunci, Kanan: Antonim
+    // Sembunyikan tombol Cek manual, kita pakai otomatis
+    if(checkBtn) checkBtn.style.display = 'none';
+    
+    // Data Pasangan (Pastikan nama file audio/gambar benar)
     const pairs = [
-        { id: 1, imgLeft: IMAGE_ASSETS.besar, imgRight: IMAGE_ASSETS.kecil, pairId: 1 },
-        { id: 2, imgLeft: IMAGE_ASSETS.bersih, imgRight: IMAGE_ASSETS.kotor, pairId: 2 },
-        { id: 3, imgLeft: IMAGE_ASSETS.senang, imgRight: IMAGE_ASSETS.sedih, pairId: 3 },
-        { id: 4, imgLeft: IMAGE_ASSETS.gelap, imgRight: IMAGE_ASSETS.terang, pairId: 4 }
+        { id: 1, imgLeft: 'besar', imgRight: 'kecil' },
+        { id: 2, imgLeft: 'bersih', imgRight: 'kotor' },
+        { id: 3, imgLeft: 'senang', imgRight: 'sedih' },
+        { id: 4, imgLeft: 'gelap', imgRight: 'terang' },
+        // Tambahan agar variatif (opsional, sistem akan ambil 4 acak)
+        { id: 5, imgLeft: 'panjang', imgRight: 'pendek' },
+        { id: 6, imgLeft: 'buka', imgRight: 'tutup' }
     ];
 
-    const itemsLeft = shuffleArray(pairs.map(p => ({ id: p.id, img: p.imgLeft, pairId: p.pairId })));
-	const itemsRight = shuffleArray(pairs.map(p => ({ id: p.id, img: p.imgRight, pairId: p.pairId })));
+    // Ambil 4 pasang saja secara acak agar game tidak terlalu panjang
+    const selectedPairs = shuffleArray(pairs).slice(0, totalMatches);
+
+    // Siapkan Data Kiri dan Kanan
+    // Kita gunakan IMAGE_ASSETS[key] untuk mengambil path gambar yang benar
+    const itemsLeft = shuffleArray(selectedPairs.map(p => ({ id: p.id, img: IMAGE_ASSETS[p.imgLeft] })));
+    const itemsRight = shuffleArray(selectedPairs.map(p => ({ id: p.id, img: IMAGE_ASSETS[p.imgRight] })));
 
     col1.innerHTML = '';
     col2.innerHTML = '';
 
-    // Isi Kolom KIRI dengan Gambar
-    itemsLeft.forEach((item, index) => {
-        col1.innerHTML += `<li class="match-item" data-id="${item.id}" data-pair-id="${item.pairId}" data-index="${index}">
-                            <img src="${item.img}" alt="Gambar Kiri">
-                            <span style="display:none;">Left</span>
-                           </li>`;
+    // Render Kolom Kiri
+    itemsLeft.forEach(item => {
+        const div = document.createElement('div'); // Ganti LI jadi DIV agar lebih fleksibel
+        div.className = 'match-item';
+        div.dataset.id = item.id;
+        div.dataset.col = 'left';
+        div.innerHTML = `<img src="${item.img}" alt="Gambar">`;
+        div.onclick = () => selectItem(div, 'left');
+        col1.appendChild(div);
     });
 
-    // Isi Kolom KANAN dengan Gambar (Bukan Kata)
-    itemsRight.forEach((item, index) => {
-        col2.innerHTML += `<li class="match-item" data-id="${item.id}" data-pair-id="${item.pairId}" data-index="${index}">
-                            <img src="${item.img}" alt="Gambar Kanan">
-                            <span style="display:none;">Right</span>
-                           </li>`;
+    // Render Kolom Kanan
+    itemsRight.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'match-item';
+        div.dataset.id = item.id;
+        div.dataset.col = 'right';
+        div.innerHTML = `<img src="${item.img}" alt="Gambar">`;
+        div.onclick = () => selectItem(div, 'right');
+        col2.appendChild(div);
     });
 
-    // Hapus kelas 'correct' dan 'selected' dari semua item lama
-    document.querySelectorAll('.match-item').forEach(item => {
-        item.classList.remove('selected', 'correct', 'wrong');
-        // Hapus listener lama jika ada (untuk jaga-jaga)
-        item.removeEventListener('click', item.currentListener);
-    });
-
-    // Pasang Event Listeners Baru
-    col1.querySelectorAll('.match-item').forEach(item => {
-        item.currentListener = () => selectItem(item, 1);
-        item.addEventListener('click', item.currentListener);
-    });
-    col2.querySelectorAll('.match-item').forEach(item => {
-        item.currentListener = () => selectItem(item, 2);
-        item.addEventListener('click', item.currentListener);
-    });
-
-    checkBtn.style.display = 'block';
-    checkBtn.onclick = checkFinalMatch;
-    document.getElementById('resetMatchBtn').onclick = initMatchingGame;
-}
-// Ganti seluruh fungsi selectItem yang sudah ada
-function selectItem(item, col) {
-    // Abaikan jika sudah benar
-    if (item.classList.contains('correct')) return;
-
-    // Gunakan pair-id untuk mempermudah logika
-    const itemId = item.dataset.pairId;
-    
-    // Hapus 'wrong' jika ada
-    item.classList.remove('wrong'); 
-
-    if (col === 1) {
-        // Kolom KIRI (Item yang ingin dicari antonimnya)
-        if (item.classList.contains('selected')) {
-            item.classList.remove('selected');
-            delete selectedCol1[itemId];
-        } else {
-            // Hapus pilihan lama di kolom 1
-            col1.querySelectorAll('.match-item').forEach(i => i.classList.remove('selected'));
-            item.classList.add('selected');
-            selectedCol1 = { [itemId]: item }; // Hanya satu item di col1 yang bisa dipilih
-        }
-    } else { // Kolom 2 (Pilihan Antonim)
-        // Kolom KANAN (Item pilihan antonim)
-        if (item.classList.contains('selected')) {
-            item.classList.remove('selected');
-            delete selectedCol2[itemId];
-        } else {
-            // Pilih item ini
-            item.classList.add('selected');
-            selectedCol2[itemId] = item;
-        }
-    }
-    
-    // Otomatis cek jika 1 item di kiri dan 1 item di kanan dipilih
-    if (Object.keys(selectedCol1).length === 1 && Object.keys(selectedCol2).length === 1) {
-        const item1Id = Object.keys(selectedCol1)[0];
-        const item2Id = Object.keys(selectedCol2)[0];
-        const item1 = selectedCol1[item1Id];
-        const item2 = selectedCol2[item2Id];
-
-        // Cek Kecocokan ID Pasangan (Logika Penting: id harus sama)
-        if (item1.dataset.id === item2.dataset.id) {
-            playSound(audioMatch);
-            item1.classList.add('correct');
-            item2.classList.add('correct');
-            correctMatches++;
-            
-            // Hapus listener agar tidak bisa diklik lagi
-            item1.removeEventListener('click', item1.currentListener);
-            item2.removeEventListener('click', item2.currentListener);
-            
-            // Reset pilihan setelah pasangan benar
-            selectedCol1 = {};
-            selectedCol2 = {};
-
-            if (correctMatches === totalMatches) {
-                setTimeout(() => {
-                    playSound(audioWin);
-                    alert(`🎉 Selamat! Semua ${totalMatches} pasangan kamu benar! Kerja Bagus!`);
-                    document.getElementById('checkMatchBtn').style.display = 'none';
-                }, 500);
-            }
-        } else {
-            // Jawaban Salah
-            playSound(audioWrong);
-            item1.classList.add('wrong');
-            item2.classList.add('wrong');
-            
-            // Hapus penanda salah setelah 800ms
-            setTimeout(() => {
-                item1.classList.remove('selected', 'wrong');
-                item2.classList.remove('selected', 'wrong');
-                selectedCol1 = {};
-                selectedCol2 = {};
-            }, 800);
-        }
-    }
+    // Reset tombol reset
+    const resetBtn = document.getElementById('resetMatchBtn');
+    if(resetBtn) resetBtn.onclick = initMatchingGame;
 }
 
-// Hapus fungsi checkFinalMatch karena logika digeser ke selectItem
-function checkFinalMatch() {
-    // Fungsi ini tidak diperlukan lagi karena pengecekan dilakukan real-time di selectItem
-    if (correctMatches === totalMatches) {
-        alert("Semua pasangan sudah benar! Klik Ulangi untuk bermain lagi.");
+function selectItem(element, col) {
+    // 1. Cegah klik pada item yang sudah benar
+    if (element.classList.contains('correct')) return;
+
+    // 2. Reset efek 'wrong' jika user mengklik ulang item yang salah
+    element.classList.remove('wrong');
+
+    // 3. Logika Pemilihan
+    if (col === 'left') {
+        // Jika klik kiri, tapi sudah ada yang dipilih sebelumnya di kiri, hapus seleksi lama
+        if (selectedCol1 && selectedCol1 !== element) {
+            selectedCol1.classList.remove('selected');
+        }
+        selectedCol1 = element;
+        selectedCol1.classList.add('selected');
     } else {
-        alert("Pencocokan dilakukan secara real-time. Pilih satu item di kiri, lalu pasangannya di kanan.");
+        // Sama untuk kanan
+        if (selectedCol2 && selectedCol2 !== element) {
+            selectedCol2.classList.remove('selected');
+        }
+        selectedCol2 = element;
+        selectedCol2.classList.add('selected');
+    }
+
+    // 4. Cek Kecocokan (Jika Kiri dan Kanan sudah dipilih)
+    if (selectedCol1 && selectedCol2) {
+        checkMatch();
     }
 }
 
+function checkMatch() {
+    const id1 = selectedCol1.dataset.id;
+    const id2 = selectedCol2.dataset.id;
 
-// ===== [BLOK JAVASCRIPT LAMA DIGANTI DENGAN BLOK INI] =====
+    if (id1 === id2) {
+        // --- JAWABAN BENAR ---
+        playSound(audioMatch); // Bunyi 'Ting!'
+        
+        // Tambahkan kelas 'correct' (Hijau Transparan)
+        selectedCol1.classList.remove('selected');
+        selectedCol2.classList.remove('selected');
+        selectedCol1.classList.add('correct');
+        selectedCol2.classList.add('correct');
 
-// --- [BLOK PENGGANTI] UNTUK GAME MELATIH INGATAN ---
+        // Reset variabel seleksi
+        selectedCol1 = null;
+        selectedCol2 = null;
+        
+        correctMatches++;
 
-// Variabel untuk game memory
-// let memoryCards = []; // (Sudah didefinisikan di atas)
-// let flippedCards = []; // (Sudah didefinisikan di atas)
-// let lockBoard = false; // (Sudah didefinisikan di atas)
-// let memoryMoves = 0; // (Sudah didefinisikan di atas)
+        // Cek Menang
+        if (correctMatches === totalMatches) {
+            setTimeout(() => {
+                playSound(audioWin);
+                createConfetti(); // Efek kembang api
+                // Tampilkan Modal Menang (bisa pakai modal yang sama dengan memory game atau alert manis)
+                showWinnerModal("Luar Biasa!", "Kamu berhasil mencocokkan semua gambar!");
+            }, 500);
+        }
 
-/**
- * [FUNGSI UTAMA] Memulai atau Mengulang Game Memory
- */
+    } else {
+        // --- JAWABAN SALAH ---
+        playSound(audioWrong); // Bunyi 'Tetot!'
+        
+        // Tambahkan kelas 'wrong' (Merah Transparan + Getar)
+        selectedCol1.classList.add('wrong');
+        selectedCol2.classList.add('wrong');
+
+        // Simpan referensi sementara untuk timeout
+        const temp1 = selectedCol1;
+        const temp2 = selectedCol2;
+
+        // Hapus seleksi agar user harus klik ulang
+        selectedCol1 = null;
+        selectedCol2 = null;
+
+        // Kembalikan tampilan normal setelah 800ms (agar user lihat merahnya dulu)
+        setTimeout(() => {
+            temp1.classList.remove('selected', 'wrong');
+            temp2.classList.remove('selected', 'wrong');
+        }, 800);
+    }
+}
+
+// --- FUNGSI GAME MEMORY YANG SAYA KEMBALIKAN ---
+let memoryCards = [];
+let flippedCards = [];
+let lockBoard = false;
+let memoryMoves = 0;
+
 function initMemoryGame() {
     const grid = document.getElementById('memory-grid');
     grid.innerHTML = '';
@@ -1608,195 +1626,237 @@ function initMemoryGame() {
     const resetBtn = document.getElementById('resetMemoryBtn');
     if(resetBtn) resetBtn.onclick = initMemoryGame;
 }
+
 function flipCard() {
-    // Jangan lakukan apa-apa jika board terkunci atau kartu yang sama diklik
     if (lockBoard) return;
     if (this === flippedCards[0]) return; 
 
     playSound(audioFlip, 0.5); // Suara membalik kartu
     this.classList.add('flipped');
 
-    // Jika ini kartu pertama yang dibuka
     if (flippedCards.length === 0) {
         flippedCards[0] = this;
         return;
     }
 
-    // Jika ini kartu kedua
     flippedCards[1] = this;
-    memoryMoves++; // Tambah jumlah langkah
+    memoryMoves++; 
     document.getElementById('memory-moves').textContent = memoryMoves;
-    lockBoard = true; // Kunci board
+    lockBoard = true; 
 
-    // Cek apakah pasangannya cocok
     checkForMemoryMatch();
 }
 
-/**
- * [HELPER] Memeriksa apakah kedua kartu yang dibuka cocok
- */
 function checkForMemoryMatch() {
-    // Pengecekan berdasarkan 'data-id' pasangan
     let isMatch = flippedCards[0].dataset.id === flippedCards[1].dataset.id;
-    
     if (isMatch) {
-        disableCards(); // Cocok
+        disableCards(); 
     } else {
-        unflipCards(); // Tidak cocok
+        unflipCards(); 
     }
 }
 
-/**
- * [HELPER] Jika kartu cocok
- */
 function disableCards() {
-    playSound(audioMatch); // Suara benar
-    
-    // Tandai sebagai 'matched'
+    playSound(audioMatch); 
     flippedCards[0].classList.add('matched');
     flippedCards[1].classList.add('matched');
-    
-    // Cek apakah semua kartu sudah 'matched' (menang)
     if (document.querySelectorAll('#memory-grid .memory-card.matched').length === memoryCards.length) {
-        // Panggil modal kemenangan, BUKAN alert()
         setTimeout(() => {
             showMemoryGameModal(`Kamu menang dengan ${memoryMoves} langkah!`);
         }, 500); 
     }
-    
-    resetBoard(); // Reset papan untuk giliran berikutnya
+    resetBoard(); 
 }
 
-/**
- * [HELPER] Jika kartu tidak cocok
- */
 function unflipCards() {
-    playSound(audioWrong); // Suara salah
-    
-    // Biarkan kartu terlihat sebentar, lalu balikkan lagi
+    playSound(audioWrong); 
     setTimeout(() => {
         flippedCards[0].classList.remove('flipped');
         flippedCards[1].classList.remove('flipped');
-        resetBoard(); // Reset papan
+        resetBoard(); 
     }, 1200);
 }
 
-/**
- * [HELPER] Mereset status papan permainan
- */
 function resetBoard() {
     [flippedCards, lockBoard] = [[], false];
 }
 
-/**
- * [FUNGSI MODAL BARU] Menampilkan modal kemenangan
- */
 function showMemoryGameModal(message) {
-    playSound(audioWin); // Suara menang
-    
-    // (Opsional) Tampilkan confetti seperti di game balap
-    if (typeof createConfetti === 'function') {
-        createConfetti();
-    }
-    
-    // Atur pesan dan tampilkan modal
+    playSound(audioWin); 
+    createConfetti();
     document.getElementById('memoryGameResultMessage').textContent = message;
     document.getElementById('memoryGameResultModal').style.display = 'flex';
-    
-    // Sembunyikan tombol kontrol atas
     document.getElementById('homeBtn').style.display = 'none';
     document.getElementById('fullscreenBtn').style.display = 'none';
     document.getElementById('profileBtn').style.display = 'none';
 }
 
-/**
- * [FUNGSI MODAL BARU] Menutup modal dan memulai ulang game
- */
 function closeMemoryGameModal() {
     document.getElementById('memoryGameResultModal').style.display = 'none';
-    
-    // Tampilkan kembali tombol kontrol atas
     document.getElementById('homeBtn').style.display = 'flex';
     document.getElementById('fullscreenBtn').style.display = 'flex';
     document.getElementById('profileBtn').style.display = 'flex';
-    
-    // (Opsional) Hentikan confetti
     if (typeof confettiInterval !== 'undefined' && confettiInterval) {
         clearInterval(confettiInterval);
         confettiInterval = null;
     }
     document.querySelectorAll('.confetti').forEach(c => c.remove());
-    
-    // Mulai ulang permainan
     initMemoryGame();
 }
 
-// --- [AKHIR BLOK PENGGANTI] ---
 
-// ===== [AKHIR BLOK JAVASCRIPT YANG DIGANTI] =====
+// --- VARIABEL GLOBAL DRAG & DROP ---
+let currentSlideIndex = 0; 
+let draggedWord = null; // Penting: menyimpan referensi kata yang sedang ditarik
 
-
-let draggedWord = null;
-
-function initFillInGame() {
-    const draggables = document.querySelectorAll('.draggable-word');
-    const dropZones = document.querySelectorAll('.drop-zone');
-    
-    // Reset
-    draggables.forEach(word => {
-        word.classList.remove('used');
-        word.draggable = true;
-    });
-    dropZones.forEach(zone => {
-        zone.innerHTML = '';
-        zone.classList.remove('correct', 'wrong');
-        zone.dataset.filled = "false";
-    });
-
-    draggables.forEach(word => {
-        word.addEventListener('dragstart', dragStart);
-        word.addEventListener('dragend', dragEnd);
-    });
-
-    dropZones.forEach(zone => {
-        zone.addEventListener('dragover', dragOver);
-        zone.addEventListener('dragenter', dragEnter);
-        zone.addEventListener('dragleave', dragLeave);
-        zone.addEventListener('drop', drop);
-    });
-
-    document.getElementById('resetFillInBtn').onclick = initFillInGame;
-}
+// --- FUNGSI-FUNGSI YANG HILANG (WAJIB ADA) ---
 
 function dragStart(e) {
-    if (e.target.classList.contains('used')) return;
-    draggedWord = e.target;
-    e.dataTransfer.setData('text', e.target.dataset.word);
-    setTimeout(() => e.target.style.opacity = '0.5', 0);
+    draggedWord = this;
+    // Mengirim data kata ke sistem
+    e.dataTransfer.setData('text', this.dataset.word);
+    // Efek visual saat ditarik (agak transparan)
+    setTimeout(() => this.style.opacity = '0.5', 0);
 }
 
-function dragEnd(e) {
-    e.target.style.opacity = '1';
+function dragEnd() {
     draggedWord = null;
+    this.style.opacity = '1';
+    // Hapus efek 'over' dari semua kotak saat lepas
+    document.querySelectorAll('.drop-zone').forEach(zone => {
+        zone.classList.remove('over');
+    });
 }
 
 function dragOver(e) {
-    e.preventDefault();
+    // SANGAT PENTING: Mencegah browser menolak drop
+    e.preventDefault(); 
 }
 
 function dragEnter(e) {
     e.preventDefault();
+    // Beri warna biru muda jika kata berada di atas kotak kosong
     if (e.target.classList.contains('drop-zone') && e.target.dataset.filled === "false") {
         e.target.classList.add('over');
     }
 }
 
 function dragLeave(e) {
+    // Hapus warna biru muda saat kata keluar dari kotak
     if (e.target.classList.contains('drop-zone')) {
         e.target.classList.remove('over');
     }
 }
 
+function initFillInGame() {
+    currentSlideIndex = 0; // Reset ke soal pertama
+    updateSlideView(); // Tampilkan soal pertama
+
+	// --- KODE BARU: LOGIKA PENGACAKAN WORD BANK ---
+    const wordBank = document.getElementById('word-bank');
+    // 1. Ubah daftar elemen anak (children) menjadi Array agar bisa diacak
+    const wordsArray = Array.from(wordBank.children);
+    // 2. Gunakan fungsi shuffleArray yang sudah ada
+    const shuffledWords = shuffleArray(wordsArray);
+    // 3. Bersihkan container lama
+    wordBank.innerHTML = '';
+    // 4. Masukkan kembali kata-kata yang sudah diacak posisinya
+    shuffledWords.forEach(word => wordBank.appendChild(word));
+    // -----------------------------------------------
+	
+    const draggables = document.querySelectorAll('.draggable-word');
+    const dropZones = document.querySelectorAll('.drop-zone');
+    
+    // Reset tampilan kata dan zona drop
+    draggables.forEach(word => {
+        word.classList.remove('used');
+        word.draggable = true;
+        word.style.opacity = '1';
+		
+		// PENTING: Hapus event listener lama agar tidak double, lalu pasang baru
+        // Cara paling aman di sini adalah melakukan clone node atau membiarkannya
+        // (karena kita memindah elemen DOM, event listener biasanya ikut pindah, 
+        // tapi kita setup ulang di bawah ini untuk memastikan).
+    });
+	
+    dropZones.forEach(zone => {
+        zone.innerHTML = '';
+        zone.classList.remove('correct', 'wrong');
+        zone.dataset.filled = "false";
+		zone.classList.remove('over'); // Pastikan tidak ada sisa class over
+    });
+
+    // Pasang ulang Event Listeners (karena elemen dipindahkan, kita pastikan event tetap jalan)
+    draggables.forEach(word => {
+        // Hapus dulu event lama jika ada (opsional tapi praktik bagus)
+        word.removeEventListener('dragstart', dragStart);
+        word.removeEventListener('dragend', dragEnd);
+        word.removeEventListener('touchstart', handleTouchStart);
+        word.removeEventListener('touchmove', handleTouchMove);
+        word.removeEventListener('touchend', handleTouchEnd);
+
+        // Pasang baru
+        word.addEventListener('dragstart', dragStart);
+        word.addEventListener('dragend', dragEnd);
+        word.addEventListener('touchstart', handleTouchStart, {passive: false});
+        word.addEventListener('touchmove', handleTouchMove, {passive: false});
+        word.addEventListener('touchend', handleTouchEnd);
+    });
+
+    dropZones.forEach(zone => {
+        // Kita tidak perlu menghapus event dropZone karena elemen dropZone tidak kita acak/pindah
+        // Cukup pastikan event terpasang.
+        zone.removeEventListener('dragover', dragOver); // Reset untuk keamanan
+        zone.addEventListener('dragover', dragOver);
+        zone.addEventListener('dragenter', dragEnter);
+        zone.addEventListener('dragleave', dragLeave);
+        zone.addEventListener('drop', drop);
+    });
+
+    // Pastikan tombol reset memanggil fungsi ini lagi
+    const resetBtn = document.getElementById('resetFillInBtn');
+    if(resetBtn) resetBtn.onclick = initFillInGame;
+}
+
+// Fungsi Navigasi Soal (Next/Prev)
+function changeFillInSlide(direction) {
+    const sentences = document.querySelectorAll('.fill-in-sentence');
+    const maxIndex = sentences.length - 1;
+
+    currentSlideIndex += direction;
+
+    // Cegah index keluar batas
+    if (currentSlideIndex < 0) currentSlideIndex = 0;
+    if (currentSlideIndex > maxIndex) currentSlideIndex = maxIndex;
+
+    updateSlideView();
+}
+
+// Fungsi Update Tampilan (Hide/Show Soal)
+function updateSlideView() {
+    const sentences = document.querySelectorAll('.fill-in-sentence');
+    const prevBtn = document.getElementById('prevSoalBtn');
+    const nextBtn = document.getElementById('nextSoalBtn');
+    const indicator = document.getElementById('soalIndicator');
+
+    // Sembunyikan semua, tampilkan yang aktif
+    sentences.forEach((s, index) => {
+        if (index === currentSlideIndex) {
+            s.classList.add('active');
+        } else {
+            s.classList.remove('active');
+        }
+    });
+
+    // Update status tombol
+    prevBtn.disabled = (currentSlideIndex === 0);
+    nextBtn.disabled = (currentSlideIndex === sentences.length - 1);
+    
+    // Update teks indikator (contoh: Soal 1 / 4)
+    indicator.textContent = `Soal ${currentSlideIndex + 1} / ${sentences.length}`;
+}
+
+// --- UPDATE FUNGSI DROP UNTUK AUTO-NEXT ---
 function drop(e) {
     e.preventDefault();
     const zone = e.target;
@@ -1811,8 +1871,16 @@ function drop(e) {
             zone.innerHTML = `<strong>${droppedWord}</strong>`;
             zone.classList.add('correct');
             zone.dataset.filled = "true";
-            draggedWord.classList.add('used');
-            draggedWord.draggable = false;
+            
+            // Cari elemen asli yang didrag dan tandai 'used'
+            if(draggedWord) {
+                draggedWord.classList.add('used');
+                draggedWord.draggable = false;
+            }
+
+            // --- LOGIKA BARU: Cek apakah soal ini sudah selesai ---
+            checkCurrentSentenceComplete();
+
         } else {
             // Jawaban Salah
             playSound(audioWrong);
@@ -1824,6 +1892,86 @@ function drop(e) {
             }, 1000);
         }
     }
+}
+
+// Fungsi Cek Kelengkapan Soal
+function checkCurrentSentenceComplete() {
+    const sentences = document.querySelectorAll('.fill-in-sentence');
+    const currentSentence = sentences[currentSlideIndex];
+    
+    // Hitung total zona kosong di soal ini
+    const totalZones = currentSentence.querySelectorAll('.drop-zone').length;
+    // Hitung zona yang sudah terisi benar
+    const filledZones = currentSentence.querySelectorAll('.drop-zone[data-filled="true"]').length;
+
+    if (totalZones === filledZones) {
+        // Jika semua kotak di soal ini sudah terisi
+        playSound(audioWin); // Suara Hore pelan
+        
+        // Tunggu 1.5 detik, lalu pindah otomatis ke soal berikutnya (jika ada)
+        setTimeout(() => {
+            if (currentSlideIndex < sentences.length - 1) {
+                changeFillInSlide(1);
+            } else {
+                // Jika ini soal terakhir
+                showWinnerModal("Hebat!", "Kamu telah menyelesaikan semua kalimat!");
+            }
+        }, 1500);
+    }
+}
+
+// --- TAMBAHAN: TOUCH EVENT SUPPORT (PENTING UNTUK HP) ---
+// Agar bisa drag di HP Android/iPhone tanpa masalah
+let touchDragItem = null;
+
+function handleTouchStart(e) {
+    if (this.classList.contains('used')) return;
+    touchDragItem = this;
+    this.style.opacity = '0.5';
+    // Simpan data kata untuk logika drop nanti
+    touchDragItem.dataset.tempWord = this.dataset.word;
+}
+
+function handleTouchMove(e) {
+    e.preventDefault(); // Mencegah scrolling layar saat drag
+    const touch = e.touches[0];
+    const element = document.elementFromPoint(touch.clientX, touch.clientY);
+    
+    // Visual feedback sederhana (opsional)
+    if (touchDragItem) {
+        touchDragItem.style.position = 'fixed';
+        touchDragItem.style.left = touch.clientX + 'px';
+        touchDragItem.style.top = touch.clientY + 'px';
+        touchDragItem.style.zIndex = '1000';
+    }
+}
+
+function handleTouchEnd(e) {
+    if (!touchDragItem) return;
+    
+    // Kembalikan style elemen
+    touchDragItem.style.opacity = '1';
+    touchDragItem.style.position = 'static';
+    touchDragItem.style.zIndex = '';
+
+    // Deteksi di mana jari dilepas
+    const touch = e.changedTouches[0];
+    const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
+
+    if (dropTarget && dropTarget.classList.contains('drop-zone')) {
+        // Simulasi event drop manual
+        const mockEvent = {
+            preventDefault: () => {},
+            target: dropTarget,
+            dataTransfer: {
+                getData: () => touchDragItem.dataset.tempWord
+            }
+        };
+        draggedWord = touchDragItem; // Set global draggedWord
+        drop(mockEvent);
+    }
+    
+    touchDragItem = null;
 }
 
 
@@ -1957,12 +2105,21 @@ function closeModal() {
     document.getElementById('homeBtn').style.display = 'flex';
     document.getElementById('fullscreenBtn').style.display = 'flex';
     document.getElementById('profileBtn').style.display = 'flex';
+    
     if (confettiInterval) {
         clearInterval(confettiInterval);
         confettiInterval = null;
     }
     document.querySelectorAll('.confetti').forEach(c => c.remove());
-    showCountdown();
+
+    // --- PERBAIKAN LOGIKA ---
+    // Cek game apa yang sedang aktif
+    if (gameState.currentGameType === 'balap-mobil') {
+        showCountdown(); // Hanya jalankan hitung mundur jika ini game balap
+    } else if (gameState.currentGameType === 'mencocokkan') {
+        initMatchingGame(); // Jika game mencocokkan, reset ulang game tersebut (Main Lagi)
+    }
+    // Jika butuh opsi lain, bisa ditambahkan, atau biarkan kosong agar diam di halaman.
 }
 
 function generateAntonimQuestion() {
