@@ -498,62 +498,52 @@
 
     /* --- 1. Game Mencocokkan (Matching Game) --- */
     .matching-container {
-        max-width: 900px;
+        max-width: 700px;
         margin: 0 auto;
         padding: 1rem;
     }
     .match-item {
-    display: flex;
-    flex-direction: column; /* Gambar di atas, bukan di samping */
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem; /* Padding lebih besar */
-    margin-bottom: 1rem;
-    border: 3px solid #e0e0e0; /* Border standar */
-    border-radius: 16px;
-    background-color: #fff;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    height: 100%;
-    min-height: 180px; /* Tinggi minimal agar kotak terlihat besar */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-}
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        margin-bottom: 0.5rem;
+        border: 2px solid #ddd;
+        border-radius: 12px;
+        background-color: #fff;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 1.1rem;
+        font-weight: 600;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
     .match-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-    border-color: #4ac6ff; /* Warna highlight saat di-hover */
-}
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
     .match-item img {
-    width: 100%;
-    max-width: 140px; /* Ukuran gambar diperbesar mirip materi */
-    height: 140px;    /* Tinggi disamakan agar rapi */
-    object-fit: contain;
-    margin-bottom: 0;
-}
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        margin-right: 15px;
+    }
     .match-item.selected {
-    border-color: #0d6efd;
-    background-color: #e7f1ff; /* Biru muda transparan */
-    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.25);
-}
+        background-color: #0d6efd;
+        color: white;
+        border-color: #0a58ca;
+    }
     .match-item.correct {
-    background-color: rgba(25, 135, 84, 0.2) !important; /* Hijau Transparan */
-    border-color: #198754 !important;
-    color: #198754;
-    pointer-events: none; /* Tidak bisa diklik lagi */
-    transform: scale(1.02);
-}
+        background-color: #198754;
+        color: white;
+        border-color: #146c43;
+        opacity: 0.7;
+        pointer-events: none;
+    }
     .match-item.wrong {
-    background-color: rgba(220, 53, 69, 0.2) !important; /* Merah Transparan */
-    border-color: #dc3545 !important;
-    animation: shake 0.5s;
-}
-		@keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
-}
+        animation: shake 0.5s;
+        background-color: #dc3545;
+        color: white;
+        border-color: #b02a37;
+    }
     /* --- PERBAIKAN CSS GAME MEMORY --- */
     .memory-card {
         background-color: transparent;
@@ -925,28 +915,25 @@
                 <p class="text-center fs-5 text-muted">Klik satu item di kiri, lalu klik pasangannya di kanan. Tekan "Cek" untuk melihat hasilnya.</p>
                 
                 <div class="matching-container">
-    <div class="row justify-content-center g-4"> <div class="col-5"> <h4 class="text-center text-primary mb-3">Gambar A</h4>
-            <div id="match-col-1" class="d-flex flex-column gap-3">
+                    <div class="row justify-content-center g-3">
+                        <div class="col-md-5 col-12">
+                            <ul id="match-col-1" class="list-unstyled">
+                                </ul>
+                        </div>
+                        <div class="col-md-5 col-12">
+                            <ul id="match-col-2" class="list-unstyled">
+                                </ul>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4 d-flex gap-3 justify-content-center">
+                        <button id="checkMatchBtn" class="btn btn-primary btn-lg shadow hover-sound-btn">
+                            <i class="fas fa-check me-2"></i> Cek Pasangan
+                        </button>
+                        <button id="resetMatchBtn" class="btn btn-warning btn-lg shadow hover-sound-btn">
+                            <i class="fas fa-redo me-2"></i> Ulangi
+                        </button>
+                    </div>
                 </div>
-        </div>
-        
-        <div class="col-2 d-flex align-items-center justify-content-center">
-             <i class="fas fa-exchange-alt text-muted fs-1"></i>
-        </div>
-
-        <div class="col-5"> <h4 class="text-center text-danger mb-3">Lawan Kata</h4>
-            <div id="match-col-2" class="d-flex flex-column gap-3">
-                </div>
-        </div>
-    </div>
-    
-    <div class="text-center mt-5">
-        <button id="resetMatchBtn" class="btn btn-warning btn-lg shadow hover-sound-btn rounded-pill px-5">
-            <i class="fas fa-redo me-2"></i> Acak Ulang
-        </button>
-        <button id="checkMatchBtn" style="display:none;"></button>
-    </div>
-</div>
 
                 <hr class="my-4">
                 <div class="text-center">
@@ -1387,154 +1374,151 @@ let selectedCol2 = {};
 let correctMatches = 0;
 const totalMatches = 4;
 
-// --- VARIABEL GLOBAL ---
-let selectedCol1 = null; // Hanya simpan 1 item yang dipilih
-let selectedCol2 = null;
-let correctMatches = 0;
-const totalMatches = 4; // Jumlah pasangan yang ditampilkan
+// --- VARIABEL GLOBAL UNTUK GAME MEMORY (DITAMBAHKAN/DIPOSISIKAN DENGAN BENAR) ---
+let memoryCards = [];
+let flippedCards = [];
+let lockBoard = false;
+let memoryMoves = 0;
+
 
 function initMatchingGame() {
-    selectedCol1 = null;
-    selectedCol2 = null;
-    correctMatches = 0;
+    selectedCol1 = {};
+    selectedCol2 = {};
+	correctMatches = 0;
     
     const col1 = document.getElementById('match-col-1');
     const col2 = document.getElementById('match-col-2');
     const checkBtn = document.getElementById('checkMatchBtn');
     
-    // Sembunyikan tombol Cek manual, kita pakai otomatis
-    if(checkBtn) checkBtn.style.display = 'none';
-    
-    // Data Pasangan (Pastikan nama file audio/gambar benar)
+    // Data Pasangan Gambar-Gambar
+    // Kiri: Kata Kunci, Kanan: Antonim
     const pairs = [
-        { id: 1, imgLeft: 'besar', imgRight: 'kecil' },
-        { id: 2, imgLeft: 'bersih', imgRight: 'kotor' },
-        { id: 3, imgLeft: 'senang', imgRight: 'sedih' },
-        { id: 4, imgLeft: 'gelap', imgRight: 'terang' },
-        // Tambahan agar variatif (opsional, sistem akan ambil 4 acak)
-        { id: 5, imgLeft: 'panjang', imgRight: 'pendek' },
-        { id: 6, imgLeft: 'buka', imgRight: 'tutup' }
+        { id: 1, imgLeft: IMAGE_ASSETS.besar, imgRight: IMAGE_ASSETS.kecil, pairId: 1 },
+        { id: 2, imgLeft: IMAGE_ASSETS.bersih, imgRight: IMAGE_ASSETS.kotor, pairId: 2 },
+        { id: 3, imgLeft: IMAGE_ASSETS.senang, imgRight: IMAGE_ASSETS.sedih, pairId: 3 },
+        { id: 4, imgLeft: IMAGE_ASSETS.gelap, imgRight: IMAGE_ASSETS.terang, pairId: 4 }
     ];
 
-    // Ambil 4 pasang saja secara acak agar game tidak terlalu panjang
-    const selectedPairs = shuffleArray(pairs).slice(0, totalMatches);
-
-    // Siapkan Data Kiri dan Kanan
-    // Kita gunakan IMAGE_ASSETS[key] untuk mengambil path gambar yang benar
-    const itemsLeft = shuffleArray(selectedPairs.map(p => ({ id: p.id, img: IMAGE_ASSETS[p.imgLeft] })));
-    const itemsRight = shuffleArray(selectedPairs.map(p => ({ id: p.id, img: IMAGE_ASSETS[p.imgRight] })));
+    const itemsLeft = shuffleArray(pairs.map(p => ({ id: p.id, img: p.imgLeft, pairId: p.pairId })));
+	const itemsRight = shuffleArray(pairs.map(p => ({ id: p.id, img: p.imgRight, pairId: p.pairId })));
 
     col1.innerHTML = '';
     col2.innerHTML = '';
 
-    // Render Kolom Kiri
-    itemsLeft.forEach(item => {
-        const li = document.createElement('div'); // Ganti LI jadi DIV agar lebih fleksibel
-        li.className = 'match-item';
-        li.dataset.id = item.id;
-        li.dataset.col = 'left';
-        li.innerHTML = `<img src="${item.img}" alt="Gambar">`;
-        li.onclick = () => selectItem(li, 'left');
-        col1.appendChild(li);
+    // Isi Kolom KIRI dengan Gambar
+    itemsLeft.forEach((item, index) => {
+        col1.innerHTML += `<li class="match-item" data-id="${item.id}" data-pair-id="${item.pairId}" data-index="${index}">
+                            <img src="${item.img}" alt="Gambar Kiri">
+                            <span style="display:none;">Left</span>
+                           </li>`;
     });
 
-    // Render Kolom Kanan
-    itemsRight.forEach(item => {
-        const li = document.createElement('div');
-        li.className = 'match-item';
-        li.dataset.id = item.id;
-        li.dataset.col = 'right';
-        li.innerHTML = `<img src="${item.img}" alt="Gambar">`;
-        li.onclick = () => selectItem(li, 'right');
-        col2.appendChild(li);
+    // Isi Kolom KANAN dengan Gambar (Bukan Kata)
+    itemsRight.forEach((item, index) => {
+        col2.innerHTML += `<li class="match-item" data-id="${item.id}" data-pair-id="${item.pairId}" data-index="${index}">
+                            <img src="${item.img}" alt="Gambar Kanan">
+                            <span style="display:none;">Right</span>
+                           </li>`;
     });
 
-    // Reset tombol reset
-    const resetBtn = document.getElementById('resetMatchBtn');
-    if(resetBtn) resetBtn.onclick = initMatchingGame;
+    // Hapus kelas 'correct' dan 'selected' dari semua item lama
+    document.querySelectorAll('.match-item').forEach(item => {
+        item.classList.remove('selected', 'correct', 'wrong');
+        // Hapus listener lama jika ada (untuk jaga-jaga)
+        item.removeEventListener('click', item.currentListener);
+    });
+
+    // Pasang Event Listeners Baru
+    col1.querySelectorAll('.match-item').forEach(item => {
+        item.currentListener = () => selectItem(item, 1);
+        item.addEventListener('click', item.currentListener);
+    });
+    col2.querySelectorAll('.match-item').forEach(item => {
+        item.currentListener = () => selectItem(item, 2);
+        item.addEventListener('click', item.currentListener);
+    });
+
+    checkBtn.style.display = 'block';
+    checkBtn.onclick = checkFinalMatch;
+    document.getElementById('resetMatchBtn').onclick = initMatchingGame;
 }
+// Ganti seluruh fungsi selectItem yang sudah ada
+function selectItem(item, col) {
+    // Abaikan jika sudah benar
+    if (item.classList.contains('correct')) return;
 
-function selectItem(element, col) {
-    // 1. Cegah klik pada item yang sudah benar
-    if (element.classList.contains('correct')) return;
+    // Gunakan pair-id untuk mempermudah logika
+    const itemId = item.dataset.pairId;
+    
+    // Hapus 'wrong' jika ada
+    item.classList.remove('wrong'); 
 
-    // 2. Reset efek 'wrong' jika user mengklik ulang item yang salah
-    element.classList.remove('wrong');
-
-    // 3. Logika Pemilihan
-    if (col === 'left') {
-        // Jika klik kiri, tapi sudah ada yang dipilih sebelumnya di kiri, hapus seleksi lama
-        if (selectedCol1 && selectedCol1 !== element) {
-            selectedCol1.classList.remove('selected');
+    if (col === 1) {
+        // Kolom KIRI (Item yang ingin dicari antonimnya)
+        if (item.classList.contains('selected')) {
+            item.classList.remove('selected');
+            delete selectedCol1[itemId];
+        } else {
+            // Hapus pilihan lama di kolom 1
+            col1.querySelectorAll('.match-item').forEach(i => i.classList.remove('selected'));
+            item.classList.add('selected');
+            selectedCol1 = { [itemId]: item }; // Hanya satu item di col1 yang bisa dipilih
         }
-        selectedCol1 = element;
-        selectedCol1.classList.add('selected');
-    } else {
-        // Sama untuk kanan
-        if (selectedCol2 && selectedCol2 !== element) {
-            selectedCol2.classList.remove('selected');
+    } else { // Kolom 2 (Pilihan Antonim)
+        // Kolom KANAN (Item pilihan antonim)
+        if (item.classList.contains('selected')) {
+            item.classList.remove('selected');
+            delete selectedCol2[itemId];
+        } else {
+            // Pilih item ini
+            item.classList.add('selected');
+            selectedCol2[itemId] = item;
         }
-        selectedCol2 = element;
-        selectedCol2.classList.add('selected');
     }
+    
+    // Otomatis cek jika 1 item di kiri dan 1 item di kanan dipilih
+    if (Object.keys(selectedCol1).length === 1 && Object.keys(selectedCol2).length === 1) {
+        const item1Id = Object.keys(selectedCol1)[0];
+        const item2Id = Object.keys(selectedCol2)[0];
+        const item1 = selectedCol1[item1Id];
+        const item2 = selectedCol2[item2Id];
 
-    // 4. Cek Kecocokan (Jika Kiri dan Kanan sudah dipilih)
-    if (selectedCol1 && selectedCol2) {
-        checkMatch();
-    }
-}
+        // Cek Kecocokan ID Pasangan (Logika Penting: id harus sama)
+        if (item1.dataset.id === item2.dataset.id) {
+            playSound(audioMatch);
+            item1.classList.add('correct');
+            item2.classList.add('correct');
+            correctMatches++;
+            
+            // Hapus listener agar tidak bisa diklik lagi
+            item1.removeEventListener('click', item1.currentListener);
+            item2.removeEventListener('click', item2.currentListener);
+            
+            // Reset pilihan setelah pasangan benar
+            selectedCol1 = {};
+            selectedCol2 = {};
 
-function checkMatch() {
-    const id1 = selectedCol1.dataset.id;
-    const id2 = selectedCol2.dataset.id;
-
-    if (id1 === id2) {
-        // --- JAWABAN BENAR ---
-        playSound(audioMatch); // Bunyi 'Ting!'
-        
-        // Tambahkan kelas 'correct' (Hijau Transparan)
-        selectedCol1.classList.remove('selected');
-        selectedCol2.classList.remove('selected');
-        selectedCol1.classList.add('correct');
-        selectedCol2.classList.add('correct');
-
-        // Reset variabel seleksi
-        selectedCol1 = null;
-        selectedCol2 = null;
-        
-        correctMatches++;
-
-        // Cek Menang
-        if (correctMatches === totalMatches) {
+            if (correctMatches === totalMatches) {
+                setTimeout(() => {
+                    playSound(audioWin);
+                    alert(`🎉 Selamat! Semua ${totalMatches} pasangan kamu benar! Kerja Bagus!`);
+                    document.getElementById('checkMatchBtn').style.display = 'none';
+                }, 500);
+            }
+        } else {
+            // Jawaban Salah
+            playSound(audioWrong);
+            item1.classList.add('wrong');
+            item2.classList.add('wrong');
+            
+            // Hapus penanda salah setelah 800ms
             setTimeout(() => {
-                playSound(audioWin);
-                createConfetti(); // Efek kembang api
-                // Tampilkan Modal Menang (bisa pakai modal yang sama dengan memory game atau alert manis)
-                showWinnerModal("Luar Biasa!", "Kamu berhasil mencocokkan semua gambar!");
-            }, 500);
+                item1.classList.remove('selected', 'wrong');
+                item2.classList.remove('selected', 'wrong');
+                selectedCol1 = {};
+                selectedCol2 = {};
+            }, 800);
         }
-
-    } else {
-        // --- JAWABAN SALAH ---
-        playSound(audioWrong); // Bunyi 'Tetot!'
-        
-        // Tambahkan kelas 'wrong' (Merah Transparan + Getar)
-        selectedCol1.classList.add('wrong');
-        selectedCol2.classList.add('wrong');
-
-        // Simpan referensi sementara untuk timeout
-        const temp1 = selectedCol1;
-        const temp2 = selectedCol2;
-
-        // Hapus seleksi agar user harus klik ulang
-        selectedCol1 = null;
-        selectedCol2 = null;
-
-        // Kembalikan tampilan normal setelah 800ms (agar user lihat merahnya dulu)
-        setTimeout(() => {
-            temp1.classList.remove('selected', 'wrong');
-            temp2.classList.remove('selected', 'wrong');
-        }, 800);
     }
 }
 
@@ -2176,7 +2160,3 @@ backToGameTypeMenu();
 </script>
 </body>
 </html>
-
-
-
-
