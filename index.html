@@ -536,16 +536,31 @@
         100% { transform: translateX(0); }
     }
 
-    /* --- PERBAIKAN CSS GAME MEMORY --- */
+    /* --- PERBAIKAN CSS GAME MEMORY (VERSI ANTI-GEPENG) --- */
+    #memory-grid {
+        max-width: 900px;
+        width: 100%; /* Pastikan lebar penuh */
+        margin: 0 auto;
+        padding: 0 5px;
+    }
+
+    .memory-col {
+        padding: 5px;
+    }
+
+    /* CSS BARU: Menggunakan padding-top untuk memaksa bentuk kotak */
     .memory-card {
         background-color: transparent;
         width: 100%;
-        /* Trik agar kartu tetap kotak (Square) responsif */
-        padding-bottom: 100%; 
         position: relative;
         border: none;
         cursor: pointer;
-        perspective: 1000px; /* Penting untuk efek putar 3D */
+        perspective: 1000px;
+        
+        /* --- INI KUNCINYA --- */
+        padding-top: 100%; /* Membuat tinggi otomatis sama dengan lebar */
+        height: 0; /* Tinggi asli 0, tapi digantikan padding */
+        /* ------------------- */
     }
 
     .card-inner {
@@ -553,7 +568,7 @@
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
+        height: 100%; /* Mengikuti ukuran padding parent */
         text-align: center;
         transition: transform 0.6s;
         transform-style: preserve-3d;
@@ -575,31 +590,39 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        overflow: hidden; /* Mencegah gambar keluar */
+        border: 2px solid white;
     }
 
+    /* Tampilan Belakang Kartu (Saat tertutup - Gambar Otak) */
     .card-front {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
-        font-size: 2.5rem; /* Ukuran ikon otak */
+        font-size: 2rem;
     }
 
+    /* Tampilan Depan Kartu (Gambar Antonim) */
     .card-back {
         background-color: #fff;
         transform: rotateY(180deg);
-        padding: 8px;
-        border: 2px solid #667eea;
+        padding: 5px;
+        border: 3px solid #e0e0e0;
     }
 
     .card-back img {
-        max-width: 100%;
-        max-height: 100%;
+        width: 100%;
+        height: 100%;
         object-fit: contain;
     }
-    
+
     .memory-card.matched .card-inner {
-        opacity: 0.5; /* Efek transparan jika sudah ketemu */
-        box-shadow: none;
+        opacity: 0.6;
+        box-shadow: none; 
+        transform: rotateY(180deg);
+    }
+    
+    .memory-card.matched .card-back {
+        border-color: #198754;
+        background-color: #d1e7dd;
     }
 
     /* --- 3. Game Melengkapi (Fill-in-the-blank) --- */
@@ -2317,6 +2340,7 @@ backToGameTypeMenu();
 </script>
 </body>
 </html>
+
 
 
 
